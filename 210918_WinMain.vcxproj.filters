@@ -48,7 +48,10 @@
     <ClCompile Include="Image.cpp">
       <Filter>2D Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Iori.cpp">
+    <ClCompile Include="Character.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Terry.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,7 +83,10 @@
     <ClInclude Include="Image.h">
       <Filter>2D Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Iori.h">
+    <ClInclude Include="Character.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Terry.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
   </ItemGroup>

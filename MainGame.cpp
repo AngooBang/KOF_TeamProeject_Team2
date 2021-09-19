@@ -3,7 +3,7 @@
 #include "KeyManager.h"
 #include "SceneManager.h"
 #include "Image.h"
-#include "Iori.h"
+#include "Terry.h"
 
 
 void MainGame::Init()
@@ -25,14 +25,14 @@ void MainGame::Init()
 	{
 		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
 	}
-	iori = new Iori;
-	iori->Init();
+	terry = new Terry;
+	terry->Init();
 
 }
 
 void MainGame::Update()
 {
-	iori->Update();
+	terry->Update();
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
@@ -48,7 +48,7 @@ void MainGame::Render(HDC hdc)
 
 	backGround->Render(hBackBufferDC);
 
-	iori->Render(hBackBufferDC);
+	terry->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
 
@@ -60,7 +60,7 @@ void MainGame::Release()
 
 	SAFE_RELEASE(backGround);
 
-	SAFE_RELEASE(iori);
+	SAFE_RELEASE(terry);
 
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
@@ -90,19 +90,6 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 			
 			break;
 		}
-		break;
-
-	case WM_LBUTTONDOWN:
-		clickedMousePosX = LOWORD(lParam);
-		clickedMousePosY = HIWORD(lParam);
-		break;
-	case WM_LBUTTONUP:
-		break;
-	case WM_RBUTTONDOWN:
-		break;
-	case WM_MOUSEMOVE:
-		mousePosX = LOWORD(lParam);
-		mousePosY = HIWORD(lParam);
 		break;
 	}
 	return DefWindowProc(hWnd, iMessage, wParam, lParam);

@@ -5,6 +5,7 @@
 // 우리가 구성할 게임 월드
 class Image;
 class Iori;
+class Terry;
 class MainGame : public GameEntity
 {
 private:
@@ -28,7 +29,7 @@ private:
 	// 이오리
 	//Iori* ioriX;
 	//Iori** ioriY;
-	Iori* iori;
+	Terry* terry;
 
 	MoveDir moveDir;
 
