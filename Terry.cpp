@@ -14,7 +14,7 @@ void Terry::Init()
 	walkFrameX[0] = 0;	walkFrameX[1] = 80, walkFrameX[2] = 150, walkFrameX[3] = 220, 
 		walkFrameX[4] = 285, walkFrameX[5] = 345, walkFrameX[6] = 420;
 
-
+	//이근언 수정수정 
 	frameX = frameY = 0;
 	elapsedCount = 0;
 
