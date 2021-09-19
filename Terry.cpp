@@ -5,7 +5,7 @@
 void Terry::Init()
 {
 	img = new Image;
-	isAlive = true;
+	isAlive = false;
 
 	//img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);
 
@@ -14,7 +14,6 @@ void Terry::Init()
 	walkFrameX[0] = 0;	walkFrameX[1] = 80, walkFrameX[2] = 150, walkFrameX[3] = 220, 
 		walkFrameX[4] = 285, walkFrameX[5] = 345, walkFrameX[6] = 420;
 
-	//이근언 수정수정 
 	frameX = frameY = 0;
 	elapsedCount = 0;
 
@@ -25,11 +24,23 @@ void Terry::Init()
 
 void Terry::Update()
 {
+	if (isAlive)
+	{
+		frameX++;
+		walkFrameX[0] = 0;	walkFrameX[1] = 75, walkFrameX[2] = 140, walkFrameX[3] = 260,
+			walkFrameX[4] = 375, walkFrameX[5] = 490, walkFrameX[6] = 590, walkFrameX[7] = 650, walkFrameX[8] = 745;
+		img->Init("Image/Terry_kick.bmp", 745, 114, 8, 1, true, RGB(143, 123, 165));
+		if (frameX == 8)
+		{
+			frameX = 0;
+			isAlive = false;
+		}
+	}
 	// 앞으로 움직이기
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
 	{
 		elapsedCount++;
-		if (elapsedCount >= 5)
+		if (elapsedCount >= 2)
 		{
 			frameX++;
 			pos.x += moveSpeed;
@@ -43,7 +54,7 @@ void Terry::Update()
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
 	{
 		elapsedCount++;
-		if (elapsedCount >= 5)
+		if (elapsedCount >= 2)
 		{
 			frameX--;
 			pos.x -= moveSpeed;
@@ -53,6 +64,11 @@ void Terry::Update()
 			}
 			elapsedCount = 0;
 		}
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))
+	{
+		frameX = 0;
+		isAlive = true;
 	}
 }
 

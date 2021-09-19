@@ -8,7 +8,7 @@ private:
 	int frameX, frameY;
 	int elapsedCount;
 	bool isAlive;
-	int walkFrameX[7];
+	int walkFrameX[10];
 
 public:
 	void Init();

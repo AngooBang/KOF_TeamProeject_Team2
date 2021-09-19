@@ -13,7 +13,7 @@ void MainGame::Init()
 	SceneManager::GetSingleton();
 
 	// 타이머 셋팅
-	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 30, NULL);
+	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 500, NULL);
 
 	// 백버퍼
 	backBuffer = new Image;
