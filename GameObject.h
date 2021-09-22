@@ -9,7 +9,7 @@ protected:
 	POINTFLOAT pos;
 	RECT shape;
 	float moveSpeed;
-	int bodySize;
+	int bodySizeX, bodySizeY;
 	MoveDir moveDir;
 
 public:
@@ -18,8 +18,9 @@ public:
 	inline void SetPos(POINTFLOAT pos) { this->pos = pos; }
 	inline POINTFLOAT GetPos() { return this->pos; }
 	inline void SetMoveSpeed(float speed) { this->moveSpeed = speed; }
-	inline int GetBodySize() { return this->bodySize; }
-
+	inline int GetBodySizeX() { return this->bodySizeX; }
+	inline int GetBodySizeY() { return this->bodySizeY; }
+	
 
 	GameObject();
 	~GameObject();
