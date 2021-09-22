@@ -62,6 +62,7 @@ public:
 
 private:
 	LPIMAGE_INFO imageInfo;
+	LPIMAGE_INFO imageInfo_2;
 	bool isTransparent;
 	COLORREF transColor;
 
@@ -73,12 +74,14 @@ public:
 		int maxFrameX, int maxFrameY,
 		bool isTrans = false, COLORREF transColor = NULL); // File 프레임이 있는 이미지
 
+
 	void Release();	// 메모리 해제
 
 	void Render(HDC hdc);
 	void Render(HDC hdc, int destX, int destY);	// 이미지 데이터를 화면에 복사
 	void Render(HDC hdc, int destX, int destY, int frameX, int frameY);
 	void Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth);
+	void Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth, bool p_2);
 
 	HDC GetMemDC() { if (imageInfo) return imageInfo->hMemDc; return NULL; }
 };
