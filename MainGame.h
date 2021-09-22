@@ -4,13 +4,15 @@
 
 // 우리가 구성할 게임 월드
 class Image;
-class Iori;
 class Terry;
+class Mary;
 class MainGame : public GameEntity
 {
 private:
 	// 타이머
 	HANDLE hTimer;
+
+	
 
 	// UI
 	char text[128];
@@ -30,6 +32,7 @@ private:
 	//Iori* ioriX;
 	//Iori** ioriY;
 	Terry* terry;
+	Mary* mary;
 
 	MoveDir moveDir;
 
