@@ -164,7 +164,7 @@ void Mary::Render(HDC hdc)
 	Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	if (img)
 	{
-		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
+		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX, true);
 	}
 	ammo->Render(hdc);
 }
