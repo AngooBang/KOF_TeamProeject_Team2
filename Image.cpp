@@ -98,6 +98,8 @@ HRESULT Image::Init(const char* fileName, int width, int height, int maxFrameX, 
 
 }
 
+
+
 void Image::Release()
 {
 	if (imageInfo)
@@ -196,7 +198,8 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 {
 	if (isTransparent)
 	{
-		GdiTransparentBlt(
+		GdiTransparentBlt
+		(
 			hdc,
 			destX - (imageInfo->frameWidth / 2),
 			destY - (imageInfo->frameHeight / 2),
@@ -208,6 +211,21 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 			frameWidth[frameY],
 			frameWidth[frameX + 1] - frameWidth[frameX],
 			imageInfo->frameHeight,
+			transColor 
+		);
+		StretchBlt
+		(
+			hdc,
+			destX + (imageInfo->frameWidth / 2),
+			destY - (imageInfo->frameHeight / 2),
+			-(frameWidth[frameX + 1] - frameWidth[frameX]),
+			imageInfo->frameHeight,		// 전체 프레임 수
+
+			imageInfo->hMemDc,
+			frameWidth[frameX],
+			frameWidth[frameY],
+			frameWidth[frameX + 1] - frameWidth[frameX],
+			imageInfo->frameHeight, 
 			transColor
 		);
 	}
@@ -231,6 +249,21 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 	{
 		if (isTransparent)
 		{
+			//StretchBlt(
+			//	hdc,
+			//	destX + (imageInfo->frameWidth / 2),
+			//	destY - (imageInfo->frameHeight / 2),
+			//	-(frameWidth[frameX + 1] - frameWidth[frameX]),
+			//	imageInfo->frameHeight,		// 전체 프레임 수
+
+			//	imageInfo->hMemDc,
+			//	frameWidth[frameX],
+			//	frameWidth[frameY],
+			//	frameWidth[frameX + 1] - frameWidth[frameX],
+			//	imageInfo->frameHeight, 
+			//	transColor
+			//);
+			
 			GdiTransparentBlt(
 				hdc,
 				destX + (frameWidth[frameX] - frameWidth[frameX + 1])+(imageInfo->frameWidth/2),

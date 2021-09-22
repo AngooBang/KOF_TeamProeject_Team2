@@ -5,6 +5,7 @@
 class Terry : public Character
 {
 private:
+	
 
 public:
 	Ammo* ammo;

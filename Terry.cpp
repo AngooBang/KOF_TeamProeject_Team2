@@ -4,24 +4,34 @@
 
 void Terry::Init()
 {
-	img = new Image;
+	img = new Image[Action::END];
 	isAlive = true;
 	isMoveLeft = isMoveRight = isStatus = isHit = false;
 	maxFrame = 7;
 	hp = 100;
 
-	fileName = "Image/Terry/Terry_basic.bmp";
+	/*fileName = "Image/Terry/Terry_basic.bmp";
 	strcpy_s(ch, fileName.c_str());
-	//img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);
+	img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);*/
 
-	img->Init(ch, 598, 120, maxFrame, 1, true, RGB(143, 123, 165));
-
+	img[Action::Basic].Init("Image/Terry/Terry_basic.bmp", 598, 120, 7, 1, true, RGB(143, 123, 165));
+	img[Action::fMove].Init("Image/Terry/Terry_Forward.bmp", 423, 133, 6, 1, true, RGB(143, 123, 165));
+	img[Action::bMove].Init("Image/Terry/Terry_Backward.bmp", 409, 130, 6, 1, true, RGB(143, 123, 165));
+	img[Action::sHand].Init("Image/Terry/Terry_sAttack.bmp", 275, 114, 3, 1, true, RGB(143, 123, 165));
+	img[Action::bHand].Init("Image/Terry/Terry_bAttack.bmp", 753, 116, 8, 1, true, RGB(143, 123, 165));
+	img[Action::sKick].Init("Image/Terry/Terry_sKick.bmp", 444, 112, 5, 1, true, RGB(143, 123, 165));
+	img[Action::bKick].Init("Image/Terry/Terry_kick.bmp", 745, 114, 8, 1, true, RGB(143, 123, 165));
+	img[Action::sHit].Init("Image/Terry/Terry_Hit.bmp", 473, 115, 5, 1, true, RGB(143, 123, 165));
+	img[Action::bHit].Init("Image/Terry/Terry_bHit.bmp", 440, 115, 5, 1, true, RGB(143, 123, 165));
+	
+	
 	walkFrameX[0] = 0;	walkFrameX[1] = 87, walkFrameX[2] = 172, walkFrameX[3] = 256, 
 	walkFrameX[4] = 342, walkFrameX[5] = 426, walkFrameX[6] = 511, walkFrameX[maxFrame] = 598;
 
 	frameX = frameY = 0;
 	elapsedCount = 0;
 	
+	action = Action::Basic;
 
 	pos.x = 200;
 	pos.y = WIN_SIZE_Y / 2;
@@ -52,10 +62,12 @@ void Terry::Update()
 		isHit = false;
 		KeyEvent(7);
 		isStatus = true;
+		ammo->SetIsAlive(false);
 	}
 
 	if (isStatus)
 	{
+		
 		frameX++;
 		if (frameX >= maxFrame)
 		{
@@ -167,7 +179,7 @@ void Terry::Render(HDC hdc)
 	Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	if (img)
 	{
-		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
+		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
 	}
 	ammo->Render(hdc);
 }
@@ -187,40 +199,38 @@ void Terry::KeyEvent(int a)
 	switch (a)
 	{
 	case 0:		//기본자세
-		fileName = "Image/Terry/Terry_basic.bmp";
+		action = Action::Basic;
 		maxFrame = 7;
 		walkFrameX[0] = 0;	walkFrameX[1] = 87, walkFrameX[2] = 172, walkFrameX[3] = 256,
 			walkFrameX[4] = 342, walkFrameX[5] = 426, walkFrameX[6] = 511, walkFrameX[maxFrame] = 598;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 598, 111, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
 		break;
 	case 1:		//앞으로
-		fileName = "Image/Terry/Terry_Forward.bmp";
+		action = Action::fMove;
 		maxFrame = 6;
 		walkFrameX[0] = 0;	walkFrameX[1] = 77, walkFrameX[2] = 151, walkFrameX[3] = 217,
 			walkFrameX[4] = 281, walkFrameX[5] = 345, walkFrameX[maxFrame] = 423;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 423, 133, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
 		break;
 	case 2:		//뒤로
-		fileName = "Image/Terry/Terry_Backward.bmp";
+		action = Action::bMove;
 		maxFrame = 6;
 		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 152, walkFrameX[3] = 217,
 			walkFrameX[4] = 280, walkFrameX[5] = 335, walkFrameX[maxFrame] = 409;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 409, 130, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = maxFrame-1;
 		break;
 	case 3:		//강발
-		fileName = "Image/Terry/Terry_kick.bmp";
+		action = Action::bKick;
 		maxFrame = 8;
 		walkFrameX[0] = 0;	walkFrameX[1] = 75, walkFrameX[2] = 140, walkFrameX[3] = 260,
 		walkFrameX[4] = 375, walkFrameX[5] = 490, walkFrameX[6] = 590, walkFrameX[7] = 650, walkFrameX[maxFrame] = 745;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 745, 114, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
+		/*ammo->SetIsAlive(true);
+		pos.x += 70;
+		ammo->SetPos(pos);
+		pos.x -= 70;
+		ammo->SetTerryFire(true);
+		ammo->SetMaxFrame(3);*/
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(30);
@@ -228,12 +238,10 @@ void Terry::KeyEvent(int a)
 		ammo->SetMaxFrame(3);
 		break;
 	case 4:		//약발
-		fileName = "Image/Terry/Terry_sKick.bmp";
+		action = Action::sKick;
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 90, walkFrameX[2] = 156, walkFrameX[3] = 282,
 			walkFrameX[4] = 348,walkFrameX[maxFrame] = 444;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 444, 112, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
@@ -242,12 +250,10 @@ void Terry::KeyEvent(int a)
 		ammo->SetMaxFrame(3);
 		break;
 	case 5:		//강손
-		fileName = "Image/Terry/Terry_bAttack.bmp";
+		action = Action::bHand;
 		maxFrame = 8;
 		walkFrameX[0] = 0;	walkFrameX[1] = 86, walkFrameX[2] = 170, walkFrameX[3] = 254,
 			walkFrameX[4] = 371, walkFrameX[5] = 486, walkFrameX[6] = 577, walkFrameX[7] = 660, walkFrameX[maxFrame] = 753;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 753, 116, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
@@ -256,11 +262,9 @@ void Terry::KeyEvent(int a)
 		ammo->SetMaxFrame(4);
 		break;
 	case 6:		//약손
-		fileName = "Image/Terry/Terry_sAttack.bmp";
+		action = Action::sHand;
 		maxFrame = 3;
 		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 188,walkFrameX[maxFrame] = 275;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 275, 114, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
@@ -269,21 +273,17 @@ void Terry::KeyEvent(int a)
 		ammo->SetMaxFrame(3);
 		break;
 	case 7:		//1피격
-		fileName = "Image/Terry/Terry_Hit.bmp";
+		action = Action::sHit;
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 94, walkFrameX[2] = 194,
 		walkFrameX[3] = 290, walkFrameX[4] = 385, walkFrameX[maxFrame] = 473;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 473, 115, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
 		break;
 	case 8:		//2피격
-		fileName = "Image/Terry/Terry_bHit.bmp";
+		action = Action::bHit;
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 97, walkFrameX[2] = 192,
 		walkFrameX[3] = 276, walkFrameX[4] = 353, walkFrameX[maxFrame] = 440;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 440, 115, maxFrame, 1, true, RGB(143, 123, 165));
 		frameX = 0;
 		break;
 	

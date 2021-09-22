@@ -62,6 +62,7 @@ public:
 
 private:
 	LPIMAGE_INFO imageInfo;
+	LPIMAGE_INFO imageInfo_2;
 	bool isTransparent;
 	COLORREF transColor;
 
@@ -72,6 +73,7 @@ public:
 	HRESULT Init(const char* fileName, int width, int height,
 		int maxFrameX, int maxFrameY,
 		bool isTrans = false, COLORREF transColor = NULL); // File 프레임이 있는 이미지
+
 
 	void Release();	// 메모리 해제
 

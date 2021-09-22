@@ -4,17 +4,27 @@
 
 void Mary::Init()
 {
-	img = new Image;
+	img = new Image[Action::END];
 	isAlive = true;
 	isMoveLeft = isMoveRight = isStatus = isHit = false;
 	maxFrame = 12;
 	hp = 100;
 
-	fileName = "Image/Mary/Mary_Basic.bmp";
-	strcpy_s(ch, fileName.c_str());
-	//img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);
+	//fileName = "Image/Mary/Mary_Basic.bmp";
+	//strcpy_s(ch, fileName.c_str());
+	////img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);
+	//img->Init(ch, 771, 120, maxFrame, 1, true, RGB(0, 102, 0));
 
-	img->Init(ch, 771, 120, maxFrame, 1, true, RGB(0, 102, 0));
+	img[Action::Basic].Init("Image/Mary/Mary_Basic.bmp", 771, 120, 12, 1, true, RGB(0, 102, 0));
+	img[Action::fMove].Init("Image/Mary/Mary_Forward.bmp", 501, 155, 8, 1, true, RGB(0, 102, 0));
+	img[Action::bMove].Init("Image/Mary/Mary_BackWard.bmp", 430, 125, 7, 1, true, RGB(0, 102, 0));
+	img[Action::sHand].Init("Image/Mary/Mary_sAttack.bmp", 228, 125, 3, 1, true, RGB(0, 102, 0));
+	img[Action::bHand].Init("Image/Mary/Mary_bAttack.bmp", 379, 129, 5,1, true, RGB(0, 102, 0));
+	img[Action::sKick].Init("Image/Mary/Mary_sKick.bmp", 441, 133, 6, 1, true, RGB(0, 102, 0));
+	img[Action::bKick].Init("Image/Mary/Mary_bKick.bmp", 786, 123, 10, 1, true, RGB(0, 102, 0));
+	img[Action::sHit].Init("Image/Mary/Mary_Hit.bmp", 432, 125, 5, 1, true, RGB(0, 102, 0));
+	img[Action::bHit].Init("Image/Mary/Mary_bHit.bmp", 409, 125, 5, 1, true, RGB(0, 102, 0));
+
 
 	walkFrameX[0] = 0,	walkFrameX[1] = 60, walkFrameX[2] = 122, walkFrameX[3] = 184,
 	walkFrameX[4] = 246, walkFrameX[5] = 311, walkFrameX[6] = 375, walkFrameX[7] = 440,
@@ -22,6 +32,8 @@ void Mary::Init()
 
 	frameX = frameY = 0;
 	elapsedCount = 0;
+
+	action = Action::Basic;
 
 	pos.x = 350;
 	pos.y = WIN_SIZE_Y / 2;
@@ -50,6 +62,7 @@ void Mary::Update()
 		isHit = false;
 		KeyEvent(7);
 		isStatus = true;
+		ammo->SetIsAlive(false);
 	}
 
 	if (isStatus)
@@ -164,7 +177,7 @@ void Mary::Render(HDC hdc)
 	Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	if (img)
 	{
-		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX, true);
+		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX, true);
 	}
 	ammo->Render(hdc);
 }
@@ -173,7 +186,7 @@ void Mary::Release()
 {
 	if (img)
 	{
-		delete img;
+		delete[] img;
 		img = nullptr;
 	}
 	ammo->Release();
@@ -184,40 +197,32 @@ void Mary::KeyEvent(int a)
 	switch (a)
 	{
 	case 0:		//기본자세
-		fileName = "Image/Mary/Mary_Basic.bmp";
+		action = Action::Basic;
 		maxFrame = 12;
 		walkFrameX[0] = 0, walkFrameX[1] = 60, walkFrameX[2] = 122, walkFrameX[3] = 184,
 			walkFrameX[4] = 246, walkFrameX[5] = 311, walkFrameX[6] = 375, walkFrameX[7] = 440,
 			walkFrameX[8] = 506, walkFrameX[9] = 574, walkFrameX[10] = 642, walkFrameX[11] = 706, walkFrameX[maxFrame] = 771;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 771, 120, maxFrame, 1, true, RGB(0, 102, 0));
 		break;
 	case 1:		//앞으로(2p반대)
-		fileName = "Image/Mary/Mary_Forward.bmp";
+		action = Action::fMove;
 		maxFrame = 8;
 		walkFrameX[0] = 0;	walkFrameX[1] = 59, walkFrameX[2] = 115, walkFrameX[3] = 180,
 			walkFrameX[4] = 248, walkFrameX[5] = 315, walkFrameX[6] = 381, walkFrameX[7] = 441, walkFrameX[maxFrame] = 501;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 501, 155, maxFrame, 1, true, RGB(0, 102, 0));
 		frameX = maxFrame-1;
 		break;
 	case 2:		//뒤로(2p반대)
-		fileName = "Image/Mary/Mary_BackWard.bmp";
+		action = Action::bMove;
 		maxFrame = 7;
 		walkFrameX[0] = 0;	walkFrameX[1] = 66, walkFrameX[2] = 130, walkFrameX[3] = 195,
 			walkFrameX[4] = 255, walkFrameX[5] = 314, walkFrameX[6] = 373, walkFrameX[maxFrame] = 430;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 430, 125, maxFrame, 1, true, RGB(0, 102, 0));
 		frameX = maxFrame-1;
 		break;
 	case 3:		//강발
-		fileName = "Image/Mary/Mary_bKick.bmp";
+		action = Action::bKick;
 		maxFrame = 10;
 		walkFrameX[0] = 0;	walkFrameX[1] = 65, walkFrameX[2] = 133, walkFrameX[3] = 205,
-		walkFrameX[4] = 285, walkFrameX[5] = 395, walkFrameX[6] = 505, walkFrameX[7] = 583,
-		walkFrameX[8] = 655, walkFrameX[9] = 722, walkFrameX[maxFrame] = 786;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 786, 123, maxFrame, 1, true, RGB(0, 102, 0));
+			walkFrameX[4] = 285, walkFrameX[5] = 395, walkFrameX[6] = 505, walkFrameX[7] = 583,
+				walkFrameX[8] = 655, walkFrameX[9] = 722, walkFrameX[maxFrame] = 786;
 		frameX = maxFrame - 1;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
@@ -226,63 +231,52 @@ void Mary::KeyEvent(int a)
 		ammo->SetMaxFrame(4);
 		break;
 	case 4:		//약발
-		fileName = "Image/Mary/Mary_sKick.bmp";
+		action = Action::sKick;
 		maxFrame = 6;
 		walkFrameX[0] = 0;	walkFrameX[1] = 87, walkFrameX[2] = 160, walkFrameX[3] = 235,
-		walkFrameX[4] = 305, walkFrameX[5] = 373, walkFrameX[maxFrame] = 441;
-		strcpy_s(ch, fileName.c_str());
-		frameX = maxFrame;
-		img->Init(ch, 441, 133, maxFrame, 1, true, RGB(0, 102, 0));
+			walkFrameX[4] = 305, walkFrameX[5] = 373, walkFrameX[maxFrame] = 441;
 		frameX = maxFrame - 1;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(10);
 		ammo->SetMaryFire(true);
-		ammo->SetMaxFrame(4);
+		ammo->SetMaxFrame(3);
 		break;
 	case 5:		//강손
-		fileName = "Image/Mary/Mary_bAttack.bmp";
+		action = Action::bHand;
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 81, walkFrameX[2] = 154, walkFrameX[3] = 242,
 			walkFrameX[4] = 315, walkFrameX[maxFrame] = 379;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 379, 129, maxFrame, 1, true, RGB(0, 102, 0));
 		frameX = maxFrame - 1;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
-		ammo->SetMoveSpeed(20);
+		ammo->SetMoveSpeed(15);
 		ammo->SetMaryFire(true);
 		ammo->SetMaxFrame(3);
 		break;
 	case 6:		//약손
-		fileName = "Image/Mary/Mary_sAttack.bmp";
+		action = Action::sHand;
 		maxFrame = 3;
 		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 155, walkFrameX[maxFrame] = 228;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 228, 125, maxFrame, 1, true, RGB(0, 102, 0));
 		frameX = maxFrame-1;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
-		ammo->SetMoveSpeed(20);
+		ammo->SetMoveSpeed(10);
 		ammo->SetMaryFire(true);
-		ammo->SetMaxFrame(3);
+		ammo->SetMaxFrame(2);
 		break;
 	case 7:		//1피격
-		fileName = "Image/Mary/Mary_Hit.bmp";
+		action = Action::sHit;
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 155,
 			walkFrameX[3] = 243, walkFrameX[4] = 343, walkFrameX[maxFrame] = 432;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 432, 125, maxFrame, 1, true, RGB(0, 102, 0));
 		frameX = maxFrame - 1;
 		break;
 	case 8:		//2피격
-		fileName = "Image/Mary/Mary_bHit.bmp";
+		action = Action::bHit;
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 78, walkFrameX[2] = 154,
 			walkFrameX[3] = 236, walkFrameX[4] = 323, walkFrameX[maxFrame] = 409;
-		strcpy_s(ch, fileName.c_str());
-		img->Init(ch, 409, 125, maxFrame, 1, true, RGB(0, 102, 0));
 		frameX = maxFrame - 1;
 		break;
 

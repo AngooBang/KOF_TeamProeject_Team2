@@ -14,7 +14,10 @@ protected:
 	bool isAlive, isStatus, isMoveRight, isMoveLeft, isHit;
 	char ch[50];
 	string fileName;
-	
+
+
+	enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, END };
+	Action action;
 
 public:
 	void Init();

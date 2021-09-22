@@ -57,6 +57,7 @@ void MainGame::Render(HDC hdc)
 	TextOut(hBackBufferDC, 200, 40, text, strlen(text));
 
 
+
 	terry->Render(hBackBufferDC);
 
 	mary->Render(hBackBufferDC);

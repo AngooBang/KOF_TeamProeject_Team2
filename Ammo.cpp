@@ -1,11 +1,21 @@
 #include "Ammo.h"
 #include "Terry.h"
 #include "Mary.h"
+#include "Image.h"
 
 void Ammo::Init()
 {
+	img = new Image[Action::END];
+
 	isAlive = false;
 	pos.x = pos.y = 0;
+
+	img[Action::fMove].Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
+
+	walkFrameX[0] = 0;	walkFrameX[1] = 60, walkFrameX[2] = 120, walkFrameX[3] = 180,
+		walkFrameX[4] = 250, walkFrameX[5] = 327;
+
+	action = Action::fMove;
 
 	bodySizeX = 15;
 	bodySizeY = 15;
@@ -15,19 +25,28 @@ void Ammo::Init()
 	shape.right = 0;
 	shape.bottom = 0;
 
-	frameX = 0;
-	maxFrame = 0;
-
+	frameX =  1;
+	frameY = maxFrame = 0;
 	terryFire = maryFire = false;
 }
 
 void Ammo::Update()
 {
-	if (!isAlive)
+	if (isStatus)
 	{
-		frameX = 0;
-		return;
+		frameX++;
+		if (frameX == maxFrame)
+		{
+			isStatus = false;
+			frameX = 1;
+		}
 	}
+
+	/*if (!isAlive)
+	{
+		frameX = 1;
+		return;
+	}*/
 
 	if (isAlive)
 	{
@@ -36,7 +55,7 @@ void Ammo::Update()
 		shape.right = pos.x + (bodySizeY / 2.0f);
 		shape.bottom = pos.y + (bodySizeY / 2.0f);
 
-		
+
 		if (terryFire)
 		{
 			if (CheckCollision())
@@ -44,50 +63,58 @@ void Ammo::Update()
 				isAlive = false;
 				terryFire = false;
 				maryTarget->SetHit(true);
+
+				isStatus = true;
+				frameX = 0;
+				maxFrame = 5;
 			}
-			if (frameX < maxFrame)
+			else if (frameX < maxFrame)
 			{
 				frameX++;
 				pos.x += moveSpeed;
 			}
-			if (frameX == maxFrame)
+			else
 			{
 				isAlive = false;
 				terryFire = false;
 			}
+			
+			if (maryFire)
+			{
+				if (CheckCollision())
+				{
+					isAlive = false;
+					maryFire = false;
+					terryTarget->SetHit(true);
+				}
+				if (frameX < maxFrame)
+				{
+					frameX++;
+					pos.x -= moveSpeed;
+				}
+				if (frameX == maxFrame)
+				{
+					isAlive = false;
+					terryFire = false;
+				}
+			}
 		}
-		if (maryFire)
-		{
-			if (CheckCollision())
-			{
-				isAlive = false;
-				maryFire = false;
-				terryTarget->SetHit(true);
-			}
-
-			if (frameX < maxFrame)
-			{
-				frameX++;
-				pos.x -= moveSpeed;
-			}
-			if (frameX == maxFrame)
-			{
-				isAlive = false;
-				terryFire = false;
-			}
-		}
-		
-
 	}
-}	 
+	
+	
+}
 	 
 void Ammo::Render(HDC hdc)
 {	
-	if (!isAlive) return;
+	//if (!isAlive) return;
 	
 	if (isAlive)
 	{
 		Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
+	}
+	if (isStatus)
+	{
+		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
 	}
 }	 
 	 
@@ -107,7 +134,7 @@ bool Ammo::CheckCollision()
 	{
 		targetPos = maryTarget->GetPos();
 		targetBodySizeX = maryTarget->GetBodySizeX();
-		targetBodySizeY = maryTarget->GetBodySizeY();
+		//targetBodySizeY = maryTarget->GetBodySizeY();
 		if (shape.right >= targetPos.x - (targetBodySizeX / 2))
 		{
 			return true;
@@ -117,7 +144,7 @@ bool Ammo::CheckCollision()
 	{
 		targetPos = terryTarget->GetPos();
 		targetBodySizeX = terryTarget->GetBodySizeX();
-		targetBodySizeY = terryTarget->GetBodySizeY();
+		//targetBodySizeY = terryTarget->GetBodySizeY();
 		if (shape.left <= targetPos.x + (targetBodySizeX / 2))
 		{
 			return true;
