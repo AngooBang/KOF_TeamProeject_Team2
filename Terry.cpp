@@ -5,6 +5,10 @@
 void Terry::Init()
 {
 	img = new Image;
+	backBuffer = new Image;
+	backGround = new Image;
+
+	isReverse = true;
 	isAlive = true;
 	isMoveLeft = isMoveRight = isStatus = isHit = false;
 	maxFrame = 7;
@@ -13,6 +17,10 @@ void Terry::Init()
 	fileName = "Image/Terry/Terry_basic.bmp";
 	strcpy_s(ch, fileName.c_str());
 	//img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);
+
+	backBuffer->Init(WIN_SIZE_X, WIN_SIZE_Y);
+	backGround->Init("Image/characterBackground.bmp", 1200, 800, true, RGB(255, 0, 255));
+
 
 	img->Init(ch, 598, 120, maxFrame, 1, true, RGB(143, 123, 165));
 
@@ -160,16 +168,32 @@ void Terry::Update()
 	}
 	ammo->Update();
 	// 앞으로 움직이기
+
+	backBuffer->GetImageInfo()->frameWidth = shape.right - shape.left;
+	backBuffer->GetImageInfo()->frameHeight = shape.bottom - shape.top;
 }
 
 void Terry::Render(HDC hdc)
 {
-	Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
-	if (img)
+
+	if (isReverse)
 	{
-		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
+
+		HDC reverseDC = backBuffer->GetMemDC();
+		backGround->Render(reverseDC, pos.x, pos.y);
+		//Rectangle(reverseDC, shape.left, shape.top, shape.right, shape.bottom);
+		img->Render(reverseDC, pos.x, pos.y, frameX, frameY, walkFrameX);
+		ammo->Render(reverseDC);
+
+		backBuffer->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX, true);
 	}
-	ammo->Render(hdc);
+	else
+	{
+
+		//Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
+		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
+		ammo->Render(hdc);
+	}
 }
 
 void Terry::Release()
@@ -179,6 +203,8 @@ void Terry::Release()
 		delete img;
 		img = nullptr;
 	}
+	SAFE_RELEASE(backGround);
+	SAFE_RELEASE(backBuffer);
 	ammo->Release();
 }
 

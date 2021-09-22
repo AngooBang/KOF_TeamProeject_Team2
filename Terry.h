@@ -8,6 +8,8 @@ private:
 
 public:
 	Ammo* ammo;
+	Image* backBuffer;
+	Image* backGround;
 
 	void Init();
 	void Update();

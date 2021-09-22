@@ -124,6 +124,8 @@ void Image::Render(HDC hdc)
 		SRCCOPY);			// 복사 옵션
 }
 
+
+
 void Image::Render(HDC hdc, int destX, int destY)
 {
 	if (isTransparent)
@@ -152,6 +154,22 @@ void Image::Render(HDC hdc, int destX, int destY)
 			0,					// 원본 비트맵 복사 시작 위치 y
 			SRCCOPY);			// 복사 옵션
 	}
+}
+
+void Image::Render(HDC hdc, int destX, int destY, bool isReverse)
+{
+	StretchBlt(hdc, 
+		destX + (imageInfo->frameWidth/2),
+		destY - (imageInfo->frameHeight/2),
+		-(imageInfo->frameWidth),
+		imageInfo->frameHeight,
+		imageInfo->hMemDc,
+
+		destX - (imageInfo->frameWidth / 2),
+		destY - (imageInfo->frameHeight / 2),
+		imageInfo->frameWidth, 
+		imageInfo->frameHeight, 
+		SRCCOPY);
 }
 
 void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY)
@@ -229,35 +247,22 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 {
 	if (p_2)
 	{
-		if (isTransparent)
-		{
-			GdiTransparentBlt(
-				hdc,
-				destX + (frameWidth[frameX] - frameWidth[frameX + 1])+(imageInfo->frameWidth/2),
-				destY - (imageInfo->frameHeight / 2),
-				frameWidth[frameX + 1] - frameWidth[frameX],
-				imageInfo->frameHeight,		// 전체 프레임 수
+		StretchBlt(
+			hdc,
+			destX + (imageInfo->frameWidth / 2),		// 복사된 영역이 표시될 시작좌표
+			destY - (imageInfo->frameHeight / 2),
+			//-imageInfo->frameWidth,
+			-(frameWidth[frameX + 1] - frameWidth[frameX]),	// 출력할 이미지의 너비와 높이
+			imageInfo->frameHeight,		
 
-				imageInfo->hMemDc,
-				frameWidth[frameX],
-				frameWidth[frameY],
-				frameWidth[frameX + 1] - frameWidth[frameX],
-				imageInfo->frameHeight,
-				transColor
-			);
-		}
-		else
-		{
-			BitBlt(hdc,				// 복사 목적지 DC
-				destX - (imageInfo->width / 2),				// 복사될 비트맵의 시작 위치 x
-				destY - (imageInfo->height / 2),				// 복사될 비트맵의 시작 위치 y
-				imageInfo->width,	// 원본 복사할 가로 크기
-				imageInfo->height,	// 원본 복사할 세로 크기
-				imageInfo->hMemDc,	// 원본 DC
-				0,					// 원본 비트맵 복사 시작 위치 x
-				0,					// 원본 비트맵 복사 시작 위치 y
-				SRCCOPY);			// 복사 옵션
-		}
+			imageInfo->hMemDc,
+			destX - (imageInfo->frameWidth / 2),			// 원본 비트맵의 복사 시작좌표
+			destY - (imageInfo->frameHeight / 2),
+			frameWidth[frameX + 1] - frameWidth[frameX],	// 복사 영역 크기
+			imageInfo->frameHeight,
+			SRCCOPY
+		);
 
 	}
+
 }

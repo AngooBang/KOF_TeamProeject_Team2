@@ -6,6 +6,7 @@ class Image;
 class Character : public GameObject
 {
 protected:
+	bool isReverse;
 	Image* img;
 	int frameX, frameY;
 	int elapsedCount;

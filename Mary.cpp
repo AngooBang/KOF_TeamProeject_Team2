@@ -5,7 +5,11 @@
 void Mary::Init()
 {
 	img = new Image;
+	backBuffer = new Image;
+
+
 	isAlive = true;
+	isReverse = true;
 	isMoveLeft = isMoveRight = isStatus = isHit = false;
 	maxFrame = 12;
 	hp = 100;
@@ -14,8 +18,9 @@ void Mary::Init()
 	strcpy_s(ch, fileName.c_str());
 	//img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);
 
+	backBuffer->Init(WIN_SIZE_X, WIN_SIZE_Y);
 	img->Init(ch, 771, 120, maxFrame, 1, true, RGB(0, 102, 0));
-
+	
 	walkFrameX[0] = 0,	walkFrameX[1] = 60, walkFrameX[2] = 122, walkFrameX[3] = 184,
 	walkFrameX[4] = 246, walkFrameX[5] = 311, walkFrameX[6] = 375, walkFrameX[7] = 440,
 	walkFrameX[8] = 506, walkFrameX[9] = 574, walkFrameX[10] = 642, walkFrameX[11] = 706, walkFrameX[maxFrame] = 771;
@@ -44,6 +49,8 @@ void Mary::Init()
 
 void Mary::Update()
 {
+	backBuffer->GetImageInfo()->frameWidth = shape.right - shape.left;
+	backBuffer->GetImageInfo()->frameHeight = shape.bottom - shape.top;
 	if (isHit)
 	{
 		hp--;
@@ -161,12 +168,24 @@ void Mary::Update()
 
 void Mary::Render(HDC hdc)
 {
-	Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
-	if (img)
+	if (isReverse)
 	{
-		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX, true);
+
+		HDC reverseDC = backBuffer->GetMemDC();
+
+		//Rectangle(reverseDC, shape.left, shape.top, shape.right, shape.bottom);
+		img->Render(reverseDC, pos.x, pos.y, frameX, frameY, walkFrameX);
+		ammo->Render(reverseDC);
+
+		backBuffer->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX, true);
 	}
-	ammo->Render(hdc);
+	else
+	{
+
+		Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
+		img->Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
+		ammo->Render(hdc);
+	}
 }
 
 void Mary::Release()
@@ -176,6 +195,7 @@ void Mary::Release()
 		delete img;
 		img = nullptr;
 	}
+	SAFE_RELEASE(backBuffer);
 	ammo->Release();
 }
 

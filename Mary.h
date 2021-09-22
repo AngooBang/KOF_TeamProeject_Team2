@@ -6,6 +6,7 @@ class Mary : public Character
 {
 private:
 
+	Image* backBuffer;
 
 public:
 	Ammo* ammo;
