@@ -2,9 +2,10 @@
 #include "Character.h"
 #include "Ammo.h"
 
-class Terry : public Character
+class Mary : public Character
 {
 private:
+
 
 public:
 	Ammo* ammo;
@@ -15,6 +16,5 @@ public:
 	void Release();
 
 	void KeyEvent(int a);
-	
 };
 

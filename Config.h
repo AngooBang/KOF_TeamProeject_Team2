@@ -17,6 +17,7 @@ using namespace std;
 #define SAFE_RELEASE(p){if (p) {p->Release(); delete p; p = nullptr;}}
 
 enum MoveDir { Left, Right, Up, Down };
+//enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;

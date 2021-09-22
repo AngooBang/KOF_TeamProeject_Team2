@@ -54,6 +54,12 @@
     <ClCompile Include="Terry.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
+    <ClCompile Include="Mary.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Ammo.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -87,6 +93,12 @@
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="Terry.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mary.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Ammo.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
   </ItemGroup>
