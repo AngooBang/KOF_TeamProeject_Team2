@@ -4,6 +4,8 @@
 #include "SceneManager.h"
 #include "Image.h"
 #include "Terry.h"
+#include "HPBar.h"
+#include "Timer.h"
 #include "Mary.h"
 #include "UI.h"
 
@@ -17,28 +19,19 @@ void MainGame::Init()
 
 	// 타이머 셋팅
 	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 100, NULL);
+	hSecTimer = (HANDLE)SetTimer(g_hWnd, 1, 1000, NULL);
 
 	// 백버퍼
 	backBuffer = new Image;
 	backBuffer->Init(WIN_SIZE_X, WIN_SIZE_Y);
 
 	// HP
-	player1_Hp = new UI;
-	player1_Hp->Init();
-	POINTFLOAT pos1{ HP_BAR_SET_X, HP_BAR_SET_Y };
-	player1_Hp->SetPos(pos1);
-	
-	
-	player2_Hp = new UI;
-	player2_Hp->Init();
-	POINTFLOAT pos2{ WIN_SIZE_X - HP_BAR_SET_X, HP_BAR_SET_Y };
-	player2_Hp->SetPos(pos2);
+	HP = new UI;
+	HP->Init();
 
 	//게임 타이머
-	Game_Timer = new UI;
-	Game_Timer->InitTimer();
-	
-
+	roundTimer = new Timer;
+	roundTimer->Init();
 
 	// 배경 이미지
 	backGround = new Image;
@@ -59,6 +52,10 @@ void MainGame::Init()
 
 void MainGame::Update()
 {
+	HP->Update();
+	terry->Update();
+
+	if (isSecTimer)
 
 	terry->Update();
 	mary->Update();
@@ -76,8 +73,10 @@ void MainGame::Update()
 	
 	if (!(player1_Hp->GetIsAlive() == false || player2_Hp->GetIsAlive() == false))
 	{
-		Game_Timer->Update();
+		roundTimer->Update();
+		isSecTimer = false;
 	}
+
 	
 
 	InvalidateRect(g_hWnd, NULL, false);
@@ -99,11 +98,12 @@ void MainGame::Render(HDC hdc)
 
 	terry->Render(hBackBufferDC);
 
+	HP->Render(hBackBufferDC);
 	mary->Render(hBackBufferDC);
 	player1_Hp->Render(hBackBufferDC);
 	player2_Hp->Render(hBackBufferDC);
 
-	Game_Timer->RenderTimer(hBackBufferDC);
+	roundTimer->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
 
@@ -115,16 +115,16 @@ void MainGame::Release()
 
 	SAFE_RELEASE(backGround);
 
-	SAFE_RELEASE(player1_Hp);
-	SAFE_RELEASE(player2_Hp);
+	SAFE_RELEASE(HP);
 
-	SAFE_RELEASE(Game_Timer);
+	SAFE_RELEASE(roundTimer);
 
 	SAFE_RELEASE(terry);
 
 	SAFE_RELEASE(mary);
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
+	KillTimer(g_hWnd, 1);
 }
 
 
