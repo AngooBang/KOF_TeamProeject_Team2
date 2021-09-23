@@ -263,15 +263,15 @@ void Image::Render1pHP(HDC hdc, int destX, int destY, int lostHp)
 	}
 	else
 	{
-		BitBlt(hdc,				// 복사 목적지 DC
-			destX - (imageInfo->width / 2),			// 복사될 비트맵의 시작 위치 x
-			destY - (imageInfo->height / 2),			// 복사될 비트맵의 시작 위치 y
-			imageInfo->width + lostHp,	// 원본 복사할 가로 크기
-			imageInfo->height,	// 원본 복사할 세로 크기
-			imageInfo->hMemDc,	// 원본 DC
-			0,					// 원본 비트맵 복사 시작 위치 x
-			0,					// 원본 비트맵 복사 시작 위치 y
-			SRCCOPY);			// 복사 옵션
+		BitBlt(hdc,			
+			destX - (imageInfo->width / 2) + lostHp,	
+			destY - (imageInfo->height / 2),			
+			imageInfo->width - lostHp,	
+			imageInfo->height,
+			imageInfo->hMemDc,
+			0,					
+			0,					
+			SRCCOPY);			
 	}
 }
 void Image::Render2pHP(HDC hdc, int destX, int destY, int lostHp)
