@@ -15,6 +15,8 @@ public:
 	void Release();
 
 	void KeyEvent(int a);
-	void IsStatus(bool isStatus);
+	void IsStatus();
+	void fBodySize();
+	void fIsMove();
 };
 

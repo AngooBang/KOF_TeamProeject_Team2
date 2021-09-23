@@ -6,7 +6,7 @@ void Terry::Init()
 {
 	img = new Image[Action::END];
 	isAlive = true;
-	isMoveLeft = isMoveRight = isStatus = isHit = false;
+	istest = isMoveLeft = isMoveRight = isStatus = isHit = false;
 	maxFrame = 7;
 	hp = 100;
 
@@ -21,13 +21,12 @@ void Terry::Init()
 	img[Action::bHit].Init("Image/Terry/Terry_bHit.bmp", 440, 115, 5, 1, true, RGB(143, 123, 165));
 
 
-	actionFrameX[0] = 0;	actionFrameX[1] = 87, actionFrameX[2] = 172, actionFrameX[3] = 256,
-		actionFrameX[4] = 342, actionFrameX[5] = 426, actionFrameX[6] = 511, actionFrameX[maxFrame] = 598;
 
 	frameX = frameY = 0;
-	elapsedCount = 0;
 
-	action = Action::Basic;
+	KeyEvent(0);
+
+	elapsedCount = 0;
 
 	pos.x = 200;
 	pos.y = WIN_SIZE_Y / 2;
@@ -52,7 +51,7 @@ void Terry::Init()
 
 void Terry::Update()
 {
-	IsStatus(isStatus);
+	
 	/*if (isStatus)
 	{
 		switch(action)
@@ -70,8 +69,6 @@ void Terry::Update()
 
 		}
 	}*/
-
-
 	/*if (isHit)
 	{
 		hp--;
@@ -79,105 +76,78 @@ void Terry::Update()
 		KeyEvent(7);
 		isStatus = true;
 		ammo->SetIsAlive(false);
+	}
+
+	if (isStatus)
+	{
+		
+		frameX++;
+		if (frameX >= maxFrame)
+		{
+			frameX = 0;
+			isStatus = false;
+			KeyEvent(0);
+		}
 	}*/
 
-	//if (isStatus)
-	//{
-	//	
-	//	frameX++;
-	//	if (frameX >= maxFrame)
-	//	{
-	//		frameX = 0;
-	//		isStatus = false;
-	//		KeyEvent(0);
-	//	}
-	//}
-	//else if (isMoveRight)
-	//{
-	//	if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
-	//	{
-	//		isMoveRight = false;
-	//		KeyEvent(0);
-	//	}
-	//	frameX++;
-	//	pos.x += moveSpeed;
-	//	if (frameX >= maxFrame)
-	//	{
-	//		frameX = 0;
-	//	}
-	//	for (int i = 0; i < maxFrame; i++)
-	//	{
-	//		bodySizeX = actionFrameX[i + 1] - actionFrameX[i];
-	//		shape.left = pos.x - (bodySizeX / 2);
-	//		shape.right = pos.x + (bodySizeX / 2);
-	//		shape.top = pos.y - (bodySizeY / 2);
-	//		shape.bottom = pos.y + (bodySizeY / 2);
-	//	}
-	//}
-	//else if (isMoveLeft)
-	//{
-	//	if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
-	//	{
-	//		isMoveLeft = false;
-	//		KeyEvent(0);
-	//	}
-	//	frameX--;
-	//	pos.x -= moveSpeed;
-	//	if (frameX <= 0)
-	//	{
-	//		frameX = maxFrame-1;
-	//	}
-	//	for (int i = 0; i < maxFrame; i++)
-	//	{
-	//		bodySizeX = actionFrameX[i + 1] - actionFrameX[i];
-	//		shape.left = pos.x - (bodySizeX / 2);
-	//		shape.right = pos.x + (bodySizeX / 2);
-	//		shape.top = pos.y - (bodySizeY / 2);
-	//		shape.bottom = pos.y + (bodySizeY / 2);
-	//	}
+	fBodySize();
 
-	//}
-	//else
-	//{
-	//	frameX++;
-	//	if (frameX >= maxFrame)
-	//	{
-	//	frameX = 0;
-	//	}
-	//	
-	//	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
-	//	{
-	//		KeyEvent(1);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
-	//	{
-	//		KeyEvent(2);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))	//강발
-	//	{
-	//		KeyEvent(3);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('S'))	//약발
-	//	{
-	//		KeyEvent(4);			
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))	//강손
-	//	{
-	//		KeyEvent(5);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('W'))	//약손
-	//	{
-	//		KeyEvent(6);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
-	//	{
-	//		KeyEvent(7);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
-	//	{
-	//		KeyEvent(8);
-	//	}
-	//}
+	if (istest)
+	{
+		IsStatus();
+	}
+	else if (isMove)
+	{
+		fIsMove();
+	}
+	else
+	{
+		frameX++;
+		if (frameX >= maxFrame)
+		{
+		frameX = 0;
+		}
+		if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+		{
+			KeyEvent(1);
+			isMove = true;
+		}
+		else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
+		{
+			KeyEvent(2);
+			isMove = true;
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))	//강발
+		{
+			KeyEvent(3);
+			istest = true;
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown('S'))	//약발
+		{
+			KeyEvent(4);	
+			istest = true;
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))	//강손
+		{
+			KeyEvent(5);
+			istest = true;
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown('W'))	//약손
+		{
+			KeyEvent(6);
+			istest = true;
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
+		{
+			KeyEvent(7);
+			istest = true;
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
+		{
+			KeyEvent(8);
+			istest = true;
+		}
+	}
 	ammo->Update();
 }
 
@@ -306,106 +276,117 @@ void Terry::KeyEvent(int a)
 	}
 }
 
-void Terry::IsStatus(bool isStatus)
+void Terry::IsStatus()
 {
+	if (isHit)
+	{
+		hp--;
+		isHit = false;
+		KeyEvent(7);
+		isStatus = true;
+		ammo->SetIsAlive(false);
+		istest = true;
+	}
 	if (isStatus)
 	{
 		frameX++;
 		if (frameX >= maxFrame)
 		{
 			frameX = 0;
-			isStatus = false;
 			KeyEvent(0);
+			isStatus = false;
+			istest = false;
 		}
 	}
-	if (!isStatus)
+	//else
+	//{
+	//	frameX++;
+	//	if (frameX >= maxFrame)
+	//	{
+	//		frameX = 0;
+	//	}
+
+	//	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+	//	{
+	//		KeyEvent(1);
+	//	}
+	//	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
+	//	{
+	//		KeyEvent(2);
+	//	}
+	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))	//강발
+	//	{
+	//		KeyEvent(3);
+	//	}
+	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('S'))	//약발
+	//	{
+	//		KeyEvent(4);
+	//	}
+	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))	//강손
+	//	{
+	//		KeyEvent(5);
+	//	}
+	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('W'))	//약손
+	//	{
+	//		KeyEvent(6);
+	//	}
+	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
+	//	{
+	//		KeyEvent(7);
+	//	}
+	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
+	//	{
+	//		KeyEvent(8);
+	//	}
+	//}
+}
+
+void Terry::fBodySize()
+{
+	for (int i = 0; i < maxFrame; i++)
 	{
-		if (isMoveRight)
-		{
-			if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
-			{
-				isMoveRight = false;
-				KeyEvent(0);
-			}
-			frameX++;
-			pos.x += moveSpeed;
-			if (frameX >= maxFrame)
-			{
-				frameX = 0;
-			}
-			for (int i = 0; i < maxFrame; i++)
-			{
-				bodySizeX = actionFrameX[i + 1] - actionFrameX[i];
-				shape.left = pos.x - (bodySizeX / 2);
-				shape.right = pos.x + (bodySizeX / 2);
-				shape.top = pos.y - (bodySizeY / 2);
-				shape.bottom = pos.y + (bodySizeY / 2);
-			}
-		}
-		else if (isMoveLeft)
-		{
-			if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
-			{
-				isMoveLeft = false;
-				KeyEvent(0);
-			}
-			frameX--;
-			pos.x -= moveSpeed;
-			if (frameX <= 0)
-			{
-				frameX = maxFrame - 1;
-			}
-			for (int i = 0; i < maxFrame; i++)
-			{
-				bodySizeX = actionFrameX[i + 1] - actionFrameX[i];
-				shape.left = pos.x - (bodySizeX / 2);
-				shape.right = pos.x + (bodySizeX / 2);
-				shape.top = pos.y - (bodySizeY / 2);
-				shape.bottom = pos.y + (bodySizeY / 2);
-			}
+		bodySizeX = actionFrameX[i + 1] - actionFrameX[i];
+		shape.left = pos.x - (bodySizeX / 2);
+		shape.right = pos.x + (bodySizeX / 2);
+		shape.top = pos.y - (bodySizeY / 2);
+		shape.bottom = pos.y + (bodySizeY / 2);
+	}
+}
 
-		}
-		else
+void Terry::fIsMove()
+{
+	if (isMoveRight)
+	{
+		if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
 		{
-			frameX++;
-			if (frameX >= maxFrame)
-			{
-				frameX = 0;
-			}
-
-			if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
-			{
-				KeyEvent(1);
-			}
-			else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
-			{
-				KeyEvent(2);
-			}
-			else if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))	//강발
-			{
-				KeyEvent(3);
-			}
-			else if (KeyManager::GetSingleton()->IsOnceKeyDown('S'))	//약발
-			{
-				KeyEvent(4);
-			}
-			else if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))	//강손
-			{
-				KeyEvent(5);
-			}
-			else if (KeyManager::GetSingleton()->IsOnceKeyDown('W'))	//약손
-			{
-				KeyEvent(6);
-			}
-			else if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
-			{
-				KeyEvent(7);
-			}
-			else if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
-			{
-				KeyEvent(8);
-			}
+			isMoveRight = false;
+			KeyEvent(0);
+			isMove = false;
+		}
+		frameX++;
+		pos.x += moveSpeed;
+		fBodySize();
+		if (frameX >= maxFrame)
+		{
+			frameX = 0;
+		}
+	}
+	else if (isMoveLeft)
+	{
+		if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
+		{
+			isMoveLeft = false;
+			KeyEvent(0);
+			isMove = false;
+		}
+		frameX--;
+		pos.x -= moveSpeed;
+		fBodySize();
+		if (frameX <= 0)
+		{
+			frameX = maxFrame - 1;
 		}
 	}
 }
+
 

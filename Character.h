@@ -11,7 +11,7 @@ protected:
 	int elapsedCount;
 	int actionFrameX[15], maxFrame, walkFrameX[15];
 	int hp;
-	bool isAlive, isStatus, isMoveRight, isMoveLeft, isHit;
+	bool isAlive, isStatus, isMoveRight, isMoveLeft, isHit, istest, isMove;
 	char ch[50];
 	string fileName;
 
