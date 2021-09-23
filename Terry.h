@@ -5,7 +5,6 @@
 class Terry : public Character
 {
 private:
-	
 
 public:
 	Ammo* ammo;
@@ -16,6 +15,6 @@ public:
 	void Release();
 
 	void KeyEvent(int a);
-	
+	void IsStatus(bool isStatus);
 };
 

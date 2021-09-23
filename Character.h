@@ -9,7 +9,7 @@ protected:
 	Image* img;
 	int frameX, frameY;
 	int elapsedCount;
-	int walkFrameX[15], maxFrame;
+	int actionFrameX[15], maxFrame, walkFrameX[15];
 	int hp;
 	bool isAlive, isStatus, isMoveRight, isMoveLeft, isHit;
 	char ch[50];
@@ -26,6 +26,7 @@ public:
 	void Release();
 
 	inline void SetHit(bool isHit) { this->isHit = isHit; }
+
 
 };
 
