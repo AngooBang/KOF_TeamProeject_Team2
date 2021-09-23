@@ -9,6 +9,11 @@ using namespace std;
 #define WIN_START_POS_Y	100
 #define WIN_SIZE_X	1200
 #define WIN_SIZE_Y	800
+#define HP_BAR_SET_X	300
+#define HP_BAR_SET_Y	100
+#define TIMER_POS_X		595
+#define TIMER_POS_Y		100
+
 
 #define PI 3.14159265357989
 
