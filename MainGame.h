@@ -28,8 +28,10 @@ private:
 	Image* backGround;
 
 	//UI
-	UI* player1;
-	UI* player2;
+	UI* player1_Hp;
+	UI* player2_Hp;
+
+	UI* Game_Timer;
 
 	// ÀÌ¿À¸®
 	//Iori* ioriX;

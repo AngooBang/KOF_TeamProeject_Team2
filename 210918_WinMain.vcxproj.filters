@@ -54,6 +54,9 @@
     <ClCompile Include="Terry.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Terry.h">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>2D Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

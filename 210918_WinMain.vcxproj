@@ -148,6 +148,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Terry.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Terry.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
