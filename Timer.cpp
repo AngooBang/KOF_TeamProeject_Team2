@@ -18,25 +18,30 @@ void Timer::Init()
 
 void Timer::Update()
 {
-	oneSec--;
-	if (oneSec < 0)
+	if (isAlive)
 	{
-		oneSec = 9;
-		tenSec--;
+		oneSec--;
+			if (oneSec < 0)
+			{
+				oneSec = 9;
+				tenSec--;
+			}
+			if (tenSec == 1 && oneSec == 0)	//남은시간 10초
+			{
+				chgNumColor = 1;
+			}
+			if (tenSec == 0 && oneSec == 0) //남은시간 00초
+			{
+				tenSec = 0, oneSec = 0;
+				isAlive = false;
+			}
 	}
-	if (tenSec == 1 && oneSec == 0)	//남은시간 10초
-	{
-		chgNumColor = 1;
-	}
-	if (tenSec == 0 && oneSec == 0) //남은시간 00초
-	{
-		tenSec = 0, oneSec = 0;
-	}
+	
 }
 
 void Timer::Render(HDC hdc)
 {
-	if (isAlive == true)
+	if (SecTimer)
 	{
 		SecTimer->Render(hdc, TIMER_POS_X, TIMER_POS_Y, tenSec, chgNumColor);
 		SecTimer->Render(hdc, TIMER_POS_X + 14, TIMER_POS_Y, oneSec, chgNumColor);

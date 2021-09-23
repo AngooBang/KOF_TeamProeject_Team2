@@ -73,7 +73,10 @@ void MainGame::Update()
 	
 	if (!(player1_Hp->GetIsAlive() == false || player2_Hp->GetIsAlive() == false))
 	{
-		roundTimer->Update();
+		if (HP->GetIsAlive() == true)
+		{
+			roundTimer->Update();
+		}
 		isSecTimer = false;
 	}
 

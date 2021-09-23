@@ -18,11 +18,21 @@ void UI::Init()
 	POINTFLOAT pos2{ WIN_SIZE_X - HP_BAR_SET_X, HP_BAR_SET_Y };
 	p2HP->SetPos(pos2);
 	p2HP->SetPlayer2(true);
+
+	isAlive = true;
 }
 void UI::Update()
 {	
-	p1HP->Update();
-	p2HP->Update();
+	if (p1HP->GetIsAlive() == true && p2HP->GetIsAlive() == true)
+	{
+		p1HP->Update();
+		p2HP->Update();
+	}
+
+	if (p1HP->GetIsAlive() == false || p2HP->GetIsAlive() == false)
+	{
+		isAlive = false;
+	}
 }
 
 void UI::Render(HDC hdc)
