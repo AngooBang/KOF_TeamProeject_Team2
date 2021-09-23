@@ -1,6 +1,8 @@
 #pragma once
 #include "Config.h"
 
+// 커밋 테스트 중입니다.
+
 class Image
 {
 public:
