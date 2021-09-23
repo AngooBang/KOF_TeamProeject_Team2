@@ -4,6 +4,8 @@
 
 // 우리가 구성할 게임 월드
 class Image;
+class UI;
+class Iori;
 class Terry;
 class Mary;
 class MainGame : public GameEntity
@@ -27,6 +29,12 @@ private:
 
 	// 배경 이미지
 	Image* backGround;
+
+	//UI
+	UI* player1_Hp;
+	UI* player2_Hp;
+
+	UI* Game_Timer;
 
 	// 이오리
 	//Iori* ioriX;
