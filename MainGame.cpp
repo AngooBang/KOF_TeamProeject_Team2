@@ -49,7 +49,10 @@ void MainGame::Update()
 
 	if (isSecTimer)
 	{
-		roundTimer->Update();
+		if (HP->GetIsAlive() == true)
+		{
+			roundTimer->Update();
+		}
 		isSecTimer = false;
 	}
 

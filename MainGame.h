@@ -53,7 +53,7 @@ public:
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 	void SetIsSecTimer(bool isSecTimer) { this->isSecTimer = isSecTimer; }
 
-	bool GetIsSecTimer() { return this->isSecTimer; }
+	inline bool GetIsSecTimer() { return this->isSecTimer; }
 };
 
 //int MainGame::clickedMousePosX = 0;
