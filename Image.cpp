@@ -263,10 +263,10 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 			//	imageInfo->frameHeight, 
 			//	transColor
 			//);
-			
+
 			GdiTransparentBlt(
 				hdc,
-				destX + (frameWidth[frameX] - frameWidth[frameX + 1])+(imageInfo->frameWidth/2),
+				destX + (frameWidth[frameX] - frameWidth[frameX + 1]) + (imageInfo->frameWidth / 2),
 				destY - (imageInfo->frameHeight / 2),
 				frameWidth[frameX + 1] - frameWidth[frameX],
 				imageInfo->frameHeight,		// 전체 프레임 수
@@ -291,10 +291,8 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 				0,					// 원본 비트맵 복사 시작 위치 y
 				SRCCOPY);			// 복사 옵션
 		}
-
 	}
 }
-
 void Image::RenderHP(HDC hdc, int destX, int destY, int lostHp_Player1, int lostHp_Player2)
 {
 	if (isTransparent)

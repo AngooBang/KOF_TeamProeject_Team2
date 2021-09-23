@@ -4,8 +4,8 @@
 #include "SceneManager.h"
 #include "Image.h"
 #include "Terry.h"
-#include "UI.h"
 #include "Mary.h"
+#include "UI.h"
 
 
 
@@ -59,6 +59,9 @@ void MainGame::Init()
 
 void MainGame::Update()
 {
+
+	terry->Update();
+	mary->Update();
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
 	{
 		player1_Hp->SetHitStatus1(true);
@@ -77,8 +80,6 @@ void MainGame::Update()
 	}
 	
 
-	terry->Update();
-	mary->Update();
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
@@ -98,12 +99,11 @@ void MainGame::Render(HDC hdc)
 
 	terry->Render(hBackBufferDC);
 
+	mary->Render(hBackBufferDC);
 	player1_Hp->Render(hBackBufferDC);
 	player2_Hp->Render(hBackBufferDC);
 
 	Game_Timer->RenderTimer(hBackBufferDC);
-
-	mary->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
 
