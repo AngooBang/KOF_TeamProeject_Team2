@@ -85,8 +85,6 @@ public:
 	void Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth);
 	void Render1pHP(HDC hdc, int destX, int destY, int lostHp);
 	void Render2pHP(HDC hdc, int destX, int destY, int lostHp);
-	void Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth, bool p_2);
-	void RenderHP(HDC hdc, int destX, int destY, int lostHp_Player1, int lostHp_Player2);
 
 	HDC GetMemDC() { if (imageInfo) return imageInfo->hMemDc; return NULL; }
 };

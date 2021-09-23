@@ -52,26 +52,11 @@ void MainGame::Init()
 
 void MainGame::Update()
 {
-	HP->Update();
-	terry->Update();
-
-	if (isSecTimer)
-
 	terry->Update();
 	mary->Update();
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
-	{
-		player1_Hp->SetHitStatus1(true);
-	}
-	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))
-	{
-		player2_Hp->SetHitStatus2(true);
-	}
+	HP->Update();
 
-	player1_Hp->Update();
-	player2_Hp->Update();
-	
-	if (!(player1_Hp->GetIsAlive() == false || player2_Hp->GetIsAlive() == false))
+	if (isSecTimer)
 	{
 		if (HP->GetIsAlive() == true)
 		{
@@ -79,8 +64,6 @@ void MainGame::Update()
 		}
 		isSecTimer = false;
 	}
-
-	
 
 	InvalidateRect(g_hWnd, NULL, false);
 }
@@ -91,21 +74,18 @@ void MainGame::Render(HDC hdc)
 
 	backGround->Render(hBackBufferDC);
 
-	wsprintf(text, "MousePosX : %d", mousePosX);
-	TextOut(hBackBufferDC, 200, 10, text, strlen(text));
+	//wsprintf(text, "MousePosX : %d", mousePosX);
+	//TextOut(hBackBufferDC, 200, 10, text, strlen(text));
 
-	wsprintf(text, "MousePosY : %d", mousePosY);
-	TextOut(hBackBufferDC, 200, 40, text, strlen(text));
+	//wsprintf(text, "MousePosY : %d", mousePosY);
+	//TextOut(hBackBufferDC, 200, 40, text, strlen(text));
 
 
 
 	terry->Render(hBackBufferDC);
+	mary->Render(hBackBufferDC);
 
 	HP->Render(hBackBufferDC);
-	mary->Render(hBackBufferDC);
-	player1_Hp->Render(hBackBufferDC);
-	player2_Hp->Render(hBackBufferDC);
-
 	roundTimer->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);

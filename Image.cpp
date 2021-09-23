@@ -243,57 +243,9 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 	}
 }
 
-void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth, bool p_2)
-{
-	if (p_2)
-	{
-		if (isTransparent)
-		{
-			//StretchBlt(
-			//	hdc,
-			//	destX + (imageInfo->frameWidth / 2),
-			//	destY - (imageInfo->frameHeight / 2),
-			//	-(frameWidth[frameX + 1] - frameWidth[frameX]),
-			//	imageInfo->frameHeight,		// 전체 프레임 수
 
-			//	imageInfo->hMemDc,
-			//	frameWidth[frameX],
-			//	frameWidth[frameY],
-			//	frameWidth[frameX + 1] - frameWidth[frameX],
-			//	imageInfo->frameHeight, 
-			//	transColor
-			//);
 
-			GdiTransparentBlt(
-				hdc,
-				destX + (frameWidth[frameX] - frameWidth[frameX + 1]) + (imageInfo->frameWidth / 2),
-				destY - (imageInfo->frameHeight / 2),
-				frameWidth[frameX + 1] - frameWidth[frameX],
-				imageInfo->frameHeight,		// 전체 프레임 수
-
-				imageInfo->hMemDc,
-				frameWidth[frameX],
-				frameWidth[frameY],
-				frameWidth[frameX + 1] - frameWidth[frameX],
-				imageInfo->frameHeight,
-				transColor
-			);
-		}
-		else
-		{
-			BitBlt(hdc,				// 복사 목적지 DC
-				destX - (imageInfo->width / 2),				// 복사될 비트맵의 시작 위치 x
-				destY - (imageInfo->height / 2),				// 복사될 비트맵의 시작 위치 y
-				imageInfo->width,	// 원본 복사할 가로 크기
-				imageInfo->height,	// 원본 복사할 세로 크기
-				imageInfo->hMemDc,	// 원본 DC
-				0,					// 원본 비트맵 복사 시작 위치 x
-				0,					// 원본 비트맵 복사 시작 위치 y
-				SRCCOPY);			// 복사 옵션
-		}
-	}
-}
-void Image::RenderHP(HDC hdc, int destX, int destY, int lostHp_Player1, int lostHp_Player2)
+void Image::Render1pHP(HDC hdc, int destX, int destY, int lostHp)
 {
 	if (isTransparent)
 	{
@@ -301,20 +253,20 @@ void Image::RenderHP(HDC hdc, int destX, int destY, int lostHp_Player1, int lost
 			hdc,
 			destX - (imageInfo->width / 2),
 			destY - (imageInfo->height / 2),
-			imageInfo->width ,
+			imageInfo->width,
 			imageInfo->height,
 			imageInfo->hMemDc,
 			0, 0,
-			imageInfo->width , imageInfo->height,
+			imageInfo->width, imageInfo->height,
 			transColor
 		);
 	}
 	else
 	{
 		BitBlt(hdc,				// 복사 목적지 DC
-			destX - (imageInfo->width / 2) + lostHp,			// 복사될 비트맵의 시작 위치 x
+			destX - (imageInfo->width / 2),			// 복사될 비트맵의 시작 위치 x
 			destY - (imageInfo->height / 2),			// 복사될 비트맵의 시작 위치 y
-			imageInfo->width - lostHp,	// 원본 복사할 가로 크기
+			imageInfo->width + lostHp,	// 원본 복사할 가로 크기
 			imageInfo->height,	// 원본 복사할 세로 크기
 			imageInfo->hMemDc,	// 원본 DC
 			0,					// 원본 비트맵 복사 시작 위치 x
@@ -322,7 +274,6 @@ void Image::RenderHP(HDC hdc, int destX, int destY, int lostHp_Player1, int lost
 			SRCCOPY);			// 복사 옵션
 	}
 }
-
 void Image::Render2pHP(HDC hdc, int destX, int destY, int lostHp)
 {
 	if (isTransparent)
