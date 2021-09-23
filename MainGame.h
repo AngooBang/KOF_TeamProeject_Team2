@@ -4,7 +4,9 @@
 
 // 우리가 구성할 게임 월드
 class Image;
+class HPBar;
 class UI;
+class Timer;
 class Iori;
 class Terry;
 class MainGame : public GameEntity
@@ -12,7 +14,9 @@ class MainGame : public GameEntity
 private:
 	// 타이머
 	HANDLE hTimer;
+	HANDLE hSecTimer;
 
+	bool isSecTimer;
 	// UI
 	char text[128];
 
@@ -28,10 +32,9 @@ private:
 	Image* backGround;
 
 	//UI
-	UI* player1_Hp;
-	UI* player2_Hp;
+	UI* HP;
 
-	UI* Game_Timer;
+	Timer* roundTimer;
 
 	// 이오리
 	//Iori* ioriX;
@@ -48,6 +51,9 @@ public:
 	void Release();
 
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
+	void SetIsSecTimer(bool isSecTimer) { this->isSecTimer = isSecTimer; }
+
+	bool GetIsSecTimer() { return this->isSecTimer; }
 };
 
 //int MainGame::clickedMousePosX = 0;

@@ -25,6 +25,9 @@
     <Filter Include="MainGame\KOF_Player">
       <UniqueIdentifier>{9ea1f47f-e504-4b99-8834-b06b5a8d15fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\UI">
+      <UniqueIdentifier>{88cbbfdc-fcab-489f-a950-848fa1214080}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -55,7 +58,13 @@
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
-      <Filter>2D Framework</Filter>
+      <Filter>2D Framework\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>2D Framework\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>2D Framework\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,7 +102,13 @@
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
-      <Filter>2D Framework</Filter>
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>2D Framework\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
