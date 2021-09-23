@@ -5,7 +5,7 @@
 class Terry : public Character
 {
 private:
-
+	char inputKey;
 public:
 	Ammo* ammo;
 
@@ -14,9 +14,10 @@ public:
 	void Render(HDC hdc);
 	void Release();
 
-	void KeyEvent(int a);
-	void IsStatus();
-	void fBodySize();
-	void fIsMove();
+	void ProcessInputKey();
+	void KeyEvent(char inputKey);
+	void SetBodySize();
+	void MoveToFrame();
+	void NextFrame(bool b);
 };
 

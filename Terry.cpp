@@ -51,103 +51,48 @@ void Terry::Init()
 
 void Terry::Update()
 {
-	
-	/*if (isStatus)
-	{
-		switch(action)
-		{
-		case Action::sHit:
-			hp--;
-			isHit = false;
-			KeyEvent(7);
-			isStatus = true;
-			ammo->SetIsAlive(false);
-			break;
-		case Action::sHand:
-			KeyEvent(6);
-				break;
 
-		}
-	}*/
-	/*if (isHit)
+	//ProcessInputKey();
+	//if (inputKey)
+	//{
+	//	KeyEvent(inputKey);
+	//	inputKey = 0;
+	//	isMove = false;
+	//	
+	//}
+	if (!isStatus)
 	{
-		hp--;
-		isHit = false;
-		KeyEvent(7);
-		isStatus = true;
-		ammo->SetIsAlive(false);
+		ProcessInputKey();
 	}
-
-	if (isStatus)
+	if (isMove)
 	{
-		
-		frameX++;
-		if (frameX >= maxFrame)
-		{
-			frameX = 0;
-			isStatus = false;
-			KeyEvent(0);
-		}
-	}*/
-
-	fBodySize();
-
-	if (istest)
-	{
-		IsStatus();
-	}
-	else if (isMove)
-	{
-		fIsMove();
+		MoveToFrame();
 	}
 	else
 	{
-		frameX++;
-		if (frameX >= maxFrame)
-		{
-		frameX = 0;
-		}
-		if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
-		{
-			KeyEvent(1);
-			isMove = true;
-		}
-		else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
-		{
-			KeyEvent(2);
-			isMove = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))	//강발
-		{
-			KeyEvent(3);
-			istest = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('S'))	//약발
-		{
-			KeyEvent(4);	
-			istest = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))	//강손
-		{
-			KeyEvent(5);
-			istest = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('W'))	//약손
-		{
-			KeyEvent(6);
-			istest = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
-		{
-			KeyEvent(7);
-			istest = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
-		{
-			KeyEvent(8);
-			istest = true;
-		}
+		NextFrame(true);			
 	}
+
+	/*if(!isStatus)
+	ProcessInputKey();
+
+	if (inputKey)
+	{
+		KeyEvent(inputKey);
+		inputKey = 0;
+	}
+	else
+		KeyEvent(0);
+
+	MoveToFrame();
+
+	if(isStatus || !isMove)
+		NextFrame(true);*/
+	
+
+
+	SetBodySize();
+
 	ammo->Update();
 }
 
@@ -171,58 +116,53 @@ void Terry::Release()
 	ammo->Release();
 }
 
-void Terry::KeyEvent(int a)
+void Terry::KeyEvent(char inputKey)
 {
-	switch (a)
+	switch (inputKey)
 	{
-	case 0:		//기본자세
-		action = Action::Basic;
-		maxFrame = 7;
-		actionFrameX[0] = 0;	actionFrameX[1] = 87, actionFrameX[2] = 172, actionFrameX[3] = 256,
-			actionFrameX[4] = 342, actionFrameX[5] = 426, actionFrameX[6] = 511, actionFrameX[maxFrame] = 598;
-		frameX = 0;
+	case VK_RIGHT:		//앞으로
+		if (!isMove)
+		{
+			action = Action::fMove;
+			maxFrame = 6;
+			actionFrameX[0] = 0;	actionFrameX[1] = 77, actionFrameX[2] = 151, actionFrameX[3] = 217,
+				actionFrameX[4] = 281, actionFrameX[5] = 345, actionFrameX[maxFrame] = 423;
+			frameX = 0;
+			isMove = true;
+		}
 		break;
-	case 1:		//앞으로
-		action = Action::fMove;
-		maxFrame = 6;
-		actionFrameX[0] = 0;	actionFrameX[1] = 77, actionFrameX[2] = 151, actionFrameX[3] = 217,
-			actionFrameX[4] = 281, actionFrameX[5] = 345, actionFrameX[maxFrame] = 423;
-		frameX = 0;
-		isMoveRight = true;
+	case VK_LEFT:		//뒤로
+		if (!isMove) 
+		{
+			action = Action::bMove;
+			maxFrame = 6;
+			actionFrameX[0] = 0;	actionFrameX[1] = 85, actionFrameX[2] = 152, actionFrameX[3] = 217,
+				actionFrameX[4] = 280, actionFrameX[5] = 335, actionFrameX[maxFrame] = 409;
+			frameX = maxFrame - 1;
+			isMove = true;
+		}
 		break;
-	case 2:		//뒤로
-		action = Action::bMove;
-		maxFrame = 6;
-		actionFrameX[0] = 0;	actionFrameX[1] = 85, actionFrameX[2] = 152, actionFrameX[3] = 217,
-			actionFrameX[4] = 280, actionFrameX[5] = 335, actionFrameX[maxFrame] = 409;
-		frameX = maxFrame - 1;
-		isMoveLeft = true;
-		break;
-	case 3:		//강발
+	case 'A':		//강발
 		action = Action::bKick;
 		maxFrame = 8;
 		actionFrameX[0] = 0;	actionFrameX[1] = 75, actionFrameX[2] = 140, actionFrameX[3] = 260,
 			actionFrameX[4] = 375, actionFrameX[5] = 490, actionFrameX[6] = 590, actionFrameX[7] = 650, actionFrameX[maxFrame] = 745;
 		frameX = 0;
+		isMove = false;
 		isStatus = true;
-		/*ammo->SetIsAlive(true);
-		pos.x += 70;
-		ammo->SetPos(pos);
-		pos.x -= 70;
-		ammo->SetTerryFire(true);
-		ammo->SetMaxFrame(3);*/
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(30);
 		ammo->SetTerryFire(true);
 		ammo->SetMaxFrame(3);
 		break;
-	case 4:		//약발
+	case 'S':		//약발
 		action = Action::sKick;
 		maxFrame = 5;
 		actionFrameX[0] = 0;	actionFrameX[1] = 90, actionFrameX[2] = 156, actionFrameX[3] = 282,
 			actionFrameX[4] = 348, actionFrameX[maxFrame] = 444;
 		frameX = 0;
+		isMove = false;
 		isStatus = true;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
@@ -230,12 +170,13 @@ void Terry::KeyEvent(int a)
 		ammo->SetTerryFire(true);
 		ammo->SetMaxFrame(3);
 		break;
-	case 5:		//강손
+	case 'Q':		//강손
 		action = Action::bHand;
 		maxFrame = 8;
 		actionFrameX[0] = 0;	actionFrameX[1] = 86, actionFrameX[2] = 170, actionFrameX[3] = 254,
 			actionFrameX[4] = 371, actionFrameX[5] = 486, actionFrameX[6] = 577, actionFrameX[7] = 660, actionFrameX[maxFrame] = 753;
 		frameX = 0;
+		isMove = false;
 		isStatus = true;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
@@ -243,11 +184,12 @@ void Terry::KeyEvent(int a)
 		ammo->SetTerryFire(true);
 		ammo->SetMaxFrame(4);
 		break;
-	case 6:		//약손
+	case 'W':		//약손
 		action = Action::sHand;
 		maxFrame = 3;
 		actionFrameX[0] = 0;	actionFrameX[1] = 85, actionFrameX[2] = 188, actionFrameX[maxFrame] = 275;
 		frameX = 0;
+		isMove = false;
 		isStatus = true;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
@@ -255,93 +197,37 @@ void Terry::KeyEvent(int a)
 		ammo->SetTerryFire(true);
 		ammo->SetMaxFrame(3);
 		break;
-	case 7:		//1피격
+	case 'Z':		//1피격
 		action = Action::sHit;
 		maxFrame = 5;
 		actionFrameX[0] = 0;	actionFrameX[1] = 94, actionFrameX[2] = 194,
 			actionFrameX[3] = 290, actionFrameX[4] = 385, actionFrameX[maxFrame] = 473;
 		frameX = 0;
+		isMove = false;
 		isStatus = true;
 		break;
-	case 8:		//2피격
+	case 'X':		//2피격
 		action = Action::bHit;
 		maxFrame = 5;
 		actionFrameX[0] = 0;	actionFrameX[1] = 97, actionFrameX[2] = 192,
 			actionFrameX[3] = 276, actionFrameX[4] = 353, actionFrameX[maxFrame] = 440;
 		frameX = 0;
+		isMove = false;
 		isStatus = true;
+		break;
+	case 0:	//기본자세
+		action = Action::Basic;
+		maxFrame = 7;
+		actionFrameX[0] = 0;	actionFrameX[1] = 87, actionFrameX[2] = 172, actionFrameX[3] = 256,
+			actionFrameX[4] = 342, actionFrameX[5] = 426, actionFrameX[6] = 511, actionFrameX[maxFrame] = 598;
 		break;
 
 
 	}
 }
 
-void Terry::IsStatus()
-{
-	if (isHit)
-	{
-		hp--;
-		isHit = false;
-		KeyEvent(7);
-		isStatus = true;
-		ammo->SetIsAlive(false);
-		istest = true;
-	}
-	if (isStatus)
-	{
-		frameX++;
-		if (frameX >= maxFrame)
-		{
-			frameX = 0;
-			KeyEvent(0);
-			isStatus = false;
-			istest = false;
-		}
-	}
-	//else
-	//{
-	//	frameX++;
-	//	if (frameX >= maxFrame)
-	//	{
-	//		frameX = 0;
-	//	}
 
-	//	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
-	//	{
-	//		KeyEvent(1);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
-	//	{
-	//		KeyEvent(2);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))	//강발
-	//	{
-	//		KeyEvent(3);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('S'))	//약발
-	//	{
-	//		KeyEvent(4);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))	//강손
-	//	{
-	//		KeyEvent(5);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('W'))	//약손
-	//	{
-	//		KeyEvent(6);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
-	//	{
-	//		KeyEvent(7);
-	//	}
-	//	else if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
-	//	{
-	//		KeyEvent(8);
-	//	}
-	//}
-}
-
-void Terry::fBodySize()
+void Terry::SetBodySize()
 {
 	for (int i = 0; i < maxFrame; i++)
 	{
@@ -353,40 +239,92 @@ void Terry::fBodySize()
 	}
 }
 
-void Terry::fIsMove()
+void Terry::MoveToFrame()
 {
-	if (isMoveRight)
+	switch (action)
 	{
-		if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+	case Action::fMove:
+	{
+		if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT) || isStatus)
 		{
-			isMoveRight = false;
-			KeyEvent(0);
 			isMove = false;
+			KeyEvent(0);
 		}
-		frameX++;
 		pos.x += moveSpeed;
-		fBodySize();
+			NextFrame(true);
+	}break;
+	case Action::bMove:
+	{
+		if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT) || isStatus)
+		{
+			isMove = false;
+			KeyEvent(0);
+		}
+		pos.x -= moveSpeed;
+			NextFrame(false);
+	}break;
+	}
+}
+
+void Terry::ProcessInputKey()
+{
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+	{
+		KeyEvent(VK_RIGHT);
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
+	{
+		KeyEvent(VK_LEFT);
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('A'))	//강발
+	{
+		KeyEvent('A');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('S'))	//약발
+	{
+		KeyEvent('S');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('Q'))	//강손
+	{
+		KeyEvent('Q');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('W'))	//약손
+	{
+		KeyEvent('W');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
+	{
+		KeyEvent('Z');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
+	{
+		KeyEvent('X');
+	}
+	/*if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+	{
+		inputKey = 0;
+	}*/
+}
+
+void Terry::NextFrame(bool b)
+{
+	if (b)
+	{
+		frameX++;
 		if (frameX >= maxFrame)
 		{
 			frameX = 0;
+			isStatus = false;
+			KeyEvent(0);
 		}
 	}
-	else if (isMoveLeft)
+	else
 	{
-		if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
-		{
-			isMoveLeft = false;
-			KeyEvent(0);
-			isMove = false;
-		}
 		frameX--;
-		pos.x -= moveSpeed;
-		fBodySize();
 		if (frameX <= 0)
 		{
 			frameX = maxFrame - 1;
 		}
 	}
 }
-
 
