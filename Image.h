@@ -83,6 +83,9 @@ public:
 	void Render(HDC hdc, int destX, int destY);	// 이미지 데이터를 화면에 복사
 	void Render(HDC hdc, int destX, int destY, int frameX, int frameY);
 	void Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth);
+	void Render2P(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth);
+
+
 	void Render1pHP(HDC hdc, int destX, int destY, int lostHp);
 	void Render2pHP(HDC hdc, int destX, int destY, int lostHp);
 
