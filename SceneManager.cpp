@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include "TFactory.h"
 #include "StartScene.h"
 #include "SelectScene.h"
 #include "FightScene.h"
@@ -10,18 +11,15 @@ void SceneManager::ChangeScene(E_SCENE state)
 	switch (state)
 	{
 	case E_SCENE_START:
-		pScene = new StartScene();
-		pScene->Init();
+		pScene = TFactory<StartScene>::Create();
 		return;
 
 	case E_SCENE_SELECT:
-		pScene = new SelectScene();
-		pScene->Init();
+		pScene = TFactory<SelectScene>::Create();
 		return;
 
 	case E_SCENE_FIGHT:
-		pScene = new FightScene();
-		pScene->Init();
+		pScene = TFactory<FightScene>::Create();
 		return;
 
 	default:

@@ -1,47 +1,168 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Ammo.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="FightScene.cpp" />
-    <ClCompile Include="GameEntity.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="HPBar.cpp" />
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="KeyManager.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Mary.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SelectScene.cpp" />
-    <ClCompile Include="StartScene.cpp" />
-    <ClCompile Include="Terry.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="2D Framework">
+      <UniqueIdentifier>{8b0c4e35-7e2f-4a74-83bb-e0db2d424e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Manager">
+      <UniqueIdentifier>{73a7dbf2-cbe7-40e3-86b0-8e06a49626a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{76040367-e9ec-435c-8de8-182b0e7703ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\KOF_Player">
+      <UniqueIdentifier>{9ea1f47f-e504-4b99-8834-b06b5a8d15fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI">
+      <UniqueIdentifier>{88cbbfdc-fcab-489f-a950-848fa1214080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Scene">
+      <UniqueIdentifier>{387fda03-35e0-47f8-ae6b-359cf840c2dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Map">
+      <UniqueIdentifier>{27fff133-8a03-48cf-8768-e6b1c3095c01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ammo.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="CommonFunction.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="FightScene.h" />
-    <ClInclude Include="GameEntity.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="HPBar.h" />
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="KeyManager.h" />
-    <ClInclude Include="MainGame.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Mary.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SelectScene.h" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="StartScene.h" />
-    <ClInclude Include="Terry.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="UI.h" />
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Terry.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>2D Framework\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>2D Framework\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>2D Framework\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Mary.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Ammo.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FightScene.cpp">
+      <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectScene.cpp">
+      <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TFactory.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>MainGame\Map</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Config.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Terry.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Mary.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Ammo.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FightScene.h">
+      <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectScene.h">
+      <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TFactory.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>MainGame\Map</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
