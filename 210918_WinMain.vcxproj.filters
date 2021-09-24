@@ -31,6 +31,9 @@
     <Filter Include="2D Framework\Scene">
       <UniqueIdentifier>{387fda03-35e0-47f8-ae6b-359cf840c2dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Map">
+      <UniqueIdentifier>{27fff133-8a03-48cf-8768-e6b1c3095c01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="TFactory.cpp">
       <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>MainGame\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="TFactory.h">
       <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>MainGame\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
