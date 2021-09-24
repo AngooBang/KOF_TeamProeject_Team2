@@ -235,10 +235,10 @@ void Image::Render2P(HDC hdc, int destX, int destY, int frameX, int frameY, int*
 		GdiTransparentBlt
 		(
 			hdc,
-			destX - (frameWidth[frameX + 1] - frameWidth[frameX] / 2),
+			destX - ((imageInfo->frameWidth / 2) + ((frameWidth[frameX + 1] - frameWidth[frameX]) - (imageInfo->frameWidth))),
 			destY - (imageInfo->frameHeight / 2),
 			frameWidth[frameX + 1] - frameWidth[frameX],
-			imageInfo->frameHeight,		// 전체 프레임 수
+			imageInfo->frameHeight,	
 
 			imageInfo->hMemDc,
 			frameWidth[frameX],
