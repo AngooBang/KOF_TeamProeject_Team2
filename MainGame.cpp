@@ -9,8 +9,7 @@
 #include "Timer.h"
 #include "Mary.h"
 #include "UI.h"
-
-
+#include "Map.h"
 
 void MainGame::Init()
 {
@@ -43,6 +42,10 @@ void MainGame::Init()
 		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
 	}
 
+	map = new Map;
+	map->Init();
+
+
 	terry = new Terry;
 	terry->Init();
 	mary = new Mary;
@@ -60,6 +63,8 @@ void MainGame::Update()
 	terry->Update();
 	mary->Update();
 	HP->Update();
+
+	map->Update();
 
 	if (isSecTimer)
 	{
@@ -81,7 +86,7 @@ void MainGame::Render(HDC hdc)
 
 	backGround->Render(hBackBufferDC);
 
-
+	map->Render(hBackBufferDC);
 
 	terry->Render(hBackBufferDC);
 	mary->Render(hBackBufferDC);
@@ -99,6 +104,8 @@ void MainGame::Release()
 	SAFE_RELEASE(backBuffer);
 
 	SAFE_RELEASE(backGround);
+
+	SAFE_RELEASE(map);
 
 	SAFE_RELEASE(HP);
 
