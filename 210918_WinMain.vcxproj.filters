@@ -28,6 +28,9 @@
     <Filter Include="2D Framework\UI">
       <UniqueIdentifier>{88cbbfdc-fcab-489f-a950-848fa1214080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\Scene">
+      <UniqueIdentifier>{387fda03-35e0-47f8-ae6b-359cf840c2dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,18 @@
     </ClCompile>
     <ClCompile Include="Ammo.cpp">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FightScene.cpp">
+      <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectScene.cpp">
+      <Filter>2D Framework\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +136,18 @@
     </ClInclude>
     <ClInclude Include="Ammo.h">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FightScene.h">
+      <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectScene.h">
+      <Filter>2D Framework\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

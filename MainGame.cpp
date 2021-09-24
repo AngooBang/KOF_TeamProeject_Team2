@@ -2,6 +2,7 @@
 #include "Singleton.h"
 #include "KeyManager.h"
 #include "SceneManager.h"
+#include "Scene.h"
 #include "Image.h"
 #include "Terry.h"
 #include "HPBar.h"
@@ -15,7 +16,9 @@ void MainGame::Init()
 {
 	//KeyManager keyMgr;
 	KeyManager::GetSingleton()->Init();
-	SceneManager::GetSingleton();
+
+	//씬 세팅
+	//SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
 
 	// 타이머 셋팅
 	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 100, NULL);
@@ -52,6 +55,8 @@ void MainGame::Init()
 
 void MainGame::Update()
 {
+	//SceneManager::GetSingleton()->pScene->Update();
+
 	terry->Update();
 	mary->Update();
 	HP->Update();
@@ -70,15 +75,11 @@ void MainGame::Update()
 
 void MainGame::Render(HDC hdc)
 {
+	//SceneManager::GetSingleton()->pScene->Render();
+
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
 	backGround->Render(hBackBufferDC);
-
-	//wsprintf(text, "MousePosX : %d", mousePosX);
-	//TextOut(hBackBufferDC, 200, 10, text, strlen(text));
-
-	//wsprintf(text, "MousePosY : %d", mousePosY);
-	//TextOut(hBackBufferDC, 200, 40, text, strlen(text));
 
 
 
@@ -94,6 +95,7 @@ void MainGame::Render(HDC hdc)
 
 void MainGame::Release()
 {
+	//SceneManager::GetSingleton()->pScene->Release();
 	SAFE_RELEASE(backBuffer);
 
 	SAFE_RELEASE(backGround);
