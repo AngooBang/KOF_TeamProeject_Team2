@@ -10,6 +10,7 @@ class Timer;
 class Iori;
 class Terry;
 class Mary;
+class SelectCharater;
 class MainGame : public GameEntity
 {
 private:
@@ -44,6 +45,8 @@ private:
 	Mary* mary;
 
 	MoveDir moveDir;
+
+	SelectCharater* selectChar;
 
 public:
 	void Init();

@@ -8,7 +8,7 @@
 #include "Timer.h"
 #include "Mary.h"
 #include "UI.h"
-
+#include "SelectCharater.h"
 
 
 void MainGame::Init()
@@ -45,6 +45,9 @@ void MainGame::Init()
 	mary = new Mary;
 	mary->Init();
 
+	selectChar = new SelectCharater;
+	selectChar->Init();
+
 	terry->ammo->SetTarget(mary);
 	mary->ammo->SetTarget(terry);
 
@@ -54,7 +57,10 @@ void MainGame::Update()
 {
 	terry->Update();
 	mary->Update();
+
 	HP->Update();
+	
+	selectChar->Update();
 
 	if (isSecTimer)
 	{
@@ -80,7 +86,7 @@ void MainGame::Render(HDC hdc)
 	//wsprintf(text, "MousePosY : %d", mousePosY);
 	//TextOut(hBackBufferDC, 200, 40, text, strlen(text));
 
-
+	selectChar->Render(hBackBufferDC);
 
 	terry->Render(hBackBufferDC);
 	mary->Render(hBackBufferDC);

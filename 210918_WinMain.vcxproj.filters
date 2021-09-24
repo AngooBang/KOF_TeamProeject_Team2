@@ -72,6 +72,9 @@
     <ClCompile Include="Ammo.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
+    <ClCompile Include="SelectCharater.cpp">
+      <Filter>MainGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="Ammo.h">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectCharater.h">
+      <Filter>MainGame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
