@@ -5,6 +5,7 @@
 void Mary::Init()
 {
 	img = new Image[Action::END];
+
 	isAlive = true;
 	isMoveLeft = isMoveRight = isStatus = isHit = false;
 	maxFrame = 12;
@@ -24,6 +25,8 @@ void Mary::Init()
 	img[Action::bKick].Init("Image/Mary/Mary_bKick.bmp", 786, 123, 10, 1, true, RGB(0, 102, 0));
 	img[Action::sHit].Init("Image/Mary/Mary_Hit.bmp", 432, 125, 5, 1, true, RGB(0, 102, 0));
 	img[Action::bHit].Init("Image/Mary/Mary_bHit.bmp", 409, 125, 5, 1, true, RGB(0, 102, 0));
+
+	img->ReverseImg();
 
 
 	walkFrameX[0] = 0,	walkFrameX[1] = 60, walkFrameX[2] = 122, walkFrameX[3] = 184,
