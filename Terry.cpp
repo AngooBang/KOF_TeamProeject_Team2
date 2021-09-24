@@ -60,6 +60,12 @@ void Terry::Update()
 	//	isMove = false;
 	//	
 	//}
+	/*if (isHit)
+	{
+		isHit = false;
+		KeyEvent('Z');
+		isStatus = true;
+	}*/
 	if (!isStatus)
 	{
 		ProcessInputKey();
@@ -315,7 +321,10 @@ void Terry::NextFrame(bool b)
 		{
 			frameX = 0;
 			isStatus = false;
+			if (!isMove)
+			{
 			KeyEvent(0);
+			}
 		}
 	}
 	else

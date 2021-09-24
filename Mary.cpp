@@ -38,7 +38,7 @@ void Mary::Init()
 
 	action = Action::Basic;
 
-	pos.x = 350;
+	pos.x = 800;
 	pos.y = WIN_SIZE_Y / 2;
 	moveSpeed = 10;
 	
