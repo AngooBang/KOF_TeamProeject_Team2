@@ -320,14 +320,14 @@ void Mary::ProcessInputKey()
 	{
 		KeyEvent('R');
 	}
-	//if (isHit)	//1피격
-	//{
-	//	KeyEvent('C');
-	//}
-	//if (KeyManager::GetSingleton()->IsOnceKeyDown('V'))	//2피격
-	//{
-	//	KeyEvent('V');
-	//}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('C'))	//1피격
+	{
+		KeyEvent('C');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('V'))	//2피격
+	{
+		KeyEvent('V');
+	}
 
 	/*if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
 	{

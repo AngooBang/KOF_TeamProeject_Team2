@@ -22,7 +22,10 @@ using namespace std;
 #define SAFE_RELEASE(p){if (p) {p->Release(); delete p; p = nullptr;}}
 
 enum MoveDir { Left, Right, Up, Down };
-//enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
+
+enum CharacterType { Terry, Mary, Iori, Kyo, End };
+
+enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, END };
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;

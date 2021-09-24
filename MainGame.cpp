@@ -3,10 +3,10 @@
 #include "KeyManager.h"
 #include "SceneManager.h"
 #include "Image.h"
-#include "Terry.h"
 #include "HPBar.h"
 #include "Timer.h"
-#include "Mary.h"
+#include "Character.h"
+#include "HitBox.h"
 #include "UI.h"
 
 
@@ -40,20 +40,33 @@ void MainGame::Init()
 		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
 	}
 
-	terry = new Terry;
-	terry->Init();
-	mary = new Mary;
-	mary->Init();	
+	player1 = new Character();
+	player2 = new Character();
 
-	terry->ammo->SetTarget(mary);
-	mary->ammo->SetTarget(terry);
+	player1->SetPlayerNum(1);
+	player2->SetPlayerNum(2);
+	player1->SetCharacterType(CharacterType::Terry);
+	player2->SetCharacterType(CharacterType::Mary);
+	player1->Init();
+	player2->Init();
+
+	player1->hitBox->SetTarget(player2);
+	player2->hitBox->SetTarget(player1);
+
+	//terry = new Terry;
+	//terry->Init();
+	//mary = new Mary;
+	//mary->Init();	
+
+	//terry->ammo->SetTarget(mary);
+	//mary->ammo->SetTarget(terry);
 
 }
 
 void MainGame::Update()
 {
-	terry->Update();
-	mary->Update();
+	player1->Update();
+	player2->Update();
 	HP->Update();
 
 	if (isSecTimer)
@@ -82,8 +95,8 @@ void MainGame::Render(HDC hdc)
 
 
 
-	terry->Render(hBackBufferDC);
-	mary->Render(hBackBufferDC);
+	player1->Render(hBackBufferDC);
+	player2->Render(hBackBufferDC);
 
 	HP->Render(hBackBufferDC);
 	roundTimer->Render(hBackBufferDC);
@@ -102,9 +115,9 @@ void MainGame::Release()
 
 	SAFE_RELEASE(roundTimer);
 
-	SAFE_RELEASE(terry);
+	SAFE_RELEASE(player1);
 
-	SAFE_RELEASE(mary);
+	SAFE_RELEASE(player2);
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
 	KillTimer(g_hWnd, 1);

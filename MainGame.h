@@ -7,9 +7,7 @@ class Image;
 class HPBar;
 class UI;
 class Timer;
-class Iori;
-class Terry;
-class Mary;
+class Character;
 class MainGame : public GameEntity
 {
 private:
@@ -37,11 +35,8 @@ private:
 
 	Timer* roundTimer;
 
-	// ÀÌ¿À¸®
-	//Iori* ioriX;
-	//Iori** ioriY;
-	Terry* terry;
-	Mary* mary;
+	Character* player1;
+	Character* player2;
 
 	MoveDir moveDir;
 

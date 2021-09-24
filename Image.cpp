@@ -322,6 +322,7 @@ void Image::Render2pHP(HDC hdc, int destX, int destY, int lostHp)
 	}
 }
 
+
 void Image::ReverseImg()
 {
 	StretchBlt(
@@ -338,3 +339,4 @@ void Image::ReverseImg()
 		SRCCOPY
 	);
 }
+

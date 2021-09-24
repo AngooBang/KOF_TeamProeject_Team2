@@ -12,6 +12,8 @@ protected:
 	int bodySizeX, bodySizeY;
 	MoveDir moveDir;
 
+	bool isAlive;
+
 public:
 	void Move();
 

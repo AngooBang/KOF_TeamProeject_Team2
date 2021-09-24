@@ -107,7 +107,7 @@ void Terry::Render(HDC hdc)
 	//Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	if (img)
 	{
-		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, actionFrameX);
+		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, actionFrameX[action]);
 	}
 	ammo->Render(hdc);
 }
