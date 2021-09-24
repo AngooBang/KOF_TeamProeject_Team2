@@ -11,7 +11,7 @@ using namespace std;
 #define WIN_SIZE_Y	800
 #define HP_BAR_SET_X	365
 #define HP_BAR_SET_Y	100
-#define TIMER_POS_X		585
+#define TIMER_POS_X		587
 #define TIMER_POS_Y		100
 
 

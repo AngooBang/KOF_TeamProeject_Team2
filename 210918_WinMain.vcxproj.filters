@@ -96,6 +96,9 @@
     <ClCompile Include="Map.cpp">
       <Filter>MainGame\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Announce.cpp">
+      <Filter>2D Framework\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>MainGame\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Announce.h">
+      <Filter>2D Framework\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
