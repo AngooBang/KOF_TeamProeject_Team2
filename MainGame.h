@@ -10,7 +10,6 @@ class Timer;
 class Iori;
 class Terry;
 class Mary;
-class Map;
 class MainGame : public GameEntity
 {
 private:
@@ -32,7 +31,6 @@ private:
 
 	// 배경 이미지
 	Image* backGround;
-	Map* map;
 
 	//UI
 	UI* HP;
