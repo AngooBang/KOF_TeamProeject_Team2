@@ -213,21 +213,6 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 			imageInfo->frameHeight,
 			transColor 
 		);
-		StretchBlt
-		(
-			hdc,
-			destX + (imageInfo->frameWidth / 2),
-			destY - (imageInfo->frameHeight / 2),
-			-(frameWidth[frameX + 1] - frameWidth[frameX]),
-			imageInfo->frameHeight,		// 전체 프레임 수
-
-			imageInfo->hMemDc,
-			frameWidth[frameX],
-			frameWidth[frameY],
-			frameWidth[frameX + 1] - frameWidth[frameX],
-			imageInfo->frameHeight, 
-			transColor
-		);
 	}
 	else
 	{
@@ -302,4 +287,21 @@ void Image::Render2pHP(HDC hdc, int destX, int destY, int lostHp)
 			0,					// 원본 비트맵 복사 시작 위치 y
 			SRCCOPY);			// 복사 옵션
 	}
+}
+
+void Image::ReverseImg()
+{
+	StretchBlt(
+		imageInfo->hMemDc,
+		imageInfo->width,
+		0,
+		-imageInfo->width,
+		imageInfo->height,
+		imageInfo->hMemDc,
+		0,
+		0,
+		imageInfo->width,
+		imageInfo->height,
+		SRCCOPY
+	);
 }
