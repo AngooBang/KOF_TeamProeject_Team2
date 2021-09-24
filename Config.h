@@ -23,6 +23,14 @@ using namespace std;
 
 enum MoveDir { Left, Right, Up, Down };
 //enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
+enum E_SCENE
+{
+	E_SCENE_NONE = 0,
+	E_SCENE_START,
+	E_SCENE_SELECT,
+	E_SCENE_FIGHT
+};
+
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
