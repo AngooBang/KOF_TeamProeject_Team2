@@ -4,7 +4,7 @@
 void Timer::Init()
 {
 	SecTimer = new Image;
-	SecTimer->Init("Image/UI/number.bmp", 140, 50, 10, 2, true, RGB(255, 0, 255));
+	SecTimer->Init("Image/UI/number.bmp", 280, 150, 10, 2, true, RGB(255, 0, 255));
 
 	TimeOver = new Image;
 	TimeOver->Init("Image/UI/time_over.bmp", 561, 187, true, RGB(255, 0, 255));
@@ -44,7 +44,7 @@ void Timer::Render(HDC hdc)
 	if (SecTimer)
 	{
 		SecTimer->Render(hdc, TIMER_POS_X, TIMER_POS_Y, tenSec, chgNumColor);
-		SecTimer->Render(hdc, TIMER_POS_X + 14, TIMER_POS_Y, oneSec, chgNumColor);
+		SecTimer->Render(hdc, TIMER_POS_X + 28, TIMER_POS_Y, oneSec, chgNumColor);
 	}
 	if (tenSec == 0 && oneSec == 0)
 	{

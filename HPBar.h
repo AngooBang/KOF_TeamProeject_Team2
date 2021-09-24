@@ -6,6 +6,7 @@ class HPBar : public UI
 private:
 	Image* HPBarFrame;
 	Image* HPBar;
+	Image* Portrait;
 	Image* KO;
 
 	int HP;
