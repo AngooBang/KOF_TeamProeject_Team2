@@ -294,13 +294,13 @@ void Image::ReverseImg()
 	StretchBlt(
 		imageInfo->hMemDc,
 		imageInfo->width,
-		imageInfo->height,
-		imageInfo->width,
-		imageInfo->height,
-		imageInfo->hMemDc,
-		imageInfo->width,
 		0,
 		-imageInfo->width,
+		imageInfo->height,
+		imageInfo->hMemDc,
+		0,
+		0,
+		imageInfo->width,
 		imageInfo->height,
 		SRCCOPY
 	);
