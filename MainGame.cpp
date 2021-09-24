@@ -43,7 +43,7 @@ void MainGame::Init()
 	terry = new Terry;
 	terry->Init();
 	mary = new Mary;
-	mary->Init();
+	mary->Init();	
 
 	terry->ammo->SetTarget(mary);
 	mary->ammo->SetTarget(terry);

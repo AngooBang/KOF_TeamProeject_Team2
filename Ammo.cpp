@@ -140,7 +140,7 @@ bool Ammo::CheckCollision()
 			return true;
 		}
 	}
-	else if (maryFire)
+	if (maryFire)
 	{
 		targetPos = terryTarget->GetPos();
 		targetBodySizeX = terryTarget->GetBodySizeX();

@@ -213,19 +213,38 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 			imageInfo->frameHeight,
 			transColor 
 		);
-		StretchBlt
+	}
+	else
+	{
+		BitBlt(hdc,				// 복사 목적지 DC
+			destX - (imageInfo->width / 2),				// 복사될 비트맵의 시작 위치 x
+			destY - (imageInfo->height / 2),				// 복사될 비트맵의 시작 위치 y
+			imageInfo->width,	// 원본 복사할 가로 크기
+			imageInfo->height,	// 원본 복사할 세로 크기
+			imageInfo->hMemDc,	// 원본 DC
+			0,					// 원본 비트맵 복사 시작 위치 x
+			0,					// 원본 비트맵 복사 시작 위치 y
+			SRCCOPY);			// 복사 옵션
+	}
+}
+
+void Image::Render2P(HDC hdc, int destX, int destY, int frameX, int frameY, int* frameWidth)
+{
+	if (isTransparent)
+	{
+		GdiTransparentBlt
 		(
 			hdc,
-			destX + (imageInfo->frameWidth / 2),
+			destX - ((imageInfo->frameWidth / 2) + ((frameWidth[frameX + 1] - frameWidth[frameX]) - (imageInfo->frameWidth))),
 			destY - (imageInfo->frameHeight / 2),
-			-(frameWidth[frameX + 1] - frameWidth[frameX]),
-			imageInfo->frameHeight,		// 전체 프레임 수
+			frameWidth[frameX + 1] - frameWidth[frameX],
+			imageInfo->frameHeight,	
 
 			imageInfo->hMemDc,
 			frameWidth[frameX],
 			frameWidth[frameY],
 			frameWidth[frameX + 1] - frameWidth[frameX],
-			imageInfo->frameHeight, 
+			imageInfo->frameHeight,
 			transColor
 		);
 	}
@@ -242,7 +261,6 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 			SRCCOPY);			// 복사 옵션
 	}
 }
-
 
 
 void Image::Render1pHP(HDC hdc, int destX, int destY, int lostHp)
@@ -302,4 +320,21 @@ void Image::Render2pHP(HDC hdc, int destX, int destY, int lostHp)
 			0,					// 원본 비트맵 복사 시작 위치 y
 			SRCCOPY);			// 복사 옵션
 	}
+}
+
+void Image::ReverseImg()
+{
+	StretchBlt(
+		imageInfo->hMemDc,
+		imageInfo->width,
+		0,
+		-imageInfo->width,
+		imageInfo->height,
+		imageInfo->hMemDc,
+		0,
+		0,
+		imageInfo->width,
+		imageInfo->height,
+		SRCCOPY
+	);
 }
