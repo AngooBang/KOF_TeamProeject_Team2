@@ -1,8 +1,8 @@
 #include "TFactory.h"
 template<class T>
-T* TFactory<T>::Create()
+static T* TFactory<T>::Create()
 {
 	T* p = new T();
-	p.Init();
+	p->Init();
 	return p;
 }
