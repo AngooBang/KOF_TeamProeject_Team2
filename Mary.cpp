@@ -26,7 +26,23 @@ void Mary::Init()
 	img[Action::sHit].Init("Image/Mary/Mary_Hit.bmp", 432, 125, 5, 1, true, RGB(0, 102, 0));
 	img[Action::bHit].Init("Image/Mary/Mary_bHit.bmp", 409, 125, 5, 1, true, RGB(0, 102, 0));
 
-	img->ReverseImg();
+	/*img->ReverseImg();*/
+
+	img[Action::Basic].ReverseImg();
+	img[Action::fMove].ReverseImg();
+	img[Action::bMove].ReverseImg();
+	img[Action::sHand].ReverseImg();
+	img[Action::bHand].ReverseImg();
+	img[Action::sKick].ReverseImg();
+	img[Action::bKick].ReverseImg();
+	img[Action::sHit].ReverseImg();
+	img[Action::bHit].ReverseImg();
+
+
+
+
+
+
 
 
 	walkFrameX[0] = 0,	walkFrameX[1] = 60, walkFrameX[2] = 122, walkFrameX[3] = 184,
@@ -70,10 +86,10 @@ void Mary::Update()
 
 	if (isStatus)
 	{
-		frameX--;
-		if (frameX <= 0)
+		frameX++;
+		if (frameX >= maxFrame)
 		{
-			frameX = maxFrame;
+			frameX = 0;
 			isStatus = false;
 			KeyEvent(0);
 		}
@@ -85,11 +101,11 @@ void Mary::Update()
 			isMoveRight = false;
 			KeyEvent(0);
 		}
-		frameX--;
+		frameX++;
 		pos.x += moveSpeed;
-		if (frameX <= 0)
+		if (frameX >= maxFrame)
 		{
-			frameX = maxFrame - 1;
+			frameX = 0;
 		}
 		for (int i = 0; i < maxFrame; i++)
 		{
@@ -124,11 +140,12 @@ void Mary::Update()
 	}
 	else
 	{
-		if (frameX <= 0)
+		frameX++;
+		
+		if (frameX >= maxFrame)
 		{
-			frameX = maxFrame;
+			frameX = 0;
 		}
-		frameX--;
 
 		if (KeyManager::GetSingleton()->IsStayKeyDown('L'))	//앞으로(2p는 반대)
 		{
@@ -211,14 +228,14 @@ void Mary::KeyEvent(int a)
 		maxFrame = 8;
 		walkFrameX[0] = 0;	walkFrameX[1] = 59, walkFrameX[2] = 115, walkFrameX[3] = 180,
 			walkFrameX[4] = 248, walkFrameX[5] = 315, walkFrameX[6] = 381, walkFrameX[7] = 441, walkFrameX[maxFrame] = 501;
-		frameX = maxFrame-1;
+		frameX = 0;
 		break;
 	case 2:		//뒤로(2p반대)
 		action = Action::bMove;
 		maxFrame = 7;
 		walkFrameX[0] = 0;	walkFrameX[1] = 66, walkFrameX[2] = 130, walkFrameX[3] = 195,
 			walkFrameX[4] = 255, walkFrameX[5] = 314, walkFrameX[6] = 373, walkFrameX[maxFrame] = 430;
-		frameX = maxFrame-1;
+		frameX = 0;
 		break;
 	case 3:		//강발
 		action = Action::bKick;
@@ -226,7 +243,7 @@ void Mary::KeyEvent(int a)
 		walkFrameX[0] = 0;	walkFrameX[1] = 65, walkFrameX[2] = 133, walkFrameX[3] = 205,
 			walkFrameX[4] = 285, walkFrameX[5] = 395, walkFrameX[6] = 505, walkFrameX[7] = 583,
 				walkFrameX[8] = 655, walkFrameX[9] = 722, walkFrameX[maxFrame] = 786;
-		frameX = maxFrame - 1;
+		frameX = 0;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(10);
@@ -238,7 +255,7 @@ void Mary::KeyEvent(int a)
 		maxFrame = 6;
 		walkFrameX[0] = 0;	walkFrameX[1] = 87, walkFrameX[2] = 160, walkFrameX[3] = 235,
 			walkFrameX[4] = 305, walkFrameX[5] = 373, walkFrameX[maxFrame] = 441;
-		frameX = maxFrame - 1;
+		frameX = 0;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(10);
@@ -250,7 +267,7 @@ void Mary::KeyEvent(int a)
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 81, walkFrameX[2] = 154, walkFrameX[3] = 242,
 			walkFrameX[4] = 315, walkFrameX[maxFrame] = 379;
-		frameX = maxFrame - 1;
+		frameX = 0;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(15);
@@ -261,7 +278,7 @@ void Mary::KeyEvent(int a)
 		action = Action::sHand;
 		maxFrame = 3;
 		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 155, walkFrameX[maxFrame] = 228;
-		frameX = maxFrame-1;
+		frameX = 0;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(10);
@@ -273,14 +290,14 @@ void Mary::KeyEvent(int a)
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 155,
 			walkFrameX[3] = 243, walkFrameX[4] = 343, walkFrameX[maxFrame] = 432;
-		frameX = maxFrame - 1;
+		frameX = 0;
 		break;
 	case 8:		//2피격
 		action = Action::bHit;
 		maxFrame = 5;
 		walkFrameX[0] = 0;	walkFrameX[1] = 78, walkFrameX[2] = 154,
 			walkFrameX[3] = 236, walkFrameX[4] = 323, walkFrameX[maxFrame] = 409;
-		frameX = maxFrame - 1;
+		frameX = 0;
 		break;
 
 
