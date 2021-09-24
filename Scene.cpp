@@ -8,7 +8,7 @@ void Scene::Update()
 {
 }
 
-void Scene::Render()
+void Scene::Render(HDC hdc)
 {
 }
 

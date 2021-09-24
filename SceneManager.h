@@ -5,12 +5,13 @@
 class Scene;
 class SceneManager : public Singleton<SceneManager>
 {
+private:
 public:
-	Scene* pScene;
 
+	Scene* pScene;
 	SceneManager() {}
 	~SceneManager() { }
 
-	void ChangeScene(E_SCENE state);
+	Scene* ChangeScene(E_SCENE state);
 };
 

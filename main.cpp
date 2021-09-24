@@ -105,7 +105,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 				}
 				break;
 			case 1:
-				g_mainGame.SetIsSecTimer(true);
 				break;
 		}
 	case WM_PAINT:		// 윈도우 화면이 다시 그려지는 경우 발생하는 메시지
@@ -120,5 +119,5 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return g_mainGame.MainProc(hWnd, iMessage, wParam, lParam);
+	return DefWindowProc(hWnd, iMessage, wParam, lParam);
 }

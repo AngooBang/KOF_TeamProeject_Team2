@@ -1,4 +1,5 @@
 #pragma once
+#include "Config.h"
 class Scene
 {
 public:
@@ -8,7 +9,7 @@ public:
 public:
 	void Init();
 	void Update();
-	void Render();
+	void Render(HDC hdc);
 	void Release();
 };
 
