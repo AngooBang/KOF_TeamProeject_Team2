@@ -8,6 +8,7 @@
 #include "Timer.h"
 #include "Mary.h"
 #include "UI.h"
+#include "Map.h"
 
 
 
@@ -39,6 +40,8 @@ void MainGame::Init()
 	{
 		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
 	}
+	map = new Map;
+	map->Init();
 
 	terry = new Terry;
 	terry->Init();
@@ -55,9 +58,10 @@ void MainGame::Update()
 	terry->Update();
 	mary->Update();
 	HP->Update();
-
+	map->Update();
 	if (isSecTimer)
 	{
+		
 		if (HP->GetIsAlive() == true)
 		{
 			roundTimer->Update();
@@ -80,7 +84,7 @@ void MainGame::Render(HDC hdc)
 	//wsprintf(text, "MousePosY : %d", mousePosY);
 	//TextOut(hBackBufferDC, 200, 40, text, strlen(text));
 
-
+	map->Render(hBackBufferDC);
 
 	terry->Render(hBackBufferDC);
 	mary->Render(hBackBufferDC);
@@ -97,6 +101,8 @@ void MainGame::Release()
 	SAFE_RELEASE(backBuffer);
 
 	SAFE_RELEASE(backGround);
+
+	SAFE_RELEASE(map);
 
 	SAFE_RELEASE(HP);
 
