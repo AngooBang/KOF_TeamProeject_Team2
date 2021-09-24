@@ -156,7 +156,6 @@
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Terry.cpp" />
-    <ClCompile Include="TFactory.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
@@ -180,7 +179,6 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="Terry.h" />
-    <ClInclude Include="TFactory.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>

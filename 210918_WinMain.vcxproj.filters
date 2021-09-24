@@ -90,9 +90,6 @@
     <ClCompile Include="SelectScene.cpp">
       <Filter>2D Framework\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="TFactory.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>MainGame\Map</Filter>
     </ClCompile>
@@ -157,9 +154,6 @@
     </ClInclude>
     <ClInclude Include="SelectScene.h">
       <Filter>2D Framework\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TFactory.h">
-      <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>MainGame\Map</Filter>

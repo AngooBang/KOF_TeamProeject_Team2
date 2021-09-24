@@ -1,5 +1,4 @@
 #include "SceneManager.h"
-#include "TFactory.h"
 #include "StartScene.h"
 #include "SelectScene.h"
 #include "FightScene.h"
