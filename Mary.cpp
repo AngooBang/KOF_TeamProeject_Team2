@@ -5,28 +5,20 @@
 void Mary::Init()
 {
 	img = new Image[Action::END];
-
 	isAlive = true;
-	isMoveLeft = isMoveRight = isStatus = isHit = false;
-	maxFrame = 12;
+	istest = isMoveLeft = isMoveRight = isStatus = isHit = false;
+	maxFrame = 7;
 	hp = 100;
-
-	//fileName = "Image/Mary/Mary_Basic.bmp";
-	//strcpy_s(ch, fileName.c_str());
-	////img->Init("Image/Iori_walk.bmp", 612, 104, 9, 1, true, RGB(255, 0, 255), true);
-	//img->Init(ch, 771, 120, maxFrame, 1, true, RGB(0, 102, 0));
 
 	img[Action::Basic].Init("Image/Mary/Mary_Basic.bmp", 771, 120, 12, 1, true, RGB(0, 102, 0));
 	img[Action::fMove].Init("Image/Mary/Mary_Forward.bmp", 501, 155, 8, 1, true, RGB(0, 102, 0));
 	img[Action::bMove].Init("Image/Mary/Mary_BackWard.bmp", 430, 125, 7, 1, true, RGB(0, 102, 0));
 	img[Action::sHand].Init("Image/Mary/Mary_sAttack.bmp", 228, 125, 3, 1, true, RGB(0, 102, 0));
-	img[Action::bHand].Init("Image/Mary/Mary_bAttack.bmp", 379, 129, 5,1, true, RGB(0, 102, 0));
+	img[Action::bHand].Init("Image/Mary/Mary_bAttack.bmp", 379, 129, 5, 1, true, RGB(0, 102, 0));
 	img[Action::sKick].Init("Image/Mary/Mary_sKick.bmp", 441, 133, 6, 1, true, RGB(0, 102, 0));
 	img[Action::bKick].Init("Image/Mary/Mary_bKick.bmp", 786, 123, 10, 1, true, RGB(0, 102, 0));
 	img[Action::sHit].Init("Image/Mary/Mary_Hit.bmp", 432, 125, 5, 1, true, RGB(0, 102, 0));
 	img[Action::bHit].Init("Image/Mary/Mary_bHit.bmp", 409, 125, 5, 1, true, RGB(0, 102, 0));
-
-	/*img->ReverseImg();*/
 
 	img[Action::Basic].ReverseImg();
 	img[Action::fMove].ReverseImg();
@@ -38,31 +30,20 @@ void Mary::Init()
 	img[Action::sHit].ReverseImg();
 	img[Action::bHit].ReverseImg();
 
-
-
-
-
-
-
-
-	walkFrameX[0] = 0,	walkFrameX[1] = 60, walkFrameX[2] = 122, walkFrameX[3] = 184,
-	walkFrameX[4] = 246, walkFrameX[5] = 311, walkFrameX[6] = 375, walkFrameX[7] = 440,
-	walkFrameX[8] = 506, walkFrameX[9] = 574, walkFrameX[10] = 642, walkFrameX[11] = 706, walkFrameX[maxFrame] = 771;
-
 	frameX = frameY = 0;
+
+	KeyEvent(0);
+
 	elapsedCount = 0;
 
-	action = Action::Basic;
-
-	pos.x = 800;
+	pos.x = 400;
 	pos.y = WIN_SIZE_Y / 2;
 	moveSpeed = 10;
-	
-	bodySizeY = 120;
 
+	bodySizeY = 120;
 	for (int i = 0; i < maxFrame; i++)
 	{
-		bodySizeX = walkFrameX[i + 1] - walkFrameX[i];
+		bodySizeX = actionFrameX[i + 1] - actionFrameX[i];
 		shape.left = pos.x - (bodySizeX / 2);
 		shape.right = pos.x + (bodySizeX / 2);
 		shape.top = pos.y - (bodySizeY / 2);
@@ -71,134 +52,79 @@ void Mary::Init()
 
 	ammo = new Ammo;
 	ammo->Init();
+
 }
+
+
 
 void Mary::Update()
 {
+
+	//ProcessInputKey();
+	//if (inputKey)
+	//{
+	//	KeyEvent(inputKey);
+	//	inputKey = 0;
+	//	isMove = false;
+	//	
+	//}
+	/*if (isHit)
+	{
+		isHit = false;
+		KeyEvent('Z');
+		isStatus = true;
+	}*/
 	if (isHit)
 	{
-		hp--;
-		isHit = false;
-		KeyEvent(7);
-		isStatus = true;
-		ammo->SetIsAlive(false);
+		KeyEvent('C');
 	}
 
-	if (isStatus)
+	if (!isStatus)
 	{
-		frameX++;
-		if (frameX >= maxFrame)
-		{
-			frameX = 0;
-			isStatus = false;
-			KeyEvent(0);
-		}
+		ProcessInputKey();
 	}
-	else if (isMoveRight)
+	if (isMove)
 	{
-		if (!KeyManager::GetSingleton()->IsStayKeyDown('L'))
-		{
-			isMoveRight = false;
-			KeyEvent(0);
-		}
-		frameX++;
-		pos.x += moveSpeed;
-		if (frameX >= maxFrame)
-		{
-			frameX = 0;
-		}
-		for (int i = 0; i < maxFrame; i++)
-		{
-			bodySizeX = walkFrameX[i + 1] - walkFrameX[i];
-			shape.left = pos.x - (bodySizeX / 2);
-			shape.right = pos.x + (bodySizeX / 2);
-			shape.top = pos.y - (bodySizeY / 2);
-			shape.bottom = pos.y + (bodySizeY / 2);
-		}
-	}
-	else if (isMoveLeft)
-	{
-		if (!KeyManager::GetSingleton()->IsStayKeyDown('J'))
-		{
-			isMoveLeft = false;
-			KeyEvent(0);
-		}
-		frameX--;
-		pos.x -= moveSpeed;
-		if (frameX <= 0)
-		{
-			frameX = maxFrame - 1;
-		}
-		for (int i = 0; i < maxFrame; i++)
-		{
-			bodySizeX = walkFrameX[i + 1] - walkFrameX[i];
-			shape.left = pos.x - (bodySizeX / 2);
-			shape.right = pos.x + (bodySizeX / 2);
-			shape.top = pos.y - (bodySizeY / 2);
-			shape.bottom = pos.y + (bodySizeY / 2);
-		}
+		MoveToFrame();
 	}
 	else
 	{
-		frameX++;
-		
-		if (frameX >= maxFrame)
-		{
-			frameX = 0;
-		}
-
-		if (KeyManager::GetSingleton()->IsStayKeyDown('L'))	//앞으로(2p는 반대)
-		{
-			KeyEvent(2);
-			isMoveRight = true;
-		}
-		else if (KeyManager::GetSingleton()->IsStayKeyDown('J'))	//뒤로(2p는 반대)
-		{
-			KeyEvent(1);
-			isMoveLeft = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('D'))	//강발
-		{
-			KeyEvent(3);
-			isStatus = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('F'))	//약발
-		{
-			KeyEvent(4);
-			isStatus = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('E'))	//강손
-		{
-			KeyEvent(5);
-			isStatus = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('R'))	//약손
-		{
-			KeyEvent(6);
-			isStatus = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('C'))	//1피격
-		{
-			KeyEvent(7);
-			isStatus = true;
-		}
-		else if (KeyManager::GetSingleton()->IsOnceKeyDown('V'))	//2피격
-		{
-			KeyEvent(8);
-			isStatus = true;
-		}
+		NextFrame(true);
 	}
+
+	/*if(!isStatus)
+	ProcessInputKey();
+
+	if (inputKey)
+	{
+		KeyEvent(inputKey);
+		inputKey = 0;
+	}
+	else
+		KeyEvent(0);
+
+	MoveToFrame();
+
+	if(isStatus || !isMove)
+		NextFrame(true);*/
+
+
+
+	SetBodySize();
+
 	ammo->Update();
-	// 앞으로 움직이기
 }
 
 void Mary::Render(HDC hdc)
 {
-	Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
+	//Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
+
 	if (img)
 	{
-		img[action].Render2P(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
+		img[action].Render2P(hdc, pos.x, pos.y, frameX, frameY, actionFrameX);
 	}
+
+
 	ammo->Render(hdc);
 }
 
@@ -206,104 +132,231 @@ void Mary::Release()
 {
 	if (img)
 	{
-		delete[] img;
+		delete img;
 		img = nullptr;
 	}
 	ammo->Release();
 }
 
-void Mary::KeyEvent(int a)
+void Mary::KeyEvent(char inputKey)
 {
-	switch (a)
+	switch (inputKey)
 	{
-	case 0:		//기본자세
-		action = Action::Basic;
-		maxFrame = 12;
-		walkFrameX[0] = 0, walkFrameX[1] = 60, walkFrameX[2] = 122, walkFrameX[3] = 184,
-			walkFrameX[4] = 246, walkFrameX[5] = 311, walkFrameX[6] = 375, walkFrameX[7] = 440,
-			walkFrameX[8] = 506, walkFrameX[9] = 574, walkFrameX[10] = 642, walkFrameX[11] = 706, walkFrameX[maxFrame] = 771;
+	case 'J':		//앞으로
+		if (!isMove)
+		{
+			action = Action::fMove;
+			maxFrame = 8;
+			actionFrameX[0] = 0;	actionFrameX[1] = 59, actionFrameX[2] = 115, actionFrameX[3] = 180,
+				actionFrameX[4] = 248, actionFrameX[5] = 315, actionFrameX[6] = 381, actionFrameX[7] = 441, actionFrameX[maxFrame] = 501;
+			frameX = 0;
+			isMove = true;
+		}
 		break;
-	case 1:		//앞으로(2p반대)
-		action = Action::fMove;
-		maxFrame = 8;
-		walkFrameX[0] = 0;	walkFrameX[1] = 59, walkFrameX[2] = 115, walkFrameX[3] = 180,
-			walkFrameX[4] = 248, walkFrameX[5] = 315, walkFrameX[6] = 381, walkFrameX[7] = 441, walkFrameX[maxFrame] = 501;
-		frameX = 0;
+	case 'L':		//뒤로
+		if (!isMove)
+		{
+			action = Action::bMove;
+			maxFrame = 7;
+			actionFrameX[0] = 0;	actionFrameX[1] = 66, actionFrameX[2] = 130, actionFrameX[3] = 195,
+				actionFrameX[4] = 255, actionFrameX[5] = 314, actionFrameX[6] = 373, actionFrameX[maxFrame] = 430;
+			frameX = 0;
+			isMove = true;
+		}
 		break;
-	case 2:		//뒤로(2p반대)
-		action = Action::bMove;
-		maxFrame = 7;
-		walkFrameX[0] = 0;	walkFrameX[1] = 66, walkFrameX[2] = 130, walkFrameX[3] = 195,
-			walkFrameX[4] = 255, walkFrameX[5] = 314, walkFrameX[6] = 373, walkFrameX[maxFrame] = 430;
-		frameX = 0;
-		break;
-	case 3:		//강발
+	case 'D':		//강발
 		action = Action::bKick;
 		maxFrame = 10;
-		walkFrameX[0] = 0;	walkFrameX[1] = 65, walkFrameX[2] = 133, walkFrameX[3] = 205,
-			walkFrameX[4] = 285, walkFrameX[5] = 395, walkFrameX[6] = 505, walkFrameX[7] = 583,
-				walkFrameX[8] = 655, walkFrameX[9] = 722, walkFrameX[maxFrame] = 786;
+		actionFrameX[0] = 0;	actionFrameX[1] = 65, actionFrameX[2] = 133, actionFrameX[3] = 205,
+			actionFrameX[4] = 285, actionFrameX[5] = 395, actionFrameX[6] = 505, actionFrameX[7] = 583,
+			actionFrameX[8] = 655, actionFrameX[9] = 722, actionFrameX[maxFrame] = 786;
 		frameX = 0;
+		isMove = false;
+		isStatus = true;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(10);
 		ammo->SetMaryFire(true);
 		ammo->SetMaxFrame(4);
 		break;
-	case 4:		//약발
+	case 'F':		//약발
 		action = Action::sKick;
 		maxFrame = 6;
-		walkFrameX[0] = 0;	walkFrameX[1] = 87, walkFrameX[2] = 160, walkFrameX[3] = 235,
-			walkFrameX[4] = 305, walkFrameX[5] = 373, walkFrameX[maxFrame] = 441;
+		actionFrameX[0] = 0;	actionFrameX[1] = 87, actionFrameX[2] = 160, actionFrameX[3] = 235,
+			actionFrameX[4] = 305, actionFrameX[5] = 373, actionFrameX[maxFrame] = 441;
 		frameX = 0;
+		isMove = false;
+		isStatus = true;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(10);
 		ammo->SetMaryFire(true);
 		ammo->SetMaxFrame(3);
 		break;
-	case 5:		//강손
+	case 'E':		//강손
 		action = Action::bHand;
 		maxFrame = 5;
-		walkFrameX[0] = 0;	walkFrameX[1] = 81, walkFrameX[2] = 154, walkFrameX[3] = 242,
-			walkFrameX[4] = 315, walkFrameX[maxFrame] = 379;
+		actionFrameX[0] = 0;	actionFrameX[1] = 81, actionFrameX[2] = 154, actionFrameX[3] = 242,
+			actionFrameX[4] = 315, actionFrameX[maxFrame] = 379;
 		frameX = 0;
+		isMove = false;
+		isStatus = true;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(15);
 		ammo->SetMaryFire(true);
 		ammo->SetMaxFrame(3);
 		break;
-	case 6:		//약손
+	case 'R':		//약손
 		action = Action::sHand;
 		maxFrame = 3;
-		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 155, walkFrameX[maxFrame] = 228;
+		actionFrameX[0] = 0;	actionFrameX[1] = 85, actionFrameX[2] = 155, actionFrameX[maxFrame] = 228;
 		frameX = 0;
+		isMove = false;
+		isStatus = true;
 		ammo->SetIsAlive(true);
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(10);
 		ammo->SetMaryFire(true);
 		ammo->SetMaxFrame(2);
 		break;
-	case 7:		//1피격
+		break;
+	case 'C':		//1피격
 		action = Action::sHit;
 		maxFrame = 5;
-		walkFrameX[0] = 0;	walkFrameX[1] = 85, walkFrameX[2] = 155,
-			walkFrameX[3] = 243, walkFrameX[4] = 343, walkFrameX[maxFrame] = 432;
+		actionFrameX[0] = 0;	actionFrameX[1] = 85, actionFrameX[2] = 155,
+			actionFrameX[3] = 243, actionFrameX[4] = 343, actionFrameX[maxFrame] = 432;
 		frameX = 0;
+		isHit = false;
+		isMove = false;
+		isStatus = true;
 		break;
-	case 8:		//2피격
+	case 'V':		//2피격
 		action = Action::bHit;
 		maxFrame = 5;
-		walkFrameX[0] = 0;	walkFrameX[1] = 78, walkFrameX[2] = 154,
-			walkFrameX[3] = 236, walkFrameX[4] = 323, walkFrameX[maxFrame] = 409;
+		actionFrameX[0] = 0;	actionFrameX[1] = 78, actionFrameX[2] = 154,
+			actionFrameX[3] = 236, actionFrameX[4] = 323, actionFrameX[maxFrame] = 409;
+		frameX = 0;
+		isMove = false;
+		isStatus = true;
+		break;
+	case 0:	//기본자세
+		action = Action::Basic;
+		maxFrame = 12;
+		actionFrameX[0] = 0, actionFrameX[1] = 60, actionFrameX[2] = 122, actionFrameX[3] = 184,
+			actionFrameX[4] = 246, actionFrameX[5] = 311,actionFrameX[6] = 375, actionFrameX[7] = 440,
+			actionFrameX[8] = 506, actionFrameX[9] = 574,actionFrameX[10] = 642, actionFrameX[11] = 706, actionFrameX[maxFrame] = 771;
 		frameX = 0;
 		break;
 
 
 	}
-
-
-
-
 }
+
+
+void Mary::SetBodySize()
+{
+	for (int i = 0; i < maxFrame; i++)
+	{
+		bodySizeX = actionFrameX[i + 1] - actionFrameX[i];
+		shape.left = pos.x - (bodySizeX / 2);
+		shape.right = pos.x + (bodySizeX / 2);
+		shape.top = pos.y - (bodySizeY / 2);
+		shape.bottom = pos.y + (bodySizeY / 2);
+	}
+}
+
+void Mary::MoveToFrame()
+{
+	switch (action)
+	{
+	case Action::fMove:
+	{
+		if (!KeyManager::GetSingleton()->IsStayKeyDown('J') || isStatus)
+		{
+			isMove = false;
+			KeyEvent(0);
+		}
+		pos.x -= moveSpeed;
+		NextFrame(true);
+	}break;
+	case Action::bMove:
+	{
+		if (!KeyManager::GetSingleton()->IsStayKeyDown('L') || isStatus)
+		{
+			isMove = false;
+			KeyEvent(0);
+		}
+		pos.x += moveSpeed;
+		NextFrame(false);
+	}break;
+	}
+}
+
+void Mary::ProcessInputKey()
+{
+	
+	if (KeyManager::GetSingleton()->IsStayKeyDown('J'))
+	{
+		KeyEvent('J');
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown('L'))
+	{
+		KeyEvent('L');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('D'))	//강발
+	{
+		KeyEvent('D');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('F'))	//약발
+	{
+		KeyEvent('F');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('E'))	//강손
+	{
+		KeyEvent('E');
+	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown('R'))	//약손
+	{
+		KeyEvent('R');
+	}
+	//if (isHit)	//1피격
+	//{
+	//	KeyEvent('C');
+	//}
+	//if (KeyManager::GetSingleton()->IsOnceKeyDown('V'))	//2피격
+	//{
+	//	KeyEvent('V');
+	//}
+
+	/*if (!KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+	{
+		inputKey = 0;
+	}*/
+}
+
+void Mary::NextFrame(bool b)
+{
+	if (b)
+	{
+		frameX++;
+		if (frameX >= maxFrame)
+		{
+			frameX = 0;
+			isStatus = false;
+			if (!isMove)
+			{
+				KeyEvent(0);
+			}
+		}
+	}
+	else
+	{
+		frameX--;
+		if (frameX <= 0)
+		{
+			frameX = maxFrame - 1;
+		}
+	}
+}
+

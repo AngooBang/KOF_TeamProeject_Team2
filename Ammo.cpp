@@ -12,8 +12,8 @@ void Ammo::Init()
 
 	img[Action::fMove].Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
 
-	walkFrameX[0] = 0;	walkFrameX[1] = 60, walkFrameX[2] = 120, walkFrameX[3] = 180,
-		walkFrameX[4] = 250, walkFrameX[5] = 327;
+	actionFrameX[0] = 0;	actionFrameX[1] = 60, actionFrameX[2] = 120, actionFrameX[3] = 180,
+		actionFrameX[4] = 250, actionFrameX[5] = 327;
 
 	action = Action::fMove;
 
@@ -25,50 +25,28 @@ void Ammo::Init()
 	shape.right = 0;
 	shape.bottom = 0;
 
-	frameX =  1;
+	frameX =  0;
 	frameY = maxFrame = 0;
 	terryFire = maryFire = false;
 }
 
 void Ammo::Update()
 {
-	if (isStatus)
+	if (isHit)
 	{
-		frameX++;
-		if (frameX == maxFrame)
-		{
-			isStatus = false;
-			frameX = 1;
-		}
+		NextFrame();
 	}
-
-	/*if (!isAlive)
-	{
-		frameX = 1;
-		return;
-	}*/
 
 	if (isAlive)
 	{
-		shape.left = pos.x - (bodySizeX / 2.0f);
-		shape.top = pos.y - (bodySizeX / 2.0f);
-		shape.right = pos.x + (bodySizeY / 2.0f);
-		shape.bottom = pos.y + (bodySizeY / 2.0f);
+		SetBodySize();
+		fireCheck();
 
-
-		if (terryFire)
+		/*if (terryFire)
 		{
-			if (CheckCollision())
-			{
-				isAlive = false;
-				terryFire = false;
-				maryTarget->SetHit(true);
-
-				isStatus = true;
-				frameX = 0;
-				maxFrame = 5;
-			}
-			else if (frameX < maxFrame)
+			fireCheck();
+			CheckCollision();
+			if (frameX < maxFrame)
 			{
 				frameX++;
 				pos.x += moveSpeed;
@@ -77,28 +55,28 @@ void Ammo::Update()
 			{
 				isAlive = false;
 				terryFire = false;
+				frameX = 0;
 			}
-			
-			if (maryFire)
-			{
-				if (CheckCollision())
-				{
-					isAlive = false;
-					maryFire = false;
-					terryTarget->SetHit(true);
-				}
-				if (frameX < maxFrame)
-				{
-					frameX++;
-					pos.x -= moveSpeed;
-				}
-				if (frameX == maxFrame)
-				{
-					isAlive = false;
-					terryFire = false;
-				}
-			}
+
 		}
+
+		if (maryFire)
+		{
+			fireCheck();
+			CheckCollision();
+			if (frameX < maxFrame)
+			{
+				frameX++;
+				pos.x -= moveSpeed;
+			}
+			else
+			{
+				maryFire = false;
+				terryFire = false;
+				frameX = 0;
+			}
+		}*/
+		
 	}
 	
 	
@@ -112,9 +90,9 @@ void Ammo::Render(HDC hdc)
 	{
 		Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	}
-	if (isStatus)
+	if (isHit)
 	{
-		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, walkFrameX);
+		img[action].Render(hdc, pos.x-20, pos.y, frameX, frameY, actionFrameX);
 	}
 }	 
 	 
@@ -123,33 +101,98 @@ void Ammo::Release()
 
 }
 
-bool Ammo::CheckCollision()
+void Ammo::fireCheck()
 {
-	if (!terryFire && !maryFire) return false;
-	
-	POINTFLOAT targetPos;
-	int targetBodySizeX, targetBodySizeY;
+	if (!terryFire && !maryFire) return;
 
 	if (terryFire)
 	{
 		targetPos = maryTarget->GetPos();
 		targetBodySizeX = maryTarget->GetBodySizeX();
-		//targetBodySizeY = maryTarget->GetBodySizeY();
-		if (shape.right >= targetPos.x - (targetBodySizeX / 2))
-		{
-			return true;
-		}
 	}
+
 	if (maryFire)
 	{
 		targetPos = terryTarget->GetPos();
 		targetBodySizeX = terryTarget->GetBodySizeX();
-		//targetBodySizeY = terryTarget->GetBodySizeY();
-		if (shape.left <= targetPos.x + (targetBodySizeX / 2))
+	}
+	CheckCollision();
+}
+
+bool Ammo::CheckCollision()
+{
+	if (terryFire)
+	{
+		if (shape.right >= targetPos.x - (targetBodySizeX / 2))
 		{
+			isAlive = false;
+			terryFire = false;
+			maryTarget->SetHit(true);
+
+			isHit = true;
+			frameX = 0;
+			maxFrame = 5;
 			return true;
 		}
+		if (frameX < maxFrame)
+		{
+			frameX++;
+			pos.x += moveSpeed;
+		}
+		else
+		{
+			isAlive = false;
+			terryFire = false;
+			frameX = 0;
+		}
 	}
+	if (maryFire)
+	{
+		if (shape.left <= targetPos.x + (targetBodySizeX / 2))
+		{
+			isAlive = false;
+			maryFire = false;
+			terryTarget->SetHit(true);
 
+			isHit = true;
+			frameX = 0;
+			maxFrame = 5;
+			return true;
+		}
+		if (frameX < maxFrame)
+		{
+			frameX++;
+			pos.x -= moveSpeed;
+		}
+		else
+		{
+			maryFire = false;
+			terryFire = false;
+			frameX = 0;
+		}
+	}
 	return false;
 }
+
+void Ammo::SetBodySize()
+{
+	for (int i = 0; i < maxFrame; i++)
+	{
+		shape.left = pos.x - (bodySizeX / 2);
+		shape.right = pos.x + (bodySizeX / 2);
+		shape.top = pos.y - (bodySizeY / 2);
+		shape.bottom = pos.y + (bodySizeY / 2);
+	}
+}
+
+
+void Ammo::NextFrame()
+{
+	frameX++;
+	if (frameX >= maxFrame)
+	{
+		isStatus = false;
+		frameX = 0;
+	}
+}
+

@@ -15,6 +15,10 @@ public:
 	void Render(HDC hdc);
 	void Release();
 
-	void KeyEvent(int a);
+	void ProcessInputKey();
+	void KeyEvent(char inputKey);
+	void SetBodySize();
+	void MoveToFrame();
+	void NextFrame(bool b);
 };
 

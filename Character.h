@@ -9,7 +9,7 @@ protected:
 	Image* img;
 	int frameX, frameY;
 	int elapsedCount;
-	int actionFrameX[15], maxFrame, walkFrameX[15];
+	int actionFrameX[15], maxFrame;
 	int hp;
 	bool isAlive, isStatus, isMoveRight, isMoveLeft, isHit, istest, isMove;
 	char ch[50];
