@@ -3,29 +3,25 @@
 #include "SelectScene.h"
 #include "FightScene.h"
 
-Scene* SceneManager::ChangeScene(E_SCENE state)
+void SceneManager::ChangeScene(E_SCENE state)
 {
-	SAFE_RELEASE(pScene);
 
 	switch (state)
 	{
 	case E_SCENE_START:
-		pScene = new StartScene();
-		pScene->Init();
-		return pScene;
+		sceneState = E_SCENE_START;
+		return;
 
 	case E_SCENE_SELECT:
-		pScene = new SelectScene();
-		pScene->Init();
-		return pScene;
+		sceneState = E_SCENE_SELECT;
+		return;
 
 	case E_SCENE_FIGHT:
-		pScene = new FightScene();
-		pScene->Init();
-		return pScene;
+		sceneState = E_SCENE_FIGHT;
+		return;
 
 	default:
-		return pScene;
+		return;
 
-	}
+	};
 }

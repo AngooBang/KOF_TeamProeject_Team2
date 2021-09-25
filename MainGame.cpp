@@ -2,6 +2,9 @@
 #include "Singleton.h"
 #include "KeyManager.h"
 #include "SceneManager.h"
+#include "StartScene.h"
+#include "SelectScene.h"
+#include "FightScene.h"
 #include "Scene.h"
 #include "Image.h"
 #include "Terry.h"
@@ -17,71 +20,67 @@ void MainGame::Init()
 	KeyManager::GetSingleton()->Init();
 
 	//씬 세팅
-	//SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
+	SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
+	startScene = new StartScene();
+	selectScene = new SelectScene();
+	fightScene = new FightScene();
 
 	// 타이머 셋팅
 	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 100, NULL);
 
 
+	// 백버퍼
+	backBuffer = new Image;
+	backBuffer->Init(WIN_SIZE_X, WIN_SIZE_Y);
 
-	//게임 타이머
-	roundTimer = new Timer;
-	roundTimer->Init();
 
-	// 배경 이미지
-	backGround = new Image;
-	if (!SUCCEEDED(backGround->Init("Image/mapImage.bmp", 1400, 933)))
+	switch (SceneManager::GetSingleton()->sceneState)
 	{
-		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
+	case E_SCENE_START:
+		startScene->Init();
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Init();
+			break;
+	case E_SCENE_FIGHT:
+		fightScene->Init();
+		break;
 	}
 
-	map = new Map;
-	map->Init();
-
-
-	terry = new Terry;
-	terry->Init();
-	mary = new Mary;
-	mary->Init();	
-
-	terry->ammo->SetTarget(mary);
-	mary->ammo->SetTarget(terry);
-
+}
 void MainGame::Update()
 {
-	//SceneManager::GetSingleton()->pScene->Update();
-
-	terry->Update();
-	mary->Update();
-	HP->Update();
-
-	map->Update();
-
-	if (isSecTimer)
+	switch (SceneManager::GetSingleton()->sceneState)
 	{
-		if (HP->GetIsAlive() == true)
-		{
-			roundTimer->Update();
-		}
-		isSecTimer = false;
+	case E_SCENE_START:
+		startScene->Update();
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Update();
+		break;
+	case E_SCENE_FIGHT:
+		fightScene->Update();
+		break;
 	}
 
-
+}
 void MainGame::Render(HDC hdc)
 {
-	//SceneManager::GetSingleton()->pScene->Render();
 
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
-	backGround->Render(hBackBufferDC);
-
-	map->Render(hBackBufferDC);
-
-	terry->Render(hBackBufferDC);
-	mary->Render(hBackBufferDC);
-
-	HP->Render(hBackBufferDC);
-	roundTimer->Render(hBackBufferDC);
+	switch (SceneManager::GetSingleton()->sceneState)
+	{
+	case E_SCENE_START:
+		startScene->Render(hBackBufferDC);
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Render(hBackBufferDC);
+		break;
+	case E_SCENE_FIGHT:
+		fightScene->Render(hBackBufferDC);
+		break;
+	}
 
 	backBuffer->Render(hdc);
 
@@ -89,20 +88,26 @@ void MainGame::Render(HDC hdc)
 
 void MainGame::Release()
 {
-	//SceneManager::GetSingleton()->pScene->Release();
+	switch (SceneManager::GetSingleton()->sceneState)
+	{
+	case E_SCENE_START:
+		startScene->Release();
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Release();
+		break;
+	case E_SCENE_FIGHT:
+		fightScene->Release();
+		break;
+	}
+
+
+	SAFE_RELEASE(startScene);
+	SAFE_RELEASE(selectScene);
+	SAFE_RELEASE(fightScene);
+
 	SAFE_RELEASE(backBuffer);
 
-	SAFE_RELEASE(backGround);
-
-	SAFE_RELEASE(map);
-
-	SAFE_RELEASE(HP);
-
-	SAFE_RELEASE(roundTimer);
-
-	SAFE_RELEASE(terry);
-
-	SAFE_RELEASE(mary);
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
 }

@@ -10,12 +10,22 @@ class Timer;
 class Terry;
 class Mary;
 class Map;
+class StartScene;
+class SelectScene;
+class FightScene;
+	
 class MainGame : public GameEntity
 {
 private:
 	// 타이머
 	HANDLE hTimer;
 
+	// 백버퍼
+	Image* backBuffer;
+
+	StartScene* startScene;
+	SelectScene* selectScene;
+	FightScene* fightScene;
 
 public:
 	void Init();

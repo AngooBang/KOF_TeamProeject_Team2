@@ -14,12 +14,7 @@
 void FightScene::Init()
 {
 
-	hSecTimer = (HANDLE)SetTimer(g_hWnd, 1, 1000, NULL);
-
-	// 백버퍼
-	backBuffer = new Image;
-	backBuffer->Init(WIN_SIZE_X, WIN_SIZE_Y);
-
+	//hSecTimer = (HANDLE)SetTimer(g_hWnd, 1, 1000, NULL);
 
 	// HP
 	HP = new UI;
@@ -30,11 +25,9 @@ void FightScene::Init()
 	roundTimer->Init();
 
 	// 배경 이미지
-	backGround = new Image;
-	if (!SUCCEEDED(backGround->Init("Image/mapImage.bmp", 1400, 933)))
-	{
-		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
-	}
+	backGround = new Image; 
+	backGround->Init("Image/mapImage.bmp", 1400, 933);
+
 	map = new Map;
 	map->Init();
 
@@ -69,25 +62,22 @@ void FightScene::Update()
 
 void FightScene::Render(HDC hdc)
 {
-	HDC hBackBufferDC = backBuffer->GetMemDC();
 
-	backGround->Render(hBackBufferDC);
+	backGround->Render(hdc);
 
-	map->Render(hBackBufferDC);
+	map->Render(hdc);
 
-	terry->Render(hBackBufferDC);
-	mary->Render(hBackBufferDC);
+	terry->Render(hdc);
+	mary->Render(hdc);
 
-	HP->Render(hBackBufferDC);
-	roundTimer->Render(hBackBufferDC);
+	HP->Render(hdc);
+	roundTimer->Render(hdc);
 
-	backBuffer->Render(hdc);
 }
 
 void FightScene::Release()
 {
 
-	SAFE_RELEASE(backBuffer);
 
 	SAFE_RELEASE(backGround);
 

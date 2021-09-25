@@ -8,7 +8,7 @@ void SelectScene::Update()
 {
 }
 
-void SelectScene::Render()
+void SelectScene::Render(HDC hdc)
 {
 }
 

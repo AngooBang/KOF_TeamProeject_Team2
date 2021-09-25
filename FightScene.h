@@ -1,6 +1,4 @@
 #pragma once
-#include "Scene.h"
-#include "Config.h"
 #include "GameEntity.h"
 
 class Image;
@@ -10,7 +8,7 @@ class Timer;
 class Terry;
 class Mary;
 class Map;
-class FightScene : public Scene
+class FightScene : GameEntity
 {
 private:
 	HANDLE hSecTimer;
@@ -19,8 +17,6 @@ private:
 	// UI
 	char text[128];
 
-	// 백버퍼
-	Image* backBuffer;
 
 	// 배경 이미지
 	Image* backGround;

@@ -151,7 +151,6 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mary.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="StartScene.cpp" />
@@ -173,7 +172,6 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mary.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SelectScene.h" />
     <ClInclude Include="Singleton.h" />

@@ -1,6 +1,7 @@
 #pragma once
-#include "Scene.h"
-class StartScene : public Scene
+#include "GameEntity.h"
+
+class StartScene : GameEntity
 {
 
 public:
@@ -9,7 +10,7 @@ public:
 
 	void Init();
 	void Update();
-	void Render();
+	void Render(HDC hdc);
 	void Release();
 };
 

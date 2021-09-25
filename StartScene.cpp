@@ -8,7 +8,7 @@ void StartScene::Update()
 {
 }
 
-void StartScene::Render()
+void StartScene::Render(HDC hdc)
 {
 }
 

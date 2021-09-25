@@ -1,13 +1,13 @@
 #pragma once
-#include "Scene.h"
-class SelectScene :
-    public Scene
+#include "GameEntity.h"
+
+class SelectScene : GameEntity
 {
 public:
 
 	void Init();
 	void Update();
-	void Render();
+	void Render(HDC hdc);
 	void Release();
 };
 
