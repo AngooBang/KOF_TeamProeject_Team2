@@ -104,10 +104,10 @@ void Terry::Update()
 
 void Terry::Render(HDC hdc)
 {
-	Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
+	//Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	if (img)
 	{
-		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, actionFrameX);
+		img[action].Render(hdc, pos.x, pos.y, frameX, frameY, actionFrameX[action]);
 	}
 	ammo->Render(hdc);
 }
@@ -160,7 +160,7 @@ void Terry::KeyEvent(char inputKey)
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(30);
 		ammo->SetTerryFire(true);
-		ammo->SetMaxFrame(3);
+		ammo->SetMaxFrame(2);
 		break;
 	case 'S':		//약발
 		action = Action::sKick;
@@ -174,7 +174,7 @@ void Terry::KeyEvent(char inputKey)
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(35);
 		ammo->SetTerryFire(true);
-		ammo->SetMaxFrame(3);
+		ammo->SetMaxFrame(2);
 		break;
 	case 'Q':		//강손
 		action = Action::bHand;
@@ -188,7 +188,7 @@ void Terry::KeyEvent(char inputKey)
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(20);
 		ammo->SetTerryFire(true);
-		ammo->SetMaxFrame(4);
+		ammo->SetMaxFrame(3);
 		break;
 	case 'W':		//약손
 		action = Action::sHand;
@@ -201,7 +201,7 @@ void Terry::KeyEvent(char inputKey)
 		ammo->SetPos(pos);
 		ammo->SetMoveSpeed(20);
 		ammo->SetTerryFire(true);
-		ammo->SetMaxFrame(3);
+		ammo->SetMaxFrame(2);
 		break;
 	case 'Z':		//1피격
 		action = Action::sHit;

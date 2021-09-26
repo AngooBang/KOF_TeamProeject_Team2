@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ammo.cpp" />
+    <ClCompile Include="HitBox.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="FightScene.cpp" />
     <ClCompile Include="GameEntity.cpp" />
@@ -160,7 +160,7 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ammo.h" />
+    <ClInclude Include="HitBox.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Config.h" />

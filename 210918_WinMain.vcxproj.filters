@@ -60,9 +60,6 @@
     <ClCompile Include="Character.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
-    <ClCompile Include="Terry.cpp">
-      <Filter>MainGame\KOF_Player</Filter>
-    </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>2D Framework\UI</Filter>
     </ClCompile>
@@ -72,10 +69,7 @@
     <ClCompile Include="Timer.cpp">
       <Filter>2D Framework\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Mary.cpp">
-      <Filter>MainGame\KOF_Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Ammo.cpp">
+    <ClCompile Include="HitBox.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -110,9 +104,6 @@
     <ClInclude Include="KeyManager.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
@@ -125,9 +116,6 @@
     <ClInclude Include="Character.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
-    <ClInclude Include="Terry.h">
-      <Filter>MainGame\KOF_Player</Filter>
-    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>2D Framework\UI</Filter>
     </ClInclude>
@@ -137,10 +125,13 @@
     <ClInclude Include="Timer.h">
       <Filter>2D Framework\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Mary.h">
+    <ClInclude Include="HitBox.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
-    <ClInclude Include="Ammo.h">
+    <ClInclude Include="TerryFrame.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MaryFrame.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">

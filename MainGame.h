@@ -7,6 +7,7 @@ class Image;
 class HPBar;
 class UI;
 class Timer;
+class Character;
 class Iori;
 class Terry;
 class Mary;
@@ -39,11 +40,8 @@ private:
 
 	Timer* roundTimer;
 
-	// ÀÌ¿À¸®
-	//Iori* ioriX;
-	//Iori** ioriY;
-	Terry* terry;
-	Mary* mary;
+	Character* player1;
+	Character* player2;
 
 	MoveDir moveDir;
 

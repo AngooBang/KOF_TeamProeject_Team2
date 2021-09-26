@@ -91,7 +91,6 @@ public:
 
 	void ReverseImg();
 
-
 	HDC GetMemDC() { if (imageInfo) return imageInfo->hMemDc; return NULL; }
 };
 

@@ -7,14 +7,15 @@ class Timer;
 class UI : public GameObject
 {
 private:
-	HPBar* p1HP;
-	HPBar* p2HP;
 
 	Timer* roundTime;
 
 	bool isAlive;
 
 public:
+
+	HPBar* p1HP;
+	HPBar* p2HP;
 	void Init();
 	void Update();
 	void Render(HDC hdc);
