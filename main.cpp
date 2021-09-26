@@ -120,5 +120,5 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return g_mainGame.MainProc(hWnd, iMessage, wParam, lParam);
+	return DefWindowProc(hWnd, iMessage, wParam, lParam);
 }

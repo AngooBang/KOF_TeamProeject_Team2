@@ -150,12 +150,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Mary.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="StartScene.cpp" />
-    <ClCompile Include="Terry.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
@@ -172,13 +170,11 @@
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="Mary.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SelectScene.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StartScene.h" />
-    <ClInclude Include="Terry.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>

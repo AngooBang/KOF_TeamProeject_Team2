@@ -8,9 +8,6 @@ class HPBar;
 class UI;
 class Timer;
 class Character;
-class Iori;
-class Terry;
-class Mary;
 class Map;
 class MainGame : public GameEntity
 {
@@ -52,7 +49,7 @@ public:
 	void Render(HDC hdc);	// 오버로딩
 	void Release();
 
-	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
+	//LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 	void SetIsSecTimer(bool isSecTimer) { this->isSecTimer = isSecTimer; }
 
 	inline bool GetIsSecTimer() { return this->isSecTimer; }

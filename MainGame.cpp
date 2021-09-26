@@ -63,10 +63,6 @@ void MainGame::Init()
 	map->Init();
 
 
-	terry = new Terry;
-	terry->Init();
-	mary = new Mary;
-	mary->Init();	
 
 	//terry->ammo->SetTarget(mary);
 	//mary->ammo->SetTarget(terry);
@@ -108,8 +104,6 @@ void MainGame::Update()
 
 	//SceneManager::GetSingleton()->pScene->Update();
 
-	terry->Update();
-	mary->Update();
 	HP->Update();
 
 	/*if (player1->GetIsHit()==true)
@@ -144,21 +138,13 @@ void MainGame::Render(HDC hdc)
 
 	backGround->Render(hBackBufferDC);
 
-	wsprintf(text, "MousePosX : %d", mousePosX);
-	TextOut(hBackBufferDC, 400, 10, text, strlen(text));
-
-	wsprintf(text, "MousePosY : %d", mousePosY);
-	TextOut(hBackBufferDC, 400, 40, text, strlen(text));
-
+	map->Render(hBackBufferDC);
 
 	
 	player1->Render(hBackBufferDC);
 	
 	player2->Render(hBackBufferDC);
-	map->Render(hBackBufferDC);
 
-	terry->Render(hBackBufferDC);
-	mary->Render(hBackBufferDC);
 
 	HP->Render(hBackBufferDC);
 	roundTimer->Render(hBackBufferDC);
@@ -188,34 +174,31 @@ void MainGame::Release()
 	KillTimer(g_hWnd, 1);
 }
 
-
-LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
-{
-	switch (iMessage)
-	{
-	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case VK_SPACE:
-		
-			break;
-		case VK_UP:
-			
-			break;
-		case VK_DOWN:
-		
-			break;
-		case VK_LEFT:
-		
-			break;
-		case VK_RIGHT:
-			
-			break;
-		}
-		break;
-	case WM_MOUSEMOVE:
-		mousePosX = LOWORD(lParam);
-		mousePosY = HIWORD(lParam);
-	}
-	return DefWindowProc(hWnd, iMessage, wParam, lParam);
-}
+//
+//LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+//{
+//	switch (iMessage)
+//	{
+//	case WM_KEYDOWN:
+//		switch (wParam)
+//		{
+//		case VK_SPACE:
+//
+//			break;
+//		case VK_UP:
+//
+//			break;
+//		case VK_DOWN:
+//
+//			break;
+//		case VK_LEFT:
+//
+//			break;
+//		case VK_RIGHT:
+//
+//			break;
+//		}
+//		break;
+//	}
+//	return DefWindowProc(hWnd, iMessage, wParam, lParam);
+//}
