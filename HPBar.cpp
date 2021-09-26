@@ -19,7 +19,7 @@ void HPBar::Init()
 	pos.x = 0;
 	pos.y = 0;
 
-	HP = 400;
+	hp = 400;
 	lostHP = 0;
 	damage = 50;
 
@@ -35,7 +35,7 @@ void HPBar::Update()
 		if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))//hitP1
 		{
 			lostHP += damage;
-			HP -= damage;
+			hp -= damage;
 		}
 	}
 	if (player2)
@@ -43,11 +43,11 @@ void HPBar::Update()
 		if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))//hitP2
 		{
 			lostHP += damage;
-			HP -= damage;
+			hp -= damage;
 		}
 	}
 
-	if (HP <= 0)
+	if (hp <= 0)
 	{
 		isAlive = false;
 	}
@@ -80,25 +80,9 @@ void HPBar::Render(HDC hdc)
 
 void HPBar::Release()
 {
-	if (HPBarFrame)
-	{
-		delete HPBarFrame;
-		HPBarFrame = nullptr;
-	}
-	if (HPBar)
-	{
-		delete HPBar;
-		HPBar = nullptr;
-	}
-	if (Portrait)
-	{
-		delete HPBar;
-		HPBar = nullptr;
-	}
-	if (KO)
-	{
-		delete KO;
-		KO = nullptr;
-	}
+	SAFE_RELEASE(HPBarFrame);
+	SAFE_RELEASE(HPBar);
+	SAFE_RELEASE(Portrait);
+	SAFE_RELEASE(KO);
 
 }

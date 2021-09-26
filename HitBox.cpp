@@ -13,19 +13,17 @@ void HitBox::Init()
 
 	actionFrameX[0] = 0;	actionFrameX[1] = 60, actionFrameX[2] = 120, actionFrameX[3] = 180,
 		actionFrameX[4] = 250, actionFrameX[5] = 327;
+	
 
-	targetPos = target->GetPos();
-
-	bodySizeX = 15;
-	bodySizeY = 15;
-
-	shape.left = 0;
+	/*shape.left = 0;
 	shape.top = 0;
 	shape.right = 0;
-	shape.bottom = 0;
+	shape.bottom = 0;*/
 
-	frameX =  0;
-	frameY = maxFrame = 0;
+	bodySizeX = 30;
+
+	 
+	 maxFrame = frameX = 0;
 }
 
 void HitBox::Update()
@@ -38,8 +36,22 @@ void HitBox::Update()
 	if (isAlive)
 	{
 		SetBodySize();
+		CheckCollision();
+		maxFrame;
+		/*targetPos = target->GetPos();
+
+		if (frameX <= maxFrame)
+		{
+			pos.x += moveSpeed;
+			frameX++;
+			SetBodySize();
+		}
+		else
+		{
+			isAlive = false;
+			frameX = 0;
+		}*/
 	}
-	
 	
 }
 	 
@@ -55,6 +67,10 @@ void HitBox::Render(HDC hdc)
 	{
 		img->Render(hdc, pos.x-20, pos.y, frameX, frameY, actionFrameX);
 	}
+	/*if (guard)
+	{
+		guardImg(renadfmakflsf; lasadk;lsakfdlka)
+	}*/
 }	 
 	 
 void HitBox::Release()
@@ -71,12 +87,17 @@ void HitBox::CheckCollision()
 	//	object1.top < object2.bottom &&
 	//	object1.right > object2.left &&
 	//	object1.bottom > object2.top)
+	targetPos = target->GetPos();
 
 	if (shape.left < targetPos.x + (target->GetBodySizeX() / 2) && shape.top < targetPos.y + (target->GetBodySizeY() / 2)
 		&& shape.right > targetPos.x - (target->GetBodySizeX() / 2) && shape.bottom > targetPos.y - (target->GetBodySizeY() / 2))	// 충돌 조건
 	{
 		isAlive = false;
 		isHit = true;
+		
+		target->SetIsHit(true);
+		target->SetHitMotion(hitMotion);
+		
 		frameX = 0;
 		maxFrame = 5;
 		return ;
@@ -116,8 +137,8 @@ void HitBox::SetBodySize()
 	{
 		shape.left = pos.x - (bodySizeX / 2);
 		shape.right = pos.x + (bodySizeX / 2);
-		shape.top = pos.y - (bodySizeY / 2);
-		shape.bottom = pos.y + (bodySizeY / 2);
+		shape.top = pos.y - (bodySizeX / 2);
+		shape.bottom = pos.y + (bodySizeX / 2);
 	}
 }
 

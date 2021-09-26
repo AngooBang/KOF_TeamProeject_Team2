@@ -28,7 +28,7 @@ void MainGame::Init()
 	// HP
 	HP = new UI;
 	HP->Init();
-
+	
 	//게임 타이머
 	roundTimer = new Timer;
 	roundTimer->Init();
@@ -45,13 +45,13 @@ void MainGame::Init()
 
 	player1->SetPlayerNum(1);
 	player2->SetPlayerNum(2);
-	player1->SetCharacterType(CharacterType::Terry);
-	player2->SetCharacterType(CharacterType::Mary);
+	player1->SetCharacterType(CharacterType::Mary);
+	player2->SetCharacterType(CharacterType::Terry);
 	player1->Init();
 	player2->Init();
 
-	player1->hitBox->SetTarget(player2);
 	player2->hitBox->SetTarget(player1);
+	player1->hitBox->SetTarget(player2);
 
 	//terry = new Terry;
 	//terry->Init();
@@ -65,9 +65,48 @@ void MainGame::Init()
 
 void MainGame::Update()
 {
+
+	
 	player1->Update();
-	player2->Update();
+
+	if (player2->GetIsHit())
+	{
+		switch (player2->GetHitMotion())
+		{
+		case HitMotion::Small:
+			HP->p2HP->DamageToHp(20);
+			break;
+		case HitMotion::Big:
+			HP->p2HP->DamageToHp(50);
+			break;
+		}
+	}
+
+	player2->Update(); 
+	if (player1->GetIsHit()) // 1p가 맞음
+	{
+		switch (player1->GetHitMotion())
+		{
+		case HitMotion::Small:
+			HP->p1HP->DamageToHp(20);
+			break;
+		case HitMotion::Big:
+			HP->p1HP->DamageToHp(50);
+			break;
+		}
+	}
+
 	HP->Update();
+
+	/*if (player1->GetIsHit()==true)
+	{
+		player1->Update();
+	}
+	if(player2->GetIsHit()==true)
+	{
+		player2->Update();
+	}*/
+
 
 	if (isSecTimer)
 	{
@@ -87,15 +126,16 @@ void MainGame::Render(HDC hdc)
 
 	backGround->Render(hBackBufferDC);
 
-	//wsprintf(text, "MousePosX : %d", mousePosX);
-	//TextOut(hBackBufferDC, 200, 10, text, strlen(text));
+	wsprintf(text, "MousePosX : %d", mousePosX);
+	TextOut(hBackBufferDC, 400, 10, text, strlen(text));
 
-	//wsprintf(text, "MousePosY : %d", mousePosY);
-	//TextOut(hBackBufferDC, 200, 40, text, strlen(text));
+	wsprintf(text, "MousePosY : %d", mousePosY);
+	TextOut(hBackBufferDC, 400, 40, text, strlen(text));
 
 
-
+	
 	player1->Render(hBackBufferDC);
+	
 	player2->Render(hBackBufferDC);
 
 	HP->Render(hBackBufferDC);

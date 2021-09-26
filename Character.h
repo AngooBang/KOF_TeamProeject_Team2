@@ -44,6 +44,7 @@ protected:
 	//int* walkFrameX, fMoveFrameX[15], bMoveFrameX[15], sHandFrameX[15], bHandFrameX[15], sKickFrameX[15], bKickFrameX[15], sHitFrameX[15], bHitFrameX[15];
 
 	Action action;
+	HitMotion hitMotion;
 
 
 public:
@@ -62,12 +63,19 @@ public:
 	void SetBodySize();
 	void MoveToFrame();
 	void NextFrame();
+	void isFire();
+	void IsHit();
 
 	inline void SetCharacterType(CharacterType type) { this->characterType = type; }
 	inline void SetPlayerNum(int num) { this->playerNum = num; }
-	inline void SetHit(bool isHit) { this->isHit = isHit; }
+	inline void SetIsHit(bool isHit) { this->isHit = isHit; }
 
+
+	inline bool GetIsHit() { return this->isHit; }
 	inline int GetPlayerNum() { return this->playerNum; }
+
+	inline void SetHitMotion(HitMotion hitMotion) { this->hitMotion = hitMotion; }
+	inline HitMotion GetHitMotion() { return this->hitMotion; }
 
 
 

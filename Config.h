@@ -27,5 +27,7 @@ enum CharacterType { Terry, Mary, Iori, Kyo, End };
 
 enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, END };
 
+enum HitMotion { Small, Big };
+
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
