@@ -11,14 +11,17 @@ class Iori;
 class Terry;
 class Mary;
 class Map;
+class Intro;
 class MainGame : public GameEntity
 {
 private:
 	// 타이머
 	HANDLE hTimer;
 	HANDLE hSecTimer;
+	HANDLE hIntroTimer;
 
 	bool isSecTimer;
+	bool IntroTimer;
 	// UI
 	char text[128];
 
@@ -29,6 +32,8 @@ private:
 
 	// 백버퍼
 	Image* backBuffer;
+
+	Intro* intro;
 
 	// 배경 이미지
 	Image* backGround;

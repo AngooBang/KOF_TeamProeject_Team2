@@ -12,7 +12,7 @@ void HPBar::Init()
 
 	Portrait = new Image;
 	Portrait->Init("Image/UI/player_portrait.bmp", 594, 146, 2, 1, true, RGB(255, 0, 255));
-
+	 
 	KO = new Image;
 	KO->Init("Image/UI/K.O..bmp", 450, 150, true, RGB(255, 0, 255));
 

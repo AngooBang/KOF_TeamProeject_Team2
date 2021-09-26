@@ -10,6 +10,7 @@
 #include "Mary.h"
 #include "UI.h"
 #include "Map.h"
+#include "Intro.h"
 
 void MainGame::Init()
 {
@@ -26,6 +27,10 @@ void MainGame::Init()
 	// 백버퍼
 	backBuffer = new Image;
 	backBuffer->Init(WIN_SIZE_X, WIN_SIZE_Y);
+
+	//Intro
+	intro = new Intro;
+	intro->Init();
 
 	// HP
 	HP = new UI;
@@ -60,6 +65,8 @@ void MainGame::Update()
 {
 	//SceneManager::GetSingleton()->pScene->Update();
 
+	intro->Update();
+	
 	terry->Update();
 	mary->Update();
 	HP->Update();
@@ -94,6 +101,8 @@ void MainGame::Render(HDC hdc)
 	HP->Render(hBackBufferDC);
 	roundTimer->Render(hBackBufferDC);
 
+	intro->Render(hBackBufferDC);
+
 	backBuffer->Render(hdc);
 
 }
@@ -114,6 +123,8 @@ void MainGame::Release()
 	SAFE_RELEASE(terry);
 
 	SAFE_RELEASE(mary);
+
+	SAFE_RELEASE(intro);
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
 	KillTimer(g_hWnd, 1);
