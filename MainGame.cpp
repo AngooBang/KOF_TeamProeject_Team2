@@ -88,11 +88,11 @@ void MainGame::Render(HDC hdc)
 
 	selectChar->Render(hBackBufferDC);
 
-	terry->Render(hBackBufferDC);
-	mary->Render(hBackBufferDC);
+	/*terry->Render(hBackBufferDC);
+	mary->Render(hBackBufferDC);*/
 
-	HP->Render(hBackBufferDC);
-	roundTimer->Render(hBackBufferDC);
+	/*HP->Render(hBackBufferDC);
+	roundTimer->Render(hBackBufferDC);*/
 
 	backBuffer->Render(hdc);
 

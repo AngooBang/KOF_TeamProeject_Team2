@@ -6,16 +6,26 @@
 class SelectCharater
 {
 private:
-	Image* SelectPlayer1;
+	Image* SelectBackground;
+
+	Image* SelectChar;
 	Image* SelectIconP;
+
 	Image* SelectCharframe;
 
-	Image* SelectPlayer2;
+	Image* SelectIconP2;
 
+	int elapsedtCount;
+
+	int selectCharFrameNum;
 	int selectCharFrameX;
-	int	selectCharFrameY;
+	int selectCharFrameX2;
+
+	int selectCharFramePos;
 
 	POINT SelectCharPos[2];
+
+	HANDLE hTimer;
 
 public:
 	void Init();
