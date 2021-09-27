@@ -20,7 +20,8 @@ void SelectCharater::Init()
 
 	SelectIconP2->Init("Image/SelectCharImage.bmp", 248 * 5, 52 * 5, 6, 1, true, RGB(240, 0, 240));
 
-	selectCharFrameNum = 0;
+	selectCharFrameNum1 = 0;
+	selectCharFrameNum2 = 0;
 	selectCharFrameX = 1;
 	selectCharFrameX2 = 3;
 
@@ -33,6 +34,11 @@ void SelectCharater::Init()
 	selectCharFramePos = 360;
 	
 	elapsedtCount = 0;
+
+	pressKey = _getch();
+
+	moveIcon1 = true;
+	moveIcon2 = true;
 }
 
 void SelectCharater::Update()
@@ -40,65 +46,83 @@ void SelectCharater::Update()
 	elapsedtCount++;
 	if (elapsedtCount > 4)
 	{
-		switch (selectCharFrameNum)
+		switch (selectCharFrameNum1)
 		{
 		case 0:
 			selectCharFrameX = 1;
-			selectCharFrameX2 = 3;
-			selectCharFrameNum = 1;
+			selectCharFrameNum1 = 1;
 			break;
 
 		case 1:
 			selectCharFrameX = 0;
+			selectCharFrameNum1 = 0;
+			break;
+		}
+
+		switch (selectCharFrameNum2)
+		{
+		case 0:
+			selectCharFrameX2 = 3;
+			selectCharFrameNum2 = 1;
+			break;
+
+		case 1:
 			selectCharFrameX2 = 2;
-			selectCharFrameNum = 0;
+			selectCharFrameNum2 = 0;
 			break;
 		}
 		elapsedtCount = 0;
 	}
 
-	if (KeyManager::GetSingleton()->IsOnceKeyDown('Q') ||
-		KeyManager::GetSingleton()->IsOnceKeyDown('W') ||
-		KeyManager::GetSingleton()->IsOnceKeyDown('A') ||
-		KeyManager::GetSingleton()->IsOnceKeyDown('S'))
-		{ selectCharFrameX = 1; }			//1P 캐릭터 선택시 아이콘 멈춤 수정 필요
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LCONTROL))
+		{
+			selectCharFrameX = 1;
+			selectCharFrameNum1 = 3;
+			moveIcon1 = false;
+		}
 
-	if (KeyManager::GetSingleton()->IsOnceKeyDown('E') ||
-		KeyManager::GetSingleton()->IsOnceKeyDown('R') ||
-		KeyManager::GetSingleton()->IsOnceKeyDown('D') ||
-		KeyManager::GetSingleton()->IsOnceKeyDown('F'))
-		{ selectCharFrameX2 = 3; }			//2P 캐릭터 선택시 아이콘 멈춤 수정 필요
-		
-	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_RIGHT))
-	{
-		SelectCharPos[0].x += 160;
-		if (SelectCharPos[0].x+10 == SelectCharPos[1].x) { SelectCharPos[0].x += 160; }
-		if (SelectCharPos[0].x > (370 + 160 * 3)) { SelectCharPos[0].x = 370; }
-		if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[0].x += 160; }
-	}
-	else if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LEFT))
-	{
-		SelectCharPos[0].x -= 160;
-		if (SelectCharPos[0].x+10 == SelectCharPos[1].x) { SelectCharPos[0].x -= 160; }
-		if (SelectCharPos[0].x < 370) { SelectCharPos[0].x = (370 + 160 * 3); }
-		if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[0].x -= 160; }
-	}
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
+		{ 
+			selectCharFrameX2 = 3;
+			selectCharFrameNum2 = 3;
+			moveIcon2 = false;
+		}
 
-	if (KeyManager::GetSingleton()->IsOnceKeyDown('L'))
+	if (moveIcon1 == true)
 	{
-		SelectCharPos[1].x += 160;
-		if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[1].x += 160; }
-		if (SelectCharPos[1].x > (380 + 160 * 3)) { SelectCharPos[1].x = 380; }
-		if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[1].x += 160; }
-	}
-	else if (KeyManager::GetSingleton()->IsOnceKeyDown('J'))
-	{
-		SelectCharPos[1].x -= 160;
-		if (SelectCharPos[1].x == SelectCharPos[0].x + 10) { SelectCharPos[1].x -= 160; }
-		if (SelectCharPos[1].x < 380) { SelectCharPos[1].x = (380 + 160 * 3); }
-		if (SelectCharPos[1].x == SelectCharPos[0].x + 10) { SelectCharPos[1].x -= 160; }
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_RIGHT))
+		{
+			SelectCharPos[0].x += 160;
+			if (SelectCharPos[0].x+10 == SelectCharPos[1].x) { SelectCharPos[0].x += 160; }
+			if (SelectCharPos[0].x > (370 + 160 * 3)) { SelectCharPos[0].x = 370; }
+			if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[0].x += 160; }
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LEFT))
+		{
+			SelectCharPos[0].x -= 160;
+			if (SelectCharPos[0].x+10 == SelectCharPos[1].x) { SelectCharPos[0].x -= 160; }
+			if (SelectCharPos[0].x < 370) { SelectCharPos[0].x = (370 + 160 * 3); }
+			if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[0].x -= 160; }
+		}
 	}
 
+	if (moveIcon2 == true)
+	{
+		if (KeyManager::GetSingleton()->IsOnceKeyDown('L'))
+		{
+			SelectCharPos[1].x += 160;
+			if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[1].x += 160; }
+			if (SelectCharPos[1].x > (380 + 160 * 3)) { SelectCharPos[1].x = 380; }
+			if (SelectCharPos[0].x + 10 == SelectCharPos[1].x) { SelectCharPos[1].x += 160; }
+		}
+		else if (KeyManager::GetSingleton()->IsOnceKeyDown('J'))
+		{
+			SelectCharPos[1].x -= 160;
+			if (SelectCharPos[1].x == SelectCharPos[0].x + 10) { SelectCharPos[1].x -= 160; }
+			if (SelectCharPos[1].x < 380) { SelectCharPos[1].x = (380 + 160 * 3); }
+			if (SelectCharPos[1].x == SelectCharPos[0].x + 10) { SelectCharPos[1].x -= 160; }
+		}
+	}
 }
 
 void SelectCharater::Render(HDC hdc)
