@@ -23,6 +23,8 @@ private:
 	// ¹é¹öÆÛ
 	Image* backBuffer;
 
+	E_SCENE playScene;
+
 	StartScene* startScene;
 	SelectScene* selectScene;
 	FightScene* fightScene;

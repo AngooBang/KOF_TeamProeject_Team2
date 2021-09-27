@@ -21,6 +21,8 @@ void MainGame::Init()
 
 	//¾À ¼¼ÆÃ
 	SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
+	playScene = SceneManager::GetSingleton()->sceneState;
+
 	startScene = new StartScene();
 	selectScene = new SelectScene();
 	fightScene = new FightScene();
@@ -50,6 +52,22 @@ void MainGame::Init()
 }
 void MainGame::Update()
 {
+	if (playScene != SceneManager::GetSingleton()->sceneState)
+	{
+		switch (SceneManager::GetSingleton()->sceneState)
+		{
+		case E_SCENE_START:
+			startScene->Init();
+			break;
+		case E_SCENE_SELECT:
+			selectScene->Init();
+			break;
+		case E_SCENE_FIGHT:
+			fightScene->Init();
+			break;
+		}
+		playScene = SceneManager::GetSingleton()->sceneState;
+	}
 	switch (SceneManager::GetSingleton()->sceneState)
 	{
 	case E_SCENE_START:
