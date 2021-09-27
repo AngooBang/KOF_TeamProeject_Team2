@@ -1,16 +1,19 @@
 #include "intro.h"
 #include "Image.h"
+#include "KeyManager.h"
 
 void Intro::Init()
 {
+	//인트로 바탕, 검은색 프레임
 	IntroBackground1 = new Image;
 	IntroBackground1->Init("Image/intro/introbackground.bmp", WIN_SIZE_X, WIN_SIZE_Y);
 
-	IntroWalking = new Image;
-	IntroWalking->Init("Image/intro/intro_1/intro_walking.bmp", 3200, 700, 8, 1, true, RGB(255, 0, 255));
-
 	IntroBackground2 = new Image;
 	IntroBackground2->Init("Image/intro/introbackground2.bmp", WIN_SIZE_X, 150);
+
+	//인트로1 캐릭터 걷는 장면
+	IntroWalking = new Image;
+	IntroWalking->Init("Image/intro/intro_1/intro_walking.bmp", 3200, 700, 8, 1, true, RGB(255, 0, 255));
 
 	WalkingWord = new Image;
 	WalkingWord->Init("Image/intro/intro_1/intro_words.bmp", 1800, 300, 4, 3, true, RGB(44, 106, 63));
@@ -18,18 +21,21 @@ void Intro::Init()
 	Wall = new Image;
 	Wall->Init("Image/intro/intro_1/walking_background.bmp", WIN_SIZE_X * 5, 600, 3, 1, true, RGB(255, 0, 255));
 
+	//인트로1 캐릭터 이동 후 이미지
 	Intro2Img1 = new Image;
 	Intro2Img1->Init("Image/intro/intro_2/walking_after_1.bmp", 400, WIN_SIZE_Y, true, RGB(255, 0, 255));
 
 	Intro2Img2 = new Image;
 	Intro2Img2->Init("Image/intro/intro_2/walking_after_2.bmp", WIN_SIZE_X * 3, 600, 3, 2, true, RGB(255, 0, 255));
 
+	//episode 6 문구
 	Episode = new Image;
 	Episode->Init("Image/intro/intro_3/episode_6.bmp",1400, 100, 6, 1, true, RGB(255, 0, 255));
 
 	EpisodeImg = new Image;
 	EpisodeImg->Init("Image/intro/intro_3/episode_after.bmp", WIN_SIZE_X * 3, 1200, 3, 2, true, RGB(255, 0, 255));
 
+	//캐릭터 화면 발차기
 	Intro4Img1 = new Image;
 	Intro4Img1->Init("Image/intro/intro_4/logo_after_1.bmp", WIN_SIZE_X * 3, 600, 3, 1, true, RGB(255, 0, 255));
 
@@ -45,6 +51,7 @@ void Intro::Init()
 	Intro4Img5 = new Image;
 	Intro4Img5->Init("Image/intro/intro_4/intro_kick.bmp", WIN_SIZE_X * 3, 1200, 3, 2, true, RGB(255, 0, 255));
 
+	//게임 시작 대기 화면
 	GameLogo1 = new Image;
 	GameLogo1->Init("Image/intro/game_logo.bmp", WIN_SIZE_X - 200, WIN_SIZE_Y / 3, true, RGB(32, 80, 48));
 
@@ -73,11 +80,13 @@ void Intro::Init()
 	elapsedCount2 = 0;
 	elapsedCount3 = 0;
 	elapsedCount4 = 0;
+
+	showIntro = true;
+	gameStart = false;
 }
 void Intro::Update()
 {
 	elapsedCount1++;
-
 
 	if (elapsedCount1 == 2)
 	{
@@ -193,42 +202,50 @@ void Intro::Update()
 			elapsedCount4 = 0;
 		}
 	}
-
+	if (elapsedCount2 > 230)showIntro = false;
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_TAB)) showIntro = false;
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_F5)) gameStart = true;
 }
 
 void Intro::Render(HDC hdc)
 {
-	if (IntroBackground1)IntroBackground1->Render(hdc);
-	if (Wall)Wall->Render(hdc, wallPosX, WIN_SIZE_Y / 2);
-	if (WalkingWord)WalkingWord->Render(hdc, wordPosX, WIN_SIZE_Y / 2, wordFrameX, wordFrameY);
+	if (showIntro)
+	{
+		if (IntroBackground1)IntroBackground1->Render(hdc);
+		if (Wall)Wall->Render(hdc, wallPosX, WIN_SIZE_Y / 2);
+		if (WalkingWord)WalkingWord->Render(hdc, wordPosX, WIN_SIZE_Y / 2, wordFrameX, wordFrameY);
 
-	if (elapsedCount2 > 65)Intro2Img2->Render(hdc, intro2PosX2, intro2PosY2, 0, 0);	
-	if (elapsedCount2 > 70)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y - intro2PosY2, 0, 1);
-	if (elapsedCount2 > 75)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y / 2 - intro2PosY2 /2 , 1, 0);
-	if (elapsedCount2 > 80)Intro2Img2->Render(hdc, intro2PosX2, intro2PosY2/2, 1, 1);
-	if (elapsedCount2 > 85)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y / 2, 2, 0);
+		if (elapsedCount2 > 65)Intro2Img2->Render(hdc, intro2PosX2, intro2PosY2, 0, 0);
+		if (elapsedCount2 > 70)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y - intro2PosY2, 0, 1);
+		if (elapsedCount2 > 75)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y / 2 - intro2PosY2 / 2, 1, 0);
+		if (elapsedCount2 > 80)Intro2Img2->Render(hdc, intro2PosX2, intro2PosY2 / 2, 1, 1);
+		if (elapsedCount2 > 85)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y / 2, 2, 0);
 
-	if (IntroWalking)IntroWalking->Render(hdc, walkPosX, WIN_SIZE_Y - 350, walkFrameX, walkFrameY);
-	if (IntroBackground2)IntroBackground2->Render(hdc, blackPosX, blackPosY);
+		if (IntroWalking)IntroWalking->Render(hdc, walkPosX, WIN_SIZE_Y - 350, walkFrameX, walkFrameY);
+		if (IntroBackground2)IntroBackground2->Render(hdc, blackPosX, blackPosY);
 
-	if (elapsedCount2 > 55)Intro2Img1->Render(hdc, WIN_SIZE_X - 300, intro2PosY1);
+		if (elapsedCount2 > 55)Intro2Img1->Render(hdc, WIN_SIZE_X - 300, intro2PosY1);
 
-	if (elapsedCount2 > 95)IntroBackground1->Render(hdc);
+		if (elapsedCount2 > 95)IntroBackground1->Render(hdc);
 
-	if (elapsedCount2 > 100)Episode->Render(hdc, WIN_SIZE_X - 300, WIN_SIZE_Y / 2, episodeFrmX, 0);
-	if (elapsedCount2 > 117)EpisodeImg->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, episodeImgX, episodeImgY);
+		if (elapsedCount2 > 100)Episode->Render(hdc, WIN_SIZE_X - 300, WIN_SIZE_Y / 2, episodeFrmX, 0);
+		if (elapsedCount2 > 117)EpisodeImg->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, episodeImgX, episodeImgY);
 
-	if (elapsedCount2 > 180)IntroBackground1->Render(hdc);
+		if (elapsedCount2 > 180)IntroBackground1->Render(hdc);
 
-	if (elapsedCount2 > 182)Intro4Img1->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img1X, 0);
-	if (elapsedCount2 > 190)Intro4Img2->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
-	if (elapsedCount2 > 195)Intro4Img3->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img3X, Intro4Img3Y);
-	if (elapsedCount2 > 195)Intro4Img4->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img4X, 0);
-	if (elapsedCount2 > 207)Intro4Img5->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img5X, Intro4Img5Y);
-	if (elapsedCount2 > 230)GameLogo1->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
-	if (elapsedCount2 > 240)GameLogo2->Render(hdc, WIN_SIZE_X / 2 - 100, WIN_SIZE_Y - 100);
-
-
+		if (elapsedCount2 > 182)Intro4Img1->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img1X, 0);
+		if (elapsedCount2 > 190)Intro4Img2->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		if (elapsedCount2 > 195)Intro4Img3->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img3X, Intro4Img3Y);
+		if (elapsedCount2 > 195)Intro4Img4->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img4X, 0);
+		if (elapsedCount2 > 207)Intro4Img5->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img5X, Intro4Img5Y);
+	}
+	if (showIntro == false && gameStart == false)
+	{
+		IntroBackground1->Render(hdc);
+		GameLogo1->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		GameLogo2->Render(hdc, WIN_SIZE_X / 2 - 100, WIN_SIZE_Y - 100);
+	}
+	
 }
 
 void Intro::Release()

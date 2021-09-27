@@ -40,6 +40,8 @@ private:
 	
 	int elapsedCount1, elapsedCount2, elapsedCount3, elapsedCount4;
 
+	bool showIntro, gameStart;
+
 public:
 	void Init();
 	void Update();
