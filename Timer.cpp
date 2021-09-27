@@ -18,23 +18,22 @@ void Timer::Init()
 
 void Timer::Update()
 {
-	if (isAlive)
+	if (!isAlive) return;
+
+	oneSec--;
+	if (oneSec < 0)
 	{
-		oneSec--;
-			if (oneSec < 0)
-			{
-				oneSec = 9;
-				tenSec--;
-			}
-			if (tenSec == 1 && oneSec == 0)	//남은시간 10초
-			{
-				chgNumColor = 1;
-			}
-			if (tenSec == 0 && oneSec == 0) //남은시간 00초
-			{
-				tenSec = 0, oneSec = 0;
-				isAlive = false;
-			}
+		oneSec = 9;
+		tenSec--;
+	}
+	if (tenSec == 1 && oneSec == 0)	//남은시간 10초
+	{
+		chgNumColor = 1;
+	}
+	if (!tenSec&& !oneSec) //남은시간 00초
+	{
+		tenSec = 0, oneSec = 0;
+		isAlive = false;
 	}
 	
 }
@@ -46,7 +45,7 @@ void Timer::Render(HDC hdc)
 		SecTimer->Render(hdc, TIMER_POS_X, TIMER_POS_Y, tenSec, chgNumColor);
 		SecTimer->Render(hdc, TIMER_POS_X + 28, TIMER_POS_Y, oneSec, chgNumColor);
 	}
-	if (tenSec == 0 && oneSec == 0)
+	if (tenSec == 0&& oneSec == 0)
 	{
 		TimeOver->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
 	}
@@ -54,11 +53,7 @@ void Timer::Render(HDC hdc)
 
 void Timer::Release()
 {
-	if (SecTimer)
-	{
-		delete SecTimer;
-		SecTimer = nullptr;
-	}
+	SAFE_RELEASE(SecTimer);
 	if (TimeOver)
 	{
 		delete TimeOver;

@@ -22,7 +22,7 @@ void HPBar::Init()
 	portraitX1 = 0;
 	portraitX2 = WIN_SIZE_X;
 
-	HP = 400;
+	hp = 400;
 	lostHP = 0;
 	damage = 50;
 
@@ -49,7 +49,7 @@ void HPBar::Update()
 			hp -= damage;
 		}
 	}
-	if (HP <= 0)
+	if (hp <= 0)
 	{
 		isAlive = false;
 	}

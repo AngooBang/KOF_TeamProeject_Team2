@@ -17,6 +17,9 @@ using namespace std;
 
 #define PI 3.14159265357989
 
+#define SMALL_ATTACK_DAMAGE 20
+#define BIG_ATTACK_DAMAGE 50
+
 #define DEGREE_TO_RADIAN(x)		(x * PI / 180.0f)
 
 #define SAFE_RELEASE(p){if (p) {p->Release(); delete p; p = nullptr;}}

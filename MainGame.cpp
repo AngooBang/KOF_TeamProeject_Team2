@@ -60,10 +60,7 @@ void MainGame::Init()
 	player2->hitBox->SetTarget(player1);
 	player1->hitBox->SetTarget(player2);
 
-	//terry = new Terry;
-	//terry->Init();
-	//mary = new Mary;
-	//mary->Init();	
+
 	map = new Map;
 	map->Init();
 
@@ -85,10 +82,10 @@ void MainGame::Update()
 		switch (player2->GetHitMotion())
 		{
 		case HitMotion::Small:
-			HP->p2HP->DamageToHp(20);
+			HP->p2HP->DamageToHp(SMALL_ATTACK_DAMAGE);
 			break;
 		case HitMotion::Big:
-			HP->p2HP->DamageToHp(50);
+			HP->p2HP->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
 		}
 	}
@@ -99,10 +96,10 @@ void MainGame::Update()
 		switch (player1->GetHitMotion())
 		{
 		case HitMotion::Small:
-			HP->p1HP->DamageToHp(20);
+			HP->p1HP->DamageToHp(SMALL_ATTACK_DAMAGE);
 			break;
 		case HitMotion::Big:
-			HP->p1HP->DamageToHp(50);
+			HP->p1HP->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
 		}
 	}
@@ -111,8 +108,6 @@ void MainGame::Update()
 
 	intro->Update();
 	
-	terry->Update();
-	mary->Update();
 	HP->Update();
 
 	/*if (player1->GetIsHit()==true)
@@ -179,7 +174,6 @@ void MainGame::Release()
 
 	SAFE_RELEASE(player1);
 
-	SAFE_RELEASE(mary);
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
 	KillTimer(g_hWnd, 1);
