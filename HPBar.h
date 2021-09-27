@@ -4,6 +4,8 @@
 class HPBar : public UI
 {
 private:
+	HANDLE HPDecMotion;
+
 	Image* HPBarFrame;
 	Image* HPBar;
 	Image* Portrait;
@@ -12,10 +14,13 @@ private:
 	int hp;
 	int lostHP;
 	int damage;
+	int portraitX1, portraitX2;
 	
 	bool hitP1, hitP2;
 	bool isAlive;
 	bool player1, player2;
+
+	int elapsedCount;
 
 public:
 	void Init();

@@ -146,6 +146,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Intro.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HPBar.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Intro.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />

@@ -62,11 +62,24 @@ public:
 	//tagImageInfo* imageInfo;
 	//LPIMAGE_INFO imageInfo3;
 
+	typedef struct _BLENDFUNCTION
+	{
+		BYTE BlendOp;
+		BYTE BlendFlags;
+		BYTE SourceConstantAlpha;
+		BYTE AlphaFormat;
+	}BLENDFUNTION, *PBLENDFUNCTION;
+
 private:
 	LPIMAGE_INFO imageInfo;
 	LPIMAGE_INFO imageInfo_2;
 	bool isTransparent;
 	COLORREF transColor;
+
+	HDC m_MemDC[3];
+	HBITMAP m_bitmap[3], m_oldbitmap[3];
+	BLENDFUNCTION m_BlendFuntion;
+	
 
 public:
 	HRESULT Init(int width, int height);	// ºó ºñÆ®¸Ê ÀÌ¹ÌÁö »ý¼º(Empty)

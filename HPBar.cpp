@@ -12,14 +12,17 @@ void HPBar::Init()
 
 	Portrait = new Image;
 	Portrait->Init("Image/UI/player_portrait.bmp", 594, 146, 2, 1, true, RGB(255, 0, 255));
-
+	 
 	KO = new Image;
 	KO->Init("Image/UI/K.O..bmp", 450, 150, true, RGB(255, 0, 255));
 
 	pos.x = 0;
 	pos.y = 0;
 
-	hp = 400;
+	portraitX1 = 0;
+	portraitX2 = WIN_SIZE_X;
+
+	HP = 400;
 	lostHP = 0;
 	damage = 50;
 
@@ -46,10 +49,18 @@ void HPBar::Update()
 			hp -= damage;
 		}
 	}
-
-	if (hp <= 0)
+	if (HP <= 0)
 	{
 		isAlive = false;
+	}
+	//초상화 프레임 시작시 움직임 효과
+	if (portraitX1 < 297 / 2)
+	{
+		portraitX1 += 25;
+	}
+	if (portraitX2 > WIN_SIZE_X - 297 / 2)
+	{
+		portraitX2 -= 25;
 	}
 }
 
@@ -57,8 +68,8 @@ void HPBar::Render(HDC hdc)
 {	
 	if (Portrait)
 	{
-		if (player1) Portrait->Render(hdc, 297/2, pos.y, 0, 0);
-		if (player2) Portrait->Render(hdc, WIN_SIZE_X - 297/2, pos.y, 1, 0);
+		if (player1) Portrait->Render(hdc, portraitX1, pos.y, 0, 0);
+		if (player2) Portrait->Render(hdc, portraitX2, pos.y, 1, 0);
 	}
 
 	if (HPBarFrame)
@@ -80,9 +91,24 @@ void HPBar::Render(HDC hdc)
 
 void HPBar::Release()
 {
-	SAFE_RELEASE(HPBarFrame);
-	SAFE_RELEASE(HPBar);
-	SAFE_RELEASE(Portrait);
-	SAFE_RELEASE(KO);
-
+	if (HPBarFrame)
+	{
+		delete HPBarFrame;
+		HPBarFrame = nullptr;
+	}
+	if (HPBar)
+	{
+		delete HPBar;
+		HPBar = nullptr;
+	}
+	if (Portrait)
+	{
+		delete HPBar;
+		HPBar = nullptr;
+	}
+	if (KO)
+	{
+		delete KO;
+		KO = nullptr;
+	}
 }
