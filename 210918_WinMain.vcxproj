@@ -165,6 +165,7 @@
     <ClInclude Include="FightScene.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HitMotionFrame.h" />
     <ClInclude Include="HPBar.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="KeyManager.h" />

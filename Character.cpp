@@ -127,7 +127,7 @@ void Character::SetCharacterData(CharacterType type)
 	switch(type)
 	{
 	case CharacterType::Terry:
-		charImg = new Image[Action::END];
+		charImg = new Image[Action::ActEnd];
 
 		charImg[Action::Basic].Init("Image/Terry/Terry_basic.bmp", 1320, 260, 7, 1, true, RGB(143, 123, 165));
 		charImg[Action::bMove].Init("Image/Terry/Terry_Backward.bmp", 900, 270, 6, 1, true, RGB(143, 123, 165));
@@ -137,6 +137,8 @@ void Character::SetCharacterData(CharacterType type)
 		charImg[Action::bKick].Init("Image/Terry/Terry_kick.bmp", 1640, 255, 8, 1, true, RGB(143, 123, 165));
 		charImg[Action::sHit].Init("Image/Terry/Terry_Hit.bmp", 1030, 255, 5, 1, true, RGB(143, 123, 165));
 		charImg[Action::bHit].Init("Image/Terry/Terry_bHit.bmp", 970, 255, 5, 1, true, RGB(143, 123, 165));
+		charImg[Action::Guard].Init("Image/Terry/Terry_Guard.bmp", 600, 250, 3, 1, true, RGB(143, 123, 165));
+
 		
 		maxFrame[Action::Basic] = 7;
 		maxFrame[Action::fMove] = 6;
@@ -147,6 +149,8 @@ void Character::SetCharacterData(CharacterType type)
 		maxFrame[Action::bKick] = 8;
 		maxFrame[Action::sHit] = 5;
 		maxFrame[Action::bHit] = 5;
+		maxFrame[Action::Guard] = 3;
+
 
 		switch (playerNum)
 		{
@@ -161,6 +165,7 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::bKick] = terrybKick;
 			actionFrameX[Action::sHit] = terrysHit;
 			actionFrameX[Action::bHit] = terrybHit;
+			actionFrameX[Action::Guard] = terryGuard;
 			break;
 		case 2: // player2p
 			actionFrameX[Action::Basic] = terryBasic;
@@ -173,6 +178,7 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::bKick] = terrybKick_R;
 			actionFrameX[Action::sHit] = terrysHit_R;
 			actionFrameX[Action::bHit] = terrybHit_R;
+			actionFrameX[Action::Guard] = terryGuard_R;
 			break;
 		}
 
@@ -181,7 +187,7 @@ void Character::SetCharacterData(CharacterType type)
 		break;
 
 	case CharacterType::Mary:
-		charImg = new Image[Action::END];
+		charImg = new Image[Action::ActEnd];
 
 		charImg[Action::Basic].Init("Image/Mary/Mary_Basic.bmp", 1700, 260, 12, 1, true, RGB(0, 102, 0));
 		charImg[Action::fMove].Init("Image/Mary/Mary_Forward.bmp", 1100, 340, 8, 1, true, RGB(0, 102, 0));
@@ -192,6 +198,7 @@ void Character::SetCharacterData(CharacterType type)
 		charImg[Action::bKick].Init("Image/Mary/Mary_bKick.bmp", 1740, 260, 10, 1, true, RGB(0, 102, 0));
 		charImg[Action::sHit].Init("Image/Mary/Mary_Hit.bmp", 950, 270, 5, 1, true, RGB(0, 102, 0));
 		charImg[Action::bHit].Init("Image/Mary/Mary_bHit.bmp", 900, 270, 5, 1, true, RGB(0, 102, 0));
+		charImg[Action::Guard].Init("Image/Mary/Mary_Guard.bmp", 540, 260, 3, 1, true, RGB(0, 102, 0));
 
 		maxFrame[Action::Basic] = 12;
 		maxFrame[Action::fMove] = 8;
@@ -202,6 +209,7 @@ void Character::SetCharacterData(CharacterType type)
 		maxFrame[Action::bKick] = 10;
 		maxFrame[Action::sHit] = 5;
 		maxFrame[Action::bHit] = 5;
+		maxFrame[Action::Guard] = 3;
 
 		switch (playerNum)
 		{
@@ -215,6 +223,7 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::bKick] = marybKick;
 			actionFrameX[Action::sHit] = marysHit;
 			actionFrameX[Action::bHit] = marybHit;
+			actionFrameX[Action::Guard] = maryGuard;
 			break;
 		case 2: // player2p
 			actionFrameX[Action::Basic] = maryBasic_R;
@@ -226,6 +235,7 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::bKick] = marybKick_R;
 			actionFrameX[Action::sHit] = marysHit_R;
 			actionFrameX[Action::bHit] = marybHit_R;
+			actionFrameX[Action::Guard] = maryGuard_R;
 			break;
 		}
 
@@ -244,6 +254,7 @@ void Character::ReverseImg()
 	charImg[Action::bKick].ReverseImg();
 	charImg[Action::sHit].ReverseImg();
 	charImg[Action::bHit].ReverseImg();
+	charImg[Action::Guard].ReverseImg();
 }
 
 
@@ -646,5 +657,17 @@ void Character::IsHit()
 	case HitMotion::Big:
 		action = Action::bHit;
 		break;
+
+	case HitMotion::HitGuard:
+		action = Action::Guard;
+		break;
 	}
 }
+
+//bool IsGuard()
+//{
+//	if (action == Action::bMove)
+//		return true;
+//	else
+//		return false;
+//}

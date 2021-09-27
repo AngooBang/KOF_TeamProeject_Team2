@@ -47,8 +47,8 @@ void MainGame::Init()
 
 	player1->SetPlayerNum(1);
 	player2->SetPlayerNum(2);
-	player1->SetCharacterType(CharacterType::Mary);
-	player2->SetCharacterType(CharacterType::Terry);
+	player1->SetCharacterType(CharacterType::Terry);
+	player2->SetCharacterType(CharacterType::Mary);
 	player1->Init();
 	player2->Init();
 

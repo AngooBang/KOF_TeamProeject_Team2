@@ -1,29 +1,36 @@
 #include "HitBox.h"
 #include "Image.h"
 #include "Character.h"
+#include "HitMotionFrame.h"
 
 void HitBox::Init()
 {
-	img = new Image;
-
+	HitImg = new Image[HitMotion::HitEnd];
+	
 	isAlive = false;
 	pos.x = pos.y = 0;
 
-	img->Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
+	HitImg[HitMotion::Small].Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
+	HitImg[HitMotion::Big].Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
+	HitImg[HitMotion::HitGuard].Init("Image/Terry_guard.bmp", 342, 76, 6, 1, true, RGB(143, 123, 165));
 
-	actionFrameX[0] = 0;	actionFrameX[1] = 60, actionFrameX[2] = 120, actionFrameX[3] = 180,
-		actionFrameX[4] = 250, actionFrameX[5] = 327;
 	
 
-	/*shape.left = 0;
-	shape.top = 0;
-	shape.right = 0;
-	shape.bottom = 0;*/
+	maxFrameX[HitMotion::Small] = 5;
+	maxFrameX[HitMotion::Big] = 5;
+	maxFrameX[HitMotion::HitGuard] = 6;
+
+
+	actionFrameX[HitMotion::Small] = HitSmall;
+	actionFrameX[HitMotion::Big] = Hitbig;
+	actionFrameX[HitMotion::HitGuard] = GuardHit;
+
+	hitMotion = HitMotion::Small;
 
 	bodySizeX = 30;
 
 	 
-	 maxFrame = frameX = 0;
+	maxFrame = frameX = 0;
 }
 
 void HitBox::Update()
@@ -65,7 +72,11 @@ void HitBox::Render(HDC hdc)
 	}
 	if (isHit)
 	{
-		img->Render(hdc, pos.x-20, pos.y, frameX, frameY, actionFrameX);
+		/*if (target.GetAction() == Action::bMove)
+		{
+			asdfasdfasdf
+		}*/
+		HitImg[hitMotion].Render(hdc, pos.x-20, pos.y, frameX, frameY, actionFrameX[hitMotion]);
 	}
 	/*if (guard)
 	{
@@ -75,8 +86,8 @@ void HitBox::Render(HDC hdc)
 	 
 void HitBox::Release()
 {
-	delete img;
-	img = nullptr;
+	delete HitImg;
+	HitImg = nullptr;
 }
 
 void HitBox::CheckCollision()
@@ -88,18 +99,26 @@ void HitBox::CheckCollision()
 	//	object1.right > object2.left &&
 	//	object1.bottom > object2.top)
 	targetPos = target->GetPos();
-
+	hitMotion;
 	if (shape.left < targetPos.x + (target->GetBodySizeX() / 2) && shape.top < targetPos.y + (target->GetBodySizeY() / 2)
 		&& shape.right > targetPos.x - (target->GetBodySizeX() / 2) && shape.bottom > targetPos.y - (target->GetBodySizeY() / 2))	// 충돌 조건
 	{
 		isAlive = false;
-		isHit = true;
-		
-		target->SetIsHit(true);
-		target->SetHitMotion(hitMotion);
-		
+
+		if (target->GetAction() == Action::bMove)
+		{
+			isHit = true;
+			hitMotion = HitMotion::HitGuard;
+			target->SetIsHit(true);
+			target->SetHitMotion(hitMotion);
+		}
+		else
+		{
+			isHit = true;
+			target->SetIsHit(true);
+			target->SetHitMotion(hitMotion);
+		}
 		frameX = 0;
-		maxFrame = 5;
 		return ;
 	}
 	switch (target->GetPlayerNum())
@@ -146,7 +165,7 @@ void HitBox::SetBodySize()
 void HitBox::NextFrame()
 {
 	frameX++;
-	if (frameX >= maxFrame)
+	if (frameX >= maxFrameX[hitMotion])
 	{
 		isHit = false;
 		frameX = 0;

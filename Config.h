@@ -23,11 +23,11 @@ using namespace std;
 
 enum MoveDir { Left, Right, Up, Down };
 
-enum CharacterType { Terry, Mary, Iori, Kyo, End };
+enum CharacterType { Terry, Mary, Iori, Kyo, CharEnd };
 
-enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, END };
+enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, Guard, ActEnd };
 
-enum HitMotion { Small, Big };
+enum HitMotion { Small, Big, HitGuard, HitEnd };
 //enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
 enum E_SCENE
 {
