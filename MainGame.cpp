@@ -21,7 +21,7 @@ void MainGame::Init()
 	KeyManager::GetSingleton()->Init();
 
 	//¾À ¼¼ÆÃ
-	SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
+	SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
 	playScene = SceneManager::GetSingleton()->sceneState;
 
 	startScene = new StartScene();

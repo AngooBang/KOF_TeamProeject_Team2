@@ -1,13 +1,11 @@
 #pragma once
 #include "Character.h"
-#include "Ammo.h"
 
 class Terry : public Character
 {
 private:
 	char inputKey;
 public:
-	Ammo* ammo;
 
 	void Init();
 	void Update();

@@ -31,20 +31,11 @@ void FightScene::Init()
 	map = new Map;
 	map->Init();
 
-	terry = new Terry;
-	terry->Init();
-	mary = new Mary;
-	mary->Init();
-
-	terry->ammo->SetTarget(mary);
-	mary->ammo->SetTarget(terry);
 
 }
 
 void FightScene::Update()
 {
-	terry->Update();
-	mary->Update();
 	HP->Update();
 	map->Update();
 	if (isSecTimer)
@@ -67,8 +58,6 @@ void FightScene::Render(HDC hdc)
 
 	map->Render(hdc);
 
-	terry->Render(hdc);
-	mary->Render(hdc);
 
 	HP->Render(hdc);
 	roundTimer->Render(hdc);
@@ -87,9 +76,6 @@ void FightScene::Release()
 
 	SAFE_RELEASE(roundTimer);
 
-	SAFE_RELEASE(terry);
-
-	SAFE_RELEASE(mary);
 
 	KillTimer(g_hWnd, 1);
 }

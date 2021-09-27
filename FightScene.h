@@ -27,8 +27,6 @@ private:
 
 	Timer* roundTimer;
 
-	Terry* terry;
-	Mary* mary;
 
 	MoveDir moveDir;
 public:
