@@ -10,7 +10,7 @@ class Character : public GameObject
 {
 protected:
 	Image* charImg;
-	
+
 	int playerNum;
 	CharacterType characterType;
 
@@ -19,9 +19,10 @@ protected:
 	int* actionFrameX[Action::ActEnd];
 	int maxFrame[Action::ActEnd];
 	int hp;
-	bool isStatus,  isHit, isMove;
+	bool isStatus, isHit, isMove;
 
 	Action action;
+	Action commandAction;
 	HitMotion hitMotion;
 
 
