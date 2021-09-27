@@ -5,14 +5,12 @@ class HPBar;
 class Timer : public UI
 {
 private:
-	Image* SecTimer;
-	Image* TimeOver;
+	Image* timerNumImg;
+	Image* timeOverImg;
 
-	int tenSec;
-	int oneSec;
+	int tenSecNumImg;
+	int oneSecNumImg;
 	int chgNumColor;
-
-	bool isAlive;
 
 public:
 	void Init();

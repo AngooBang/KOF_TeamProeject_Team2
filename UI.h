@@ -6,7 +6,7 @@ class HPBar;
 class Timer;
 class UI : public GameObject
 {
-private:
+protected:
 
 	Timer* roundTime;
 
@@ -14,13 +14,12 @@ private:
 
 public:
 
-	HPBar* p1HP;
-	HPBar* p2HP;
+	HPBar* p1Hp;
+	HPBar* p2Hp;
 	void Init();
 	void Update();
 	void Render(HDC hdc);
 	void Release();
-
 
 	inline bool GetIsAlive() { return this->isAlive; }
 };

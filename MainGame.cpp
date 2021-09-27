@@ -82,10 +82,10 @@ void MainGame::Update()
 		switch (player2->GetHitMotion())
 		{
 		case HitMotion::Small:
-			HP->p2HP->DamageToHp(SMALL_ATTACK_DAMAGE);
+			HP->p2Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
 			break;
 		case HitMotion::Big:
-			HP->p2HP->DamageToHp(BIG_ATTACK_DAMAGE);
+			HP->p2Hp->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
 		}
 	}
@@ -96,10 +96,10 @@ void MainGame::Update()
 		switch (player1->GetHitMotion())
 		{
 		case HitMotion::Small:
-			HP->p1HP->DamageToHp(SMALL_ATTACK_DAMAGE);
+			HP->p1Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
 			break;
 		case HitMotion::Big:
-			HP->p1HP->DamageToHp(BIG_ATTACK_DAMAGE);
+			HP->p1Hp->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
 		}
 	}

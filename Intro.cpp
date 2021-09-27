@@ -5,76 +5,75 @@
 void Intro::Init()
 {
 	//인트로 바탕, 검은색 프레임
-	IntroBackground1 = new Image;
-	IntroBackground1->Init("Image/intro/introbackground.bmp", WIN_SIZE_X, WIN_SIZE_Y);
+	introImage[0] = new Image;
+	introImage[0]->Init("Image/intro/introbackground.bmp", WIN_SIZE_X, WIN_SIZE_Y);
 
-	IntroBackground2 = new Image;
-	IntroBackground2->Init("Image/intro/introbackground2.bmp", WIN_SIZE_X, 150);
+	introImage[1] = new Image;
+	introImage[1]->Init("Image/intro/introbackground2.bmp", WIN_SIZE_X, 150);
 
 	//인트로1 캐릭터 걷는 장면
-	IntroWalking = new Image;
-	IntroWalking->Init("Image/intro/intro_1/intro_walking.bmp", 3200, 700, 8, 1, true, RGB(255, 0, 255));
+	introImage[2] = new Image;
+	introImage[2]->Init("Image/intro/intro_1/intro_walking.bmp", 3200, 700, 8, 1, true, RGB(255, 0, 255));
 
-	WalkingWord = new Image;
-	WalkingWord->Init("Image/intro/intro_1/intro_words.bmp", 1800, 300, 4, 3, true, RGB(44, 106, 63));
+	introImage[3] = new Image;
+	introImage[3]->Init("Image/intro/intro_1/intro_words.bmp", 1800, 300, 4, 3, true, RGB(44, 106, 63));
 
-	Wall = new Image;
-	Wall->Init("Image/intro/intro_1/walking_background.bmp", WIN_SIZE_X * 5, 600, 3, 1, true, RGB(255, 0, 255));
+	introImage[4] = new Image;
+	introImage[4]->Init("Image/intro/intro_1/walking_background.bmp", WIN_SIZE_X * 5, 600, 3, 1, true, RGB(255, 0, 255));
 
 	//인트로1 캐릭터 이동 후 이미지
-	Intro2Img1 = new Image;
-	Intro2Img1->Init("Image/intro/intro_2/walking_after_1.bmp", 400, WIN_SIZE_Y, true, RGB(255, 0, 255));
+	introImage[5] = new Image;
+	introImage[5]->Init("Image/intro/intro_2/walking_after_1.bmp", 400, WIN_SIZE_Y, true, RGB(255, 0, 255));
 
-	Intro2Img2 = new Image;
-	Intro2Img2->Init("Image/intro/intro_2/walking_after_2.bmp", WIN_SIZE_X * 3, 600, 3, 2, true, RGB(255, 0, 255));
+	introImage[6] = new Image;
+	introImage[6]->Init("Image/intro/intro_2/walking_after_2.bmp", WIN_SIZE_X * 3, 600, 3, 2, true, RGB(255, 0, 255));
 
 	//episode 6 문구
-	Episode = new Image;
-	Episode->Init("Image/intro/intro_3/episode_6.bmp",1400, 100, 6, 1, true, RGB(255, 0, 255));
+	introImage[7] = new Image;
+	introImage[7]->Init("Image/intro/intro_3/episode_6.bmp", 1400, 100, 6, 1, true, RGB(255, 0, 255));
 
-	EpisodeImg = new Image;
-	EpisodeImg->Init("Image/intro/intro_3/episode_after.bmp", WIN_SIZE_X * 3, 1200, 3, 2, true, RGB(255, 0, 255));
+	introImage[8] = new Image;
+	introImage[8]->Init("Image/intro/intro_3/episode_after.bmp", WIN_SIZE_X * 3, 1200, 3, 2, true, RGB(255, 0, 255));
 
 	//캐릭터 화면 발차기
-	Intro4Img1 = new Image;
-	Intro4Img1->Init("Image/intro/intro_4/logo_after_1.bmp", WIN_SIZE_X * 3, 600, 3, 1, true, RGB(255, 0, 255));
+	introImage[9] = new Image;
+	introImage[9]->Init("Image/intro/intro_4/logo_after_1.bmp", WIN_SIZE_X * 3, 600, 3, 1, true, RGB(255, 0, 255));
 
-	Intro4Img2 = new Image;
-	Intro4Img2->Init("Image/intro/intro_4/logo_after_2.bmp", WIN_SIZE_X/2, 200, true, RGB(255, 0, 255));
+	introImage[10] = new Image;
+	introImage[10]->Init("Image/intro/intro_4/logo_after_2.bmp", WIN_SIZE_X / 2, 200, true, RGB(255, 0, 255));
 
-	Intro4Img3 = new Image;
-	Intro4Img3->Init("Image/intro/intro_4/kick_background.bmp", WIN_SIZE_X * 4, WIN_SIZE_Y * 3, 4, 4, true, RGB(255, 0, 255));
+	introImage[11] = new Image;
+	introImage[11]->Init("Image/intro/intro_4/kick_background.bmp", WIN_SIZE_X * 4, WIN_SIZE_Y * 3, 4, 4, true, RGB(255, 0, 255));
 
-	Intro4Img4 = new Image;
-	Intro4Img4->Init("Image/intro/intro_4/intro_kick_ready.bmp", WIN_SIZE_X * 3, 600, 6, 1, true, RGB(255, 0, 255));
+	introImage[12] = new Image;
+	introImage[12]->Init("Image/intro/intro_4/intro_kick_ready.bmp", WIN_SIZE_X * 3, 600, 6, 1, true, RGB(255, 0, 255));
 
-	Intro4Img5 = new Image;
-	Intro4Img5->Init("Image/intro/intro_4/intro_kick.bmp", WIN_SIZE_X * 3, 1200, 3, 2, true, RGB(255, 0, 255));
+	introImage[13] = new Image;
+	introImage[13]->Init("Image/intro/intro_4/intro_kick.bmp", WIN_SIZE_X * 3, 1200, 3, 2, true, RGB(255, 0, 255));
 
 	//게임 시작 대기 화면
-	GameLogo1 = new Image;
-	GameLogo1->Init("Image/intro/game_logo.bmp", WIN_SIZE_X - 200, WIN_SIZE_Y / 3, true, RGB(32, 80, 48));
+	introImage[14] = new Image;
+	introImage[14]->Init("Image/intro/game_logo.bmp", WIN_SIZE_X - 200, WIN_SIZE_Y / 3, true, RGB(32, 80, 48));
 
-	GameLogo2 = new Image;
-	GameLogo2->Init("Image/intro/2000_SNK.bmp", WIN_SIZE_X - 300, WIN_SIZE_Y / 5, true, RGB(0, 0, 0));
+	introImage[15] = new Image;
+	introImage[15]->Init("Image/intro/2000_SNK.bmp", WIN_SIZE_X - 300, WIN_SIZE_Y / 5, true, RGB(0, 0, 0));
 
-	blackPosX = WIN_SIZE_X / 2;
-	blackPosY = WIN_SIZE_Y - 75;
-	walkFrameX, walkFrameY = 0;
-	walkPosX = WIN_SIZE_X - 200;
-	wordFrameX, wordFrameY = 0;
-	wordPosX = 300;
-	wallPosX = -(WIN_SIZE_X * 5)/2 + 1200;
-	intro2PosY1 = WIN_SIZE_Y + (WIN_SIZE_Y / 2);
-	intro2PosY2 = WIN_SIZE_Y / 4;
+	introBackground2PosX = WIN_SIZE_X / 2;
+	introBackground2PosY = WIN_SIZE_Y - 75;
+	intro1WalkingMotionFrameX = 0;
+	intro1WalkingMotionPosX = WIN_SIZE_X - 200;
+	intro1TiltleWordFrameX, intro1TiltleWordFrameY = 0;
+	intro1TiltleWordPosX = 300;
+	intro1WallPosX = -(WIN_SIZE_X * 5) / 2 + 1200;
+	intro2HorizontalImgPosY = WIN_SIZE_Y + (WIN_SIZE_Y / 2);
+	intro2VerticalImgPosY = WIN_SIZE_Y / 4;
 	Intro2Img2FmX, Intro2Img2FmY = 0;
-	intro2PosX2 = WIN_SIZE_X / 2;
-	episodeFrmX = 0;
-	episodeImgX, episodeImgY = 0;
-	Intro4Img1X = 0;
-	Intro4Img3X, Intro4Img3Y = 0;
-	Intro4Img4X = 0;
-	Intro4Img5X, Intro4Img5Y = 0;
+	intro3EpisodeWordFrmX = 0;
+	intro3EpisodeImgFrmX, intro3EpisodeImgFrmY = 0;
+	intro4StepImgFrmX = 0;
+	intro4BackgroundFrmX, intro4BackgroundFrmY = 0;
+	intro4KickReadyMotionFrmX = 0;
+	intro4KickMotionFrmX, intro4KickMotionFrmY = 0;
 
 	elapsedCount1 = 0;
 	elapsedCount2 = 0;
@@ -90,81 +89,78 @@ void Intro::Update()
 
 	if (elapsedCount1 == 2)
 	{
-		walkFrameX++;
-		if (wordFrameX < 3 && wordFrameY < 3)
+		intro1WalkingMotionFrameX++;
+		if (intro1TiltleWordFrameX < 3 && intro1TiltleWordFrameY < 3)
 		{
-			wordFrameX++;
+			intro1TiltleWordFrameX++;
 		}
-		if (wordFrameX == 3 && wordFrameY != 2)
+		if (intro1TiltleWordFrameX == 3 && intro1TiltleWordFrameY != 2)
 		{
-			wordFrameX = 0;
-			wordFrameY++;
+			intro1TiltleWordFrameX = 0;
+			intro1TiltleWordFrameY++;
 		}
-		if (wordFrameX == 3 && wordFrameY == 2)
+		if (intro1TiltleWordFrameX == 3 && intro1TiltleWordFrameY == 2)
 		{
-			wordFrameX = 3;
-			wordFrameY = 2;
+			intro1TiltleWordFrameX = 3;
+			intro1TiltleWordFrameY = 2;
 		}
-		if (walkFrameX == 8)
+		if (intro1WalkingMotionFrameX == 8)
 		{
-			walkFrameX = 0;
+			intro1WalkingMotionFrameX = 0;
 		}
 		if (elapsedCount2 > 100)
 		{
-			episodeFrmX++;
+			intro3EpisodeWordFrmX++;
 		}
 		if (elapsedCount2 > 195)
 		{
-			Intro4Img4X++;
+			intro4KickReadyMotionFrmX++;
 		}
 		if (elapsedCount2 > 207)
 		{
-			if (Intro4Img5X != 2)
+			if (intro4KickMotionFrmX != 2)
 			{
-				Intro4Img5X++;
+				intro4KickMotionFrmX++;
 			}
-			if (Intro4Img5X == 2 && Intro4Img5Y != 1)
+			if (intro4KickMotionFrmX == 2 && intro4KickMotionFrmY != 1)
 			{
-				Intro4Img5Y++;
-				Intro4Img5X = 0;
+				intro4KickMotionFrmY++;
+				intro4KickMotionFrmX = 0;
 			}
 		}
 		elapsedCount1 = 0;
-		
 	}
 
 
 	elapsedCount2++;
-	if (elapsedCount2 <= 50)wallPosX += 100;
-	if (elapsedCount2 > 50)wallPosX += 200;
-	
+	if (elapsedCount2 <= 50)intro1WallPosX += 100;
+	if (elapsedCount2 > 50)intro1WallPosX += 200;
+
 	if (elapsedCount2 > 50)
 	{
-		if(blackPosY < WIN_SIZE_Y + 75)
-		blackPosY += 30;
-		if(walkPosX > 300)
-		walkPosX -= 150;
+		if (introBackground2PosY < WIN_SIZE_Y + 75) introBackground2PosY += 30;
+		if (intro1WalkingMotionPosX > 300) intro1WalkingMotionPosX -= 150;
 	}
 
 	if (elapsedCount2 == 18)
 	{
-		wordFrameX = 3;
-		wordFrameY = 2;
+		intro1TiltleWordFrameX = 3;
+		intro1TiltleWordFrameY = 2;
 	}
 	if (elapsedCount2 > 20)
 	{
-		wordPosX += 100;
+		intro1TiltleWordFrameX += 100;
 	}
 	if (elapsedCount2 > 55)
 	{
-		if (intro2PosY1 > WIN_SIZE_Y / 2)
+		if (intro2HorizontalImgPosY > WIN_SIZE_Y / 2)
 		{
-			intro2PosY1 -= 200;
+			intro2HorizontalImgPosY -= 200;
 		}
 	}
-	if (elapsedCount2 > 63 && !(intro2PosY1 > WIN_SIZE_Y / 2))
+	if (elapsedCount2 > 63 && !(intro2HorizontalImgPosY > WIN_SIZE_Y / 2))
 	{
-		intro2PosY1 -= 200;
+		intro2HorizontalImgPosY -= 200;
 	}
 
 	if (elapsedCount2 > 117)
@@ -172,11 +168,11 @@ void Intro::Update()
 		elapsedCount3++;
 		if (elapsedCount3 == 10)
 		{
-			episodeImgX++;
-			if (episodeImgX == 3 && episodeImgY != 1)
+			intro3EpisodeImgFrmX++;
+			if (intro3EpisodeImgFrmX == 3 && intro3EpisodeImgFrmY != 1)
 			{
-				episodeImgY++;
-				episodeImgX = 0;
+				intro3EpisodeImgFrmY++;
+				intro3EpisodeImgFrmX = 0;
 			}
 			elapsedCount3 = 0;
 		}
@@ -186,18 +182,18 @@ void Intro::Update()
 		elapsedCount4++;
 		if (elapsedCount4 == 3)
 		{
-			if (Intro4Img1X != 2)
+			if (intro4StepImgFrmX != 2)
 			{
-				Intro4Img1X++;
+				intro4StepImgFrmX++;
 			}
-			if (Intro4Img3X != 3)
+			if (intro4BackgroundFrmX != 3)
 			{
-				Intro4Img3X++;
+				intro4BackgroundFrmX++;
 			}
-			if (Intro4Img3X == 3 && Intro4Img3Y != 3)
+			if (intro4BackgroundFrmX == 3 && intro4BackgroundFrmY != 3)
 			{
-				Intro4Img3Y++;
-				Intro4Img3X = 0;
+				intro4BackgroundFrmY++;
+				intro4BackgroundFrmX = 0;
 			}
 			elapsedCount4 = 0;
 		}
@@ -211,60 +207,61 @@ void Intro::Render(HDC hdc)
 {
 	if (showIntro)
 	{
-		if (IntroBackground1)IntroBackground1->Render(hdc);
-		if (Wall)Wall->Render(hdc, wallPosX, WIN_SIZE_Y / 2);
-		if (WalkingWord)WalkingWord->Render(hdc, wordPosX, WIN_SIZE_Y / 2, wordFrameX, wordFrameY);
+		if (introImage[0]) introImage[0]->Render(hdc);
 
-		if (elapsedCount2 > 65)Intro2Img2->Render(hdc, intro2PosX2, intro2PosY2, 0, 0);
-		if (elapsedCount2 > 70)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y - intro2PosY2, 0, 1);
-		if (elapsedCount2 > 75)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y / 2 - intro2PosY2 / 2, 1, 0);
-		if (elapsedCount2 > 80)Intro2Img2->Render(hdc, intro2PosX2, intro2PosY2 / 2, 1, 1);
-		if (elapsedCount2 > 85)Intro2Img2->Render(hdc, intro2PosX2, WIN_SIZE_Y / 2, 2, 0);
+		if (introImage[4]) introImage[4]->Render(hdc, intro1WallPosX, WIN_SIZE_Y / 2);
+		if (introImage[3]) introImage[3]->Render(hdc, intro1TiltleWordPosX, WIN_SIZE_Y / 2, intro1TiltleWordFrameX, intro1TiltleWordFrameY);
 
-		if (IntroWalking)IntroWalking->Render(hdc, walkPosX, WIN_SIZE_Y - 350, walkFrameX, walkFrameY);
-		if (IntroBackground2)IntroBackground2->Render(hdc, blackPosX, blackPosY);
+		if (elapsedCount2 > 65) introImage[6]->Render(hdc, WIN_SIZE_X / 2, intro2VerticalImgPosY, 0, 0);
+		if (elapsedCount2 > 70) introImage[6]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y - intro2VerticalImgPosY, 0, 1);
+		if (elapsedCount2 > 75) introImage[6]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2 - intro2VerticalImgPosY / 2, 1, 0);
+		if (elapsedCount2 > 80) introImage[6]->Render(hdc, WIN_SIZE_X / 2, intro2VerticalImgPosY / 2, 1, 1);
+		if (elapsedCount2 > 85) introImage[6]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 2, 0);
 
-		if (elapsedCount2 > 55)Intro2Img1->Render(hdc, WIN_SIZE_X - 300, intro2PosY1);
+		if (introImage[2]) introImage[2]->Render(hdc, intro1WalkingMotionPosX, WIN_SIZE_Y - 350, intro1WalkingMotionFrameX, 0);
+		if (introImage[1]) introImage[1]->Render(hdc, introBackground2PosX, introBackground2PosY);
 
-		if (elapsedCount2 > 95)IntroBackground1->Render(hdc);
+		if (elapsedCount2 > 55) introImage[5]->Render(hdc, WIN_SIZE_X - 300, intro2HorizontalImgPosY);
 
-		if (elapsedCount2 > 100)Episode->Render(hdc, WIN_SIZE_X - 300, WIN_SIZE_Y / 2, episodeFrmX, 0);
-		if (elapsedCount2 > 117)EpisodeImg->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, episodeImgX, episodeImgY);
+		if (elapsedCount2 > 95) introImage[0]->Render(hdc);
 
-		if (elapsedCount2 > 180)IntroBackground1->Render(hdc);
+		if (elapsedCount2 > 100) introImage[7]->Render(hdc, WIN_SIZE_X - 300, WIN_SIZE_Y / 2, intro3EpisodeWordFrmX, 0);
+		if (elapsedCount2 > 117) introImage[8]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, intro3EpisodeImgFrmX, intro3EpisodeImgFrmY);
 
-		if (elapsedCount2 > 182)Intro4Img1->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img1X, 0);
-		if (elapsedCount2 > 190)Intro4Img2->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
-		if (elapsedCount2 > 195)Intro4Img3->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img3X, Intro4Img3Y);
-		if (elapsedCount2 > 195)Intro4Img4->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img4X, 0);
-		if (elapsedCount2 > 207)Intro4Img5->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, Intro4Img5X, Intro4Img5Y);
+		if (elapsedCount2 > 180) introImage[0]->Render(hdc);
+
+		if (elapsedCount2 > 182) introImage[9]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, intro4StepImgFrmX, 0);
+		if (elapsedCount2 > 190) introImage[10]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		if (elapsedCount2 > 195) introImage[11]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, intro4BackgroundFrmX, intro4BackgroundFrmY);
+		if (elapsedCount2 > 195) introImage[12]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, intro4KickReadyMotionFrmX, 0);
+		if (elapsedCount2 > 207) introImage[13]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, intro4KickMotionFrmX, intro4KickMotionFrmY);
 	}
 	if (showIntro == false && gameStart == false)
 	{
-		IntroBackground1->Render(hdc);
-		GameLogo1->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
-		GameLogo2->Render(hdc, WIN_SIZE_X / 2 - 100, WIN_SIZE_Y - 100);
+		introImage[0]->Render(hdc);
+		introImage[14]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		introImage[15]->Render(hdc, WIN_SIZE_X / 2 - 100, WIN_SIZE_Y - 100);
 	}
-	
+
 }
 
 void Intro::Release()
 {
-	SAFE_RELEASE(IntroBackground1);
-	SAFE_RELEASE(Wall);
-	SAFE_RELEASE(WalkingWord);
-	SAFE_RELEASE(Intro2Img2);
-	SAFE_RELEASE(IntroWalking);
-	SAFE_RELEASE(IntroBackground2);
-	SAFE_RELEASE(Intro2Img1);
-	SAFE_RELEASE(Episode);
-	SAFE_RELEASE(EpisodeImg);
-	SAFE_RELEASE(Intro4Img1);
-	SAFE_RELEASE(Intro4Img2);
-	SAFE_RELEASE(Intro4Img3);
-	SAFE_RELEASE(Intro4Img4);
-	SAFE_RELEASE(Intro4Img5);
-	SAFE_RELEASE(GameLogo1);
-	SAFE_RELEASE(GameLogo2);
+	SAFE_RELEASE(introImage[0]);
+	SAFE_RELEASE(introImage[1]);
+	SAFE_RELEASE(introImage[4]);
+	SAFE_RELEASE(introImage[3]);
+	SAFE_RELEASE(introImage[2]);
+	SAFE_RELEASE(introImage[5]);
+	SAFE_RELEASE(introImage[6]);
+	SAFE_RELEASE(introImage[7]);
+	SAFE_RELEASE(introImage[8]);
+	SAFE_RELEASE(introImage[9]);
+	SAFE_RELEASE(introImage[10]);
+	SAFE_RELEASE(introImage[11]);
+	SAFE_RELEASE(introImage[12]);
+	SAFE_RELEASE(introImage[13]);
+	SAFE_RELEASE(introImage[14]);
+	SAFE_RELEASE(introImage[15]);
 
 }

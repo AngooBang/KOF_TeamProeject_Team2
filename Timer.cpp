@@ -3,14 +3,14 @@
 
 void Timer::Init()
 {
-	SecTimer = new Image;
-	SecTimer->Init("Image/UI/number.bmp", 280, 150, 10, 2, true, RGB(255, 0, 255));
+	timerNumImg = new Image;
+	timerNumImg->Init("Image/UI/number.bmp", 280, 150, 10, 2, true, RGB(255, 0, 255));
 
-	TimeOver = new Image;
-	TimeOver->Init("Image/UI/time_over.bmp", 561, 187, true, RGB(255, 0, 255));
+	timeOverImg = new Image;
+	timeOverImg->Init("Image/UI/time_over.bmp", 561, 187, true, RGB(255, 0, 255));
 
-	tenSec = 6;
-	oneSec = 0;
+	tenSecNumImg = 6;
+	oneSecNumImg = 0;
 	chgNumColor = 0;
 
 	isAlive = true;
@@ -20,43 +20,39 @@ void Timer::Update()
 {
 	if (!isAlive) return;
 
-	oneSec--;
-	if (oneSec < 0)
+	oneSecNumImg--;
+	if (oneSecNumImg < 0)
 	{
-		oneSec = 9;
-		tenSec--;
+		oneSecNumImg = 9;
+		tenSecNumImg--;
 	}
-	if (tenSec == 1 && oneSec == 0)	//남은시간 10초
+	if (tenSecNumImg == 1 && !oneSecNumImg)	//남은시간 10초
 	{
 		chgNumColor = 1;
 	}
-	if (!tenSec&& !oneSec) //남은시간 00초
+	if (!tenSecNumImg && !oneSecNumImg) //남은시간 00초
 	{
-		tenSec = 0, oneSec = 0;
+		tenSecNumImg = 0, oneSecNumImg = 0;
 		isAlive = false;
 	}
-	
+
 }
 
 void Timer::Render(HDC hdc)
 {
-	if (SecTimer)
+	if (timerNumImg)
 	{
-		SecTimer->Render(hdc, TIMER_POS_X, TIMER_POS_Y, tenSec, chgNumColor);
-		SecTimer->Render(hdc, TIMER_POS_X + 28, TIMER_POS_Y, oneSec, chgNumColor);
+		timerNumImg->Render(hdc, TIMER_POS_X, TIMER_POS_Y, tenSecNumImg, chgNumColor);
+		timerNumImg->Render(hdc, TIMER_POS_X + 28, TIMER_POS_Y, oneSecNumImg, chgNumColor);
 	}
-	if (tenSec == 0&& oneSec == 0)
+	if (!tenSecNumImg && !oneSecNumImg)
 	{
-		TimeOver->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		timeOverImg->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
 	}
 }
 
 void Timer::Release()
 {
-	SAFE_RELEASE(SecTimer);
-	if (TimeOver)
-	{
-		delete TimeOver;
-		TimeOver = nullptr;
-	}
+	SAFE_RELEASE(timerNumImg);
+	SAFE_RELEASE(timeOverImg);
 }
