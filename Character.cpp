@@ -25,7 +25,7 @@ void Character::Init()
 	hitBox = new HitBox();
 	hitBox->Init();
 
-	pos.y = WIN_SIZE_Y / 2;
+	pos.y = WIN_SIZE_Y / 2+140;
 
 	hp = 100;
 	isAlive = true;

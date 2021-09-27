@@ -11,11 +11,14 @@ using namespace std;
 #define WIN_SIZE_Y	800
 #define HP_BAR_SET_X	365
 #define HP_BAR_SET_Y	100
-#define TIMER_POS_X		585
+#define TIMER_POS_X		587
 #define TIMER_POS_Y		100
 
 
 #define PI 3.14159265357989
+
+#define SMALL_ATTACK_DAMAGE 20
+#define BIG_ATTACK_DAMAGE 50
 
 #define DEGREE_TO_RADIAN(x)		(x * PI / 180.0f)
 
