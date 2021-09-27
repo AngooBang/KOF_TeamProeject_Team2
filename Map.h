@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 class Image;
-class Map
+class Map : public GameObject
 {
 private:
 	Image* TownStage;

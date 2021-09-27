@@ -12,9 +12,6 @@ public:
 	E_SCENE sceneState;
 
 
-	SceneManager() {}
-	~SceneManager() { }
-
 	void ChangeScene(E_SCENE state);
 };
 

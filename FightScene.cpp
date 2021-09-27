@@ -2,14 +2,12 @@
 #include "Singleton.h"
 #include "KeyManager.h"
 #include "SceneManager.h"
-#include "Scene.h"
 #include "Image.h"
-#include "Terry.h"
 #include "HPBar.h"
 #include "Timer.h"
-#include "Mary.h"
 #include "UI.h"
 #include "Map.h"
+#include "Character.h"
 
 void FightScene::Init()
 {
@@ -25,28 +23,52 @@ void FightScene::Init()
 	roundTimer->Init();
 
 	// 배경 이미지
-	backGround = new Image; 
-	backGround->Init("Image/mapImage.bmp", 1400, 933);
+	backGround = new Image;
 
-	map = new Map;
+	// 맵
+	map = new Map();
 	map->Init();
 
-	terry = new Terry;
-	terry->Init();
-	mary = new Mary;
-	mary->Init();
+	// 플레이어
+	player1->Init();
+	player2->Init();
 
-	terry->ammo->SetTarget(mary);
-	mary->ammo->SetTarget(terry);
+
 
 }
 
 void FightScene::Update()
 {
-	terry->Update();
-	mary->Update();
+	player1->Update();
+	if (player2->GetIsHit())
+	{
+		switch (player2->GetHitMotion())
+		{
+		case HitMotion::Small:
+			HP->p2Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
+			break;
+		case HitMotion::Big:
+			HP->p2Hp->DamageToHp(BIG_ATTACK_DAMAGE);
+			break;
+		}
+	}
+
+	player2->Update();
+	if (player1->GetIsHit()) // 1p가 맞음
+	{
+		switch (player1->GetHitMotion())
+		{
+		case HitMotion::Small:
+			HP->p1Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
+			break;
+		case HitMotion::Big:
+			HP->p1Hp->DamageToHp(BIG_ATTACK_DAMAGE);
+			break;
+		}
+	}
 	HP->Update();
 	map->Update();
+
 	if (isSecTimer)
 	{
 
@@ -57,22 +79,19 @@ void FightScene::Update()
 		isSecTimer = false;
 	}
 
-	InvalidateRect(g_hWnd, NULL, false);
+	//InvalidateRect(g_hWnd, NULL, false);
 }
 
 void FightScene::Render(HDC hdc)
-{
-
+{	
 	backGround->Render(hdc);
+	map->Render(hdc);	
 
-	map->Render(hdc);
-
-	terry->Render(hdc);
-	mary->Render(hdc);
+	player1->Render(hdc);	
+	player2->Render(hdc);
 
 	HP->Render(hdc);
 	roundTimer->Render(hdc);
-
 }
 
 void FightScene::Release()
@@ -87,9 +106,8 @@ void FightScene::Release()
 
 	SAFE_RELEASE(roundTimer);
 
-	SAFE_RELEASE(terry);
-
-	SAFE_RELEASE(mary);
+	SAFE_RELEASE(player1);
+	SAFE_RELEASE(player2);
 
 	KillTimer(g_hWnd, 1);
 }

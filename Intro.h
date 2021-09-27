@@ -6,27 +6,6 @@ class Intro : public GameObject
 {
 private:
 	Image* introImage[16];
-	//Image* introBackground1;
-	//Image* introBackground2;
-
-	//Image* intro1WalkingMotion;
-	//Image* intro1TiltleWord;
-	//Image* intro1Wall;
-
-	//Image* intro2HorizontalImg;
-	//Image* intro2VerticalImg;
-
-	//Image* intro3EpisodeWord;
-	//Image* intro3EpisodeImg;
-
-	//Image* intro4StepImg;
-	//Image* intro4EyesImg;
-	//Image* intro4Background;
-	//Image* intro4KickReadyMotion;
-	//Image* intro4KickMotion;
-
-	//Image* gameStandbyLogo1;
-	//Image* gameStandbyLogo2;
 
 	int introBackground2PosX, introBackground2PosY;
 

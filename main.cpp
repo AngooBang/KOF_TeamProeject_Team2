@@ -107,7 +107,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			case 1:
 				if (isUpdate)
 				{
-
+					g_mainGame.SetIsSecTimer(true);
 				}
 				break;
 		}

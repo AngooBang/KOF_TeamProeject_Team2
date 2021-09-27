@@ -1,7 +1,7 @@
 #pragma once
 #include "GameEntity.h"
 
-class SelectScene : GameEntity
+class SelectScene : public GameEntity
 {
 public:
 

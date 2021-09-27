@@ -5,32 +5,27 @@ class Image;
 class HPBar;
 class UI;
 class Timer;
-class Terry;
-class Mary;
 class Map;
-class FightScene : GameEntity
+class Character;
+class FightScene : public GameEntity
 {
 private:
 	HANDLE hSecTimer;
 
 	bool isSecTimer;
-	// UI
-	char text[128];
-
 
 	// 배경 이미지
 	Image* backGround;
 	Map* map;
 
-	//UI
+	// UI
 	UI* HP;
-
 	Timer* roundTimer;
 
-	Terry* terry;
-	Mary* mary;
+	// 캐릭터
+	Character* player1;
+	Character* player2;
 
-	MoveDir moveDir;
 public:
 
 	void Init();
