@@ -10,6 +10,10 @@ class Timer;
 class Character;
 class Map;
 class Intro;
+class StartScene;
+class SelectScene;
+class FightScene;
+	
 class MainGame : public GameEntity
 {
 private:
@@ -36,6 +40,7 @@ private:
 	// 배경 이미지
 	Image* backGround;
 	Map* map;
+	E_SCENE playScene;
 
 	//UI
 	UI* HP;
@@ -46,10 +51,14 @@ private:
 	Character* player2;
 
 	MoveDir moveDir;
+	StartScene* startScene;
+	SelectScene* selectScene;
+	FightScene* fightScene;
 
 public:
 	void Init();
 	void Update();
+	void SecUpdate();
 	//void Render();			// 오버라이딩 : 상속 관계에서 부모클래스의 함수를 재정의
 	void Render(HDC hdc);	// 오버로딩
 	void Release();

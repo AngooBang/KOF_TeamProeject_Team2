@@ -2,6 +2,9 @@
 #include "Singleton.h"
 #include "KeyManager.h"
 #include "SceneManager.h"
+#include "StartScene.h"
+#include "SelectScene.h"
+#include "FightScene.h"
 #include "Scene.h"
 #include "Image.h"
 #include "HPBar.h"
@@ -18,11 +21,16 @@ void MainGame::Init()
 	KeyManager::GetSingleton()->Init();
 
 	//씬 세팅
-	//SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
+	SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
+	playScene = SceneManager::GetSingleton()->sceneState;
+
+	startScene = new StartScene();
+	selectScene = new SelectScene();
+	fightScene = new FightScene();
 
 	// 타이머 셋팅
 	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 100, NULL);
-	hSecTimer = (HANDLE)SetTimer(g_hWnd, 1, 1000, NULL);
+
 
 	// 백버퍼
 	backBuffer = new Image;
@@ -43,34 +51,21 @@ void MainGame::Init()
 	// 배경 이미지
 	backGround = new Image;
 	if (!SUCCEEDED(backGround->Init("Image/mapImage.bmp", 1400, 933)))
+
+	switch (SceneManager::GetSingleton()->sceneState)
 	{
-		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
+	case E_SCENE_START:
+		startScene->Init();
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Init();
+			break;
+	case E_SCENE_FIGHT:
+		fightScene->Init();
+		break;
 	}
 
-	player1 = new Character();
-	player2 = new Character();
-
-	player1->SetPlayerNum(1);
-	player2->SetPlayerNum(2);
-	player1->SetCharacterType(CharacterType::Terry);
-	player2->SetCharacterType(CharacterType::Mary);
-	player1->Init();
-	player2->Init();
-
-	player2->hitBox->SetTarget(player1);
-	player1->hitBox->SetTarget(player2);
-
-
-	map = new Map;
-	map->Init();
-
-
-
-	//terry->ammo->SetTarget(mary);
-	//mary->ammo->SetTarget(terry);
-
 }
-
 void MainGame::Update()
 {
 
@@ -123,20 +118,38 @@ void MainGame::Update()
 	map->Update();
 
 	if (isSecTimer)
+	if (playScene != SceneManager::GetSingleton()->sceneState)
 	{
-		if (HP->GetIsAlive() == true)
+		switch (SceneManager::GetSingleton()->sceneState)
 		{
-			roundTimer->Update();
+		case E_SCENE_START:
+			startScene->Init();
+			break;
+		case E_SCENE_SELECT:
+			selectScene->Init();
+			break;
+		case E_SCENE_FIGHT:
+			fightScene->Init();
+			break;
 		}
-		isSecTimer = false;
+		playScene = SceneManager::GetSingleton()->sceneState;
+	}
+	switch (SceneManager::GetSingleton()->sceneState)
+	{
+	case E_SCENE_START:
+		startScene->Update();
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Update();
+		break;
+	case E_SCENE_FIGHT:
+		fightScene->Update();
+		break;
 	}
 
-	InvalidateRect(g_hWnd, NULL, false);
 }
-
 void MainGame::Render(HDC hdc)
 {
-	//SceneManager::GetSingleton()->pScene->Render();
 
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
@@ -152,6 +165,18 @@ void MainGame::Render(HDC hdc)
 
 	HP->Render(hBackBufferDC);
 	roundTimer->Render(hBackBufferDC);
+	switch (SceneManager::GetSingleton()->sceneState)
+	{
+	case E_SCENE_START:
+		startScene->Render(hBackBufferDC);
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Render(hBackBufferDC);
+		break;
+	case E_SCENE_FIGHT:
+		fightScene->Render(hBackBufferDC);
+		break;
+	}
 
 	intro->Render(hBackBufferDC);
 
@@ -161,49 +186,28 @@ void MainGame::Render(HDC hdc)
 
 void MainGame::Release()
 {
-	//SceneManager::GetSingleton()->pScene->Release();
-	SAFE_RELEASE(backBuffer);
+	switch (SceneManager::GetSingleton()->sceneState)
+	{
+	case E_SCENE_START:
+		startScene->Release();
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Release();
+		break;
+	case E_SCENE_FIGHT:
+		fightScene->Release();
+		break;
+	}
 
-	SAFE_RELEASE(backGround);
 
-	SAFE_RELEASE(map);
-
-	SAFE_RELEASE(HP);
-
-	SAFE_RELEASE(roundTimer);
+	SAFE_RELEASE(startScene);
+	SAFE_RELEASE(selectScene);
+	SAFE_RELEASE(fightScene);
 
 	SAFE_RELEASE(player1);
+	SAFE_RELEASE(backBuffer);
 
 	// 타이머 객체 삭제
 	KillTimer(g_hWnd, 0);
-	KillTimer(g_hWnd, 1);
 }
 
-//
-//LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
-//{
-//	switch (iMessage)
-//	{
-//	case WM_KEYDOWN:
-//		switch (wParam)
-//		{
-//		case VK_SPACE:
-//
-//			break;
-//		case VK_UP:
-//
-//			break;
-//		case VK_DOWN:
-//
-//			break;
-//		case VK_LEFT:
-//
-//			break;
-//		case VK_RIGHT:
-//
-//			break;
-//		}
-//		break;
-//	}
-//	return DefWindowProc(hWnd, iMessage, wParam, lParam);
-//}

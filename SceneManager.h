@@ -2,11 +2,15 @@
 #include "Singleton.h"
 #include "Config.h"
 
-class Scene;
+class StartScene;
+class FightScene;
+class SelectScene;
 class SceneManager : public Singleton<SceneManager>
 {
+private:
 public:
-	Scene* pScene;
+	E_SCENE sceneState;
+
 
 	SceneManager() {}
 	~SceneManager() { }

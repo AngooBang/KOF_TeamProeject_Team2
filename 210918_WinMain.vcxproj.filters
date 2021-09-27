@@ -72,9 +72,6 @@
     <ClCompile Include="HitBox.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>2D Framework\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="StartScene.cpp">
       <Filter>2D Framework\Scene</Filter>
     </ClCompile>
@@ -130,9 +127,6 @@
     </ClInclude>
     <ClInclude Include="HitBox.h">
       <Filter>MainGame\KOF_Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>2D Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="StartScene.h">
       <Filter>2D Framework\Scene</Filter>

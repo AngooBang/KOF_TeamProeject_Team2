@@ -1,14 +1,10 @@
 #pragma once
-class Scene
+#include "GameEntity.h"
+class Scene : public GameEntity
 {
 public:
 	Scene() {}
 	~Scene() {}
 
-public:
-	void Init();
-	void Update();
-	void Render();
-	void Release();
 };
 

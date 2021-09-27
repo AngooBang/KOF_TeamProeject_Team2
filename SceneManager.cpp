@@ -5,27 +5,23 @@
 
 void SceneManager::ChangeScene(E_SCENE state)
 {
-	SAFE_RELEASE(pScene);
 
 	switch (state)
 	{
 	case E_SCENE_START:
-		pScene = new StartScene();
-		pScene->Init();
+		sceneState = E_SCENE_START;
 		return;
 
 	case E_SCENE_SELECT:
-		pScene = new SelectScene();
-		pScene->Init();
+		sceneState = E_SCENE_SELECT;
 		return;
 
 	case E_SCENE_FIGHT:
-		pScene = new FightScene();
-		pScene->Init();
+		sceneState = E_SCENE_FIGHT;
 		return;
 
 	default:
 		return;
 
-	}
+	};
 }
