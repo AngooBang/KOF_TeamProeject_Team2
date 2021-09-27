@@ -27,7 +27,7 @@ private:
 	int intro4KickReadyMotionFrmX;
 	int intro4KickMotionFrmX, intro4KickMotionFrmY;
 
-	int elapsedCount1, elapsedCount2, elapsedCount3, elapsedCount4;
+	int elapsedCount1, elapsedCount2, elapsedCount3, elapsedCount4, elapsedCount5;
 
 	bool showIntro, gameStart;
 

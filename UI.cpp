@@ -12,12 +12,14 @@ void UI::Init()
 	POINTFLOAT pos1{ HP_BAR_SET_X, HP_BAR_SET_Y };
 	p1Hp->SetPos(pos1);
 	p1Hp->SetPlayerNum(1);
+	p1Hp->SetCharacterNum(1);
 
 	p2Hp = new HPBar;
 	p2Hp->Init();
 	POINTFLOAT pos2{ WIN_SIZE_X - HP_BAR_SET_X, HP_BAR_SET_Y };
 	p2Hp->SetPos(pos2);
 	p2Hp->SetPlayerNum(2);
+	p2Hp->SetCharacterNum(2);
 
 	isAlive = true;
 }

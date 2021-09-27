@@ -54,32 +54,37 @@ void StartScene::Init()
 
 	//게임 시작 대기 화면
 	introImage[14] = new Image;
-	introImage[14]->Init("Image/intro/game_logo.bmp", WIN_SIZE_X - 200, WIN_SIZE_Y / 3, true, RGB(32, 80, 48));
-
-	introImage[15] = new Image;
-	introImage[15]->Init("Image/intro/2000_SNK.bmp", WIN_SIZE_X - 300, WIN_SIZE_Y / 5, true, RGB(0, 0, 0));
+	introImage[14]->Init("Image/intro/game_stand_by.bmp", WIN_SIZE_X, 660, true, RGB(32, 80, 48));
 
 	introBackground2PosX = WIN_SIZE_X / 2;
 	introBackground2PosY = WIN_SIZE_Y - 75;
+
 	intro1WalkingMotionFrameX = 0;
 	intro1WalkingMotionPosX = WIN_SIZE_X - 200;
-	intro1TiltleWordFrameX, intro1TiltleWordFrameY = 0;
+	intro1TiltleWordFrameX = 0;
+	intro1TiltleWordFrameY = 0;
 	intro1TiltleWordPosX = 300;
 	intro1WallPosX = -(WIN_SIZE_X * 5) / 2 + 1200;
+
 	intro2HorizontalImgPosY = WIN_SIZE_Y + (WIN_SIZE_Y / 2);
 	intro2VerticalImgPosY = WIN_SIZE_Y / 4;
-	Intro2Img2FmX, Intro2Img2FmY = 0;
+
 	intro3EpisodeWordFrmX = 0;
-	intro3EpisodeImgFrmX, intro3EpisodeImgFrmY = 0;
+	intro3EpisodeImgFrmX = 0;
+	intro3EpisodeImgFrmY = 0;
+
 	intro4StepImgFrmX = 0;
-	intro4BackgroundFrmX, intro4BackgroundFrmY = 0;
+	intro4BackgroundFrmX = 0;
+	intro4BackgroundFrmY = 0;
 	intro4KickReadyMotionFrmX = 0;
-	intro4KickMotionFrmX, intro4KickMotionFrmY = 0;
+	intro4KickMotionFrmX = 0;
+	intro4KickMotionFrmY = 0;
 
 	elapsedCount1 = 0;
 	elapsedCount2 = 0;
 	elapsedCount3 = 0;
 	elapsedCount4 = 0;
+	elapsedCount5 = 0;
 
 	showIntro = true;
 	gameStart = false;
@@ -87,125 +92,127 @@ void StartScene::Init()
 
 void StartScene::Update()
 {
-	elapsedCount1++;
-
-	if (elapsedCount1 == 2)
+	elapsedCount5++;
+	if(elapsedCount5 == 2)
 	{
-		intro1WalkingMotionFrameX++;
-		if (intro1TiltleWordFrameX < 3 && intro1TiltleWordFrameY < 3)
+		elapsedCount1++;
+		if (elapsedCount1 == 2)
 		{
-			intro1TiltleWordFrameX++;
+			intro1WalkingMotionFrameX++;
+			if (intro1TiltleWordFrameX < 3 && intro1TiltleWordFrameY < 3)
+			{
+				intro1TiltleWordFrameX++;
+			}
+			if (intro1TiltleWordFrameX == 3 && intro1TiltleWordFrameY != 2)
+			{
+				intro1TiltleWordFrameX = 0;
+				intro1TiltleWordFrameY++;
+			}
+			if (intro1TiltleWordFrameX == 3 && intro1TiltleWordFrameY == 2)
+			{
+				intro1TiltleWordFrameX = 3;
+				intro1TiltleWordFrameY = 2;
+			}
+			if (intro1WalkingMotionFrameX == 8)
+			{
+				intro1WalkingMotionFrameX = 0;
+			}
+			if (elapsedCount2 > 100)
+			{
+				intro3EpisodeWordFrmX++;
+			}
+			if (elapsedCount2 > 195)
+			{
+				intro4KickReadyMotionFrmX++;
+			}
+			if (elapsedCount2 > 207)
+			{
+				if (intro4KickMotionFrmX != 2)
+				{
+					intro4KickMotionFrmX++;
+				}
+				if (intro4KickMotionFrmX == 2 && intro4KickMotionFrmY != 1)
+				{
+					intro4KickMotionFrmY++;
+					intro4KickMotionFrmX = 0;
+				}
+			}
+			elapsedCount1 = 0;
 		}
-		if (intro1TiltleWordFrameX == 3 && intro1TiltleWordFrameY != 2)
+	
+	
+		elapsedCount2++;
+		if (elapsedCount2 <= 50)intro1WallPosX += 100;
+		if (elapsedCount2 > 50)intro1WallPosX += 200;
+	
+		if (elapsedCount2 > 50)
 		{
-			intro1TiltleWordFrameX = 0;
-			intro1TiltleWordFrameY++;
+			if (introBackground2PosY < WIN_SIZE_Y + 75) introBackground2PosY += 30;
+			if (intro1WalkingMotionPosX > 300) intro1WalkingMotionPosX -= 150;
 		}
-		if (intro1TiltleWordFrameX == 3 && intro1TiltleWordFrameY == 2)
+	
+		if (elapsedCount2 == 18)
 		{
 			intro1TiltleWordFrameX = 3;
 			intro1TiltleWordFrameY = 2;
 		}
-		if (intro1WalkingMotionFrameX == 8)
+		if (elapsedCount2 > 20)
 		{
-			intro1WalkingMotionFrameX = 0;
+			intro1TiltleWordPosX += 100;
 		}
-		if (elapsedCount2 > 100)
+		if (elapsedCount2 > 55)
 		{
-			intro3EpisodeWordFrmX++;
-		}
-		if (elapsedCount2 > 195)
-		{
-			intro4KickReadyMotionFrmX++;
-		}
-		if (elapsedCount2 > 207)
-		{
-			if (intro4KickMotionFrmX != 2)
+			if (intro2HorizontalImgPosY > WIN_SIZE_Y / 2)
 			{
-				intro4KickMotionFrmX++;
-			}
-			if (intro4KickMotionFrmX == 2 && intro4KickMotionFrmY != 1)
-			{
-				intro4KickMotionFrmY++;
-				intro4KickMotionFrmX = 0;
+				intro2HorizontalImgPosY -= 200;
 			}
 		}
-		elapsedCount1 = 0;
-	}
-
-
-	elapsedCount2++;
-	if (elapsedCount2 <= 50)intro1WallPosX += 100;
-	if (elapsedCount2 > 50)intro1WallPosX += 200;
-
-	if (elapsedCount2 > 50)
-	{
-		if (introBackground2PosY < WIN_SIZE_Y + 75) introBackground2PosY += 30;
-		if (intro1WalkingMotionPosX > 300) intro1WalkingMotionPosX -= 150;
-	}
-
-	if (elapsedCount2 == 18)
-	{
-		intro1TiltleWordFrameX = 3;
-		intro1TiltleWordFrameY = 2;
-	}
-	if (elapsedCount2 > 20)
-	{
-		intro1TiltleWordFrameX += 100;
-	}
-	if (elapsedCount2 > 55)
-	{
-		if (intro2HorizontalImgPosY > WIN_SIZE_Y / 2)
+		if (elapsedCount2 > 63 && !(intro2HorizontalImgPosY > WIN_SIZE_Y / 2))
 		{
 			intro2HorizontalImgPosY -= 200;
 		}
-	}
-	if (elapsedCount2 > 63 && !(intro2HorizontalImgPosY > WIN_SIZE_Y / 2))
-	{
-		intro2HorizontalImgPosY -= 200;
-	}
-
-	if (elapsedCount2 > 117)
-	{
-		elapsedCount3++;
-		if (elapsedCount3 == 10)
+	
+		if (elapsedCount2 > 117)
 		{
-			intro3EpisodeImgFrmX++;
-			if (intro3EpisodeImgFrmX == 3 && intro3EpisodeImgFrmY != 1)
+			elapsedCount3++;
+			if (elapsedCount3 == 10)
 			{
-				intro3EpisodeImgFrmY++;
-				intro3EpisodeImgFrmX = 0;
+				intro3EpisodeImgFrmX++;
+				if (intro3EpisodeImgFrmX == 3 && intro3EpisodeImgFrmY != 1)
+				{
+					intro3EpisodeImgFrmY++;
+					intro3EpisodeImgFrmX = 0;
+				}
+				elapsedCount3 = 0;
 			}
-			elapsedCount3 = 0;
 		}
-	}
-	if (elapsedCount2 > 182)
-	{
-		elapsedCount4++;
-		if (elapsedCount4 == 3)
+		if (elapsedCount2 > 182)
 		{
-			if (intro4StepImgFrmX != 2)
+			elapsedCount4++;
+			if (elapsedCount4 == 3)
 			{
-				intro4StepImgFrmX++;
+				if (intro4StepImgFrmX != 2)
+				{
+					intro4StepImgFrmX++;
+				}
+				if (intro4BackgroundFrmX != 3)
+				{
+					intro4BackgroundFrmX++;
+				}
+				if (intro4BackgroundFrmX == 3 && intro4BackgroundFrmY != 3)
+				{
+					intro4BackgroundFrmY++;
+					intro4BackgroundFrmX = 0;
+				}
+				elapsedCount4 = 0;
 			}
-			if (intro4BackgroundFrmX != 3)
-			{
-				intro4BackgroundFrmX++;
-			}
-			if (intro4BackgroundFrmX == 3 && intro4BackgroundFrmY != 3)
-			{
-				intro4BackgroundFrmY++;
-				intro4BackgroundFrmX = 0;
-			}
-			elapsedCount4 = 0;
 		}
+		if (elapsedCount2 > 230)showIntro = false;
+		elapsedCount5 = 0;
 	}
-	if (elapsedCount2 > 230)showIntro = false;
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_TAB)) showIntro = false;
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_F5)) gameStart = true;
-
-	if (gameStart)
-		SceneManager::GetSingleton()->ChangeScene(E_SCENE_SELECT);
+	if (gameStart)SceneManager::GetSingleton()->ChangeScene(E_SCENE_SELECT);
 
 }
 
@@ -244,19 +251,19 @@ void StartScene::Render(HDC hdc)
 	}
 	if (showIntro == false && gameStart == false)
 	{
-		introImage[0]->Render(hdc);
 		introImage[14]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
-		introImage[15]->Render(hdc, WIN_SIZE_X / 2 - 100, WIN_SIZE_Y - 100);
 	}
+
 }
+
 
 void StartScene::Release()
 {
 	SAFE_RELEASE(introImage[0]);
 	SAFE_RELEASE(introImage[1]);
-	SAFE_RELEASE(introImage[4]);
-	SAFE_RELEASE(introImage[3]);
 	SAFE_RELEASE(introImage[2]);
+	SAFE_RELEASE(introImage[3]);
+	SAFE_RELEASE(introImage[4]);
 	SAFE_RELEASE(introImage[5]);
 	SAFE_RELEASE(introImage[6]);
 	SAFE_RELEASE(introImage[7]);
@@ -267,5 +274,4 @@ void StartScene::Release()
 	SAFE_RELEASE(introImage[12]);
 	SAFE_RELEASE(introImage[13]);
 	SAFE_RELEASE(introImage[14]);
-	SAFE_RELEASE(introImage[15]);
 }

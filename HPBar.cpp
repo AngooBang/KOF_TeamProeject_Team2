@@ -13,6 +13,9 @@ void HPBar::Init()
 	portraitBackImg = new Image;
 	portraitBackImg->Init("Image/UI/player_portrait.bmp", 594, 146, 2, 1, true, RGB(255, 0, 255));
 
+	portraitImg = new Image;
+	portraitImg->Init("Image/UI/portrait_mary_terry.bmp", 280, 130, 2, 1, true, RGB(89, 177, 77));
+
 	koImg = new Image;
 	koImg->Init("Image/UI/K.O..bmp", 450, 150, true, RGB(255, 0, 255));
 
@@ -22,7 +25,11 @@ void HPBar::Init()
 	portraitBackImgX1 = 0;
 	portraitBackImgX2 = WIN_SIZE_X;
 
+	portraitImgX1 = -50;
+	portraitImgX2 = WIN_SIZE_X + 50;
+
 	playerNum = 0;
+	characterNum = 0;
 
 	lostHp = 0;
 	getDamage = 0;
@@ -61,6 +68,14 @@ void HPBar::Update()
 	{
 		portraitBackImgX2 -= 25;
 	}
+	if (portraitBackImgX1 < 365)
+	{
+		portraitBackImgX1 += 25;
+	}
+	if (portraitBackImgX2 > WIN_SIZE_X - 365)
+	{
+		portraitBackImgX2 -= 25;
+	}
 }
 
 void HPBar::Render(HDC hdc)
@@ -71,13 +86,16 @@ void HPBar::Render(HDC hdc)
 		portraitBackImg->Render(hdc, portraitBackImgX1, pos.y, 0, 0);
 		hpBarFrameImg->Render(hdc, pos.x, pos.y);
 		hpBarImg->Render1pHP(hdc, pos.x, pos.y, lostHp);
+		portraitImg->Render(hdc, portraitImgX1, pos.y - 2, characterNum - 1, 0);
 		break;
 	case 2:
 		portraitBackImg->Render(hdc, portraitBackImgX2, pos.y, 1, 0);
 		hpBarFrameImg->Render(hdc, pos.x, pos.y);
 		hpBarImg->Render2pHP(hdc, pos.x, pos.y, lostHp);
+		portraitImg->Render(hdc, portraitImgX2, pos.y - 2, characterNum - 1, 0);
 		break;
 	}
+
 
 	if (!isAlive)
 	{
