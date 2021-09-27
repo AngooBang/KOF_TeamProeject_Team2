@@ -1,36 +1,36 @@
 #pragma once
-#include "Config.h"
-#include "image.h"
-#include "KeyManager.h"
-#include <conio.h>
+#include "GameObject.h"
 
-class SelectCharater
+class Image;
+class SelectIcon;
+class SelectCharater : public GameObject
 {
 private:
-	Image* SelectBackground;
+	Image* selectBackground;
 
-	Image* SelectChar;
+	Image* selectChar1;
+	Image* selectChar2;
 
-	Image* SelectIconP;
-	Image* SelectIconP2;
+	//Image* selectIconP;
+	//Image* selectIconP2;
 
-	Image* SelectCharframe;
+	Image* selectCharframe;
 
-	int pressKey;
+	SelectIcon* icon;
+	//SelectIcon* iconP1;
+	SelectIcon* iconP2;
 
 	int elapsedtCount;
 
-	int selectCharFrameNum1;
-	int selectCharFrameNum2;
-	int selectCharFrameX;
-	int selectCharFrameX2;
+	//int selectCharFrameNum1;
+	//int selectCharFrameNum2;
+	//int selectCharFrameX1;
+	//int selectCharFrameX2;
 
 	int selectCharFramePos;
 
-	bool moveIcon1;
-	bool moveIcon2;
 
-	POINT SelectCharPos[2];
+	//POINT selectCharPos[2];
 
 public:
 	void Init();

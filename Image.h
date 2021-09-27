@@ -86,7 +86,7 @@ public:
 	void Render1pHP(HDC hdc, int destX, int destY, int lostHp);
 	void Render2pHP(HDC hdc, int destX, int destY, int lostHp);
 
-	void SelectCharRender(HDC hdc, int destX, int destY, int charX, int charY);
+	void selectCharRender(HDC hdc, int destX, int destY, int charX, int charY);
 
 	HDC GetMemDC() { if (imageInfo) return imageInfo->hMemDc; return NULL; }
 };

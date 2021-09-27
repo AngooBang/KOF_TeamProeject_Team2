@@ -213,21 +213,6 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 			imageInfo->frameHeight,
 			transColor 
 		);
-		StretchBlt
-		(
-			hdc,
-			destX + (imageInfo->frameWidth / 2),
-			destY - (imageInfo->frameHeight / 2),
-			-(frameWidth[frameX + 1] - frameWidth[frameX]),
-			imageInfo->frameHeight,		// 전체 프레임 수
-
-			imageInfo->hMemDc,
-			frameWidth[frameX],
-			frameWidth[frameY],
-			frameWidth[frameX + 1] - frameWidth[frameX],
-			imageInfo->frameHeight, 
-			transColor
-		);
 	}
 	else
 	{
@@ -243,37 +228,37 @@ void Image::Render(HDC hdc, int destX, int destY, int frameX, int frameY, int* f
 	}
 }
 
-void Image::SelectCharRender(HDC hdc, int destX, int destY,int charX , int charY)
-{
-	if (isTransparent)
-	{
-		GdiTransparentBlt(
-			hdc,
-			destX - (imageInfo->width / 2),
-			destY - (imageInfo->height / 2),
-			149,
-			172,
-			imageInfo->hMemDc,
-			149* (charX-1),
-			172* (charY-1),
-			149,
-			172,
-			transColor
-		);
-	}
-	else
-	{
-		BitBlt(hdc,				// 복사 목적지 DC
-			0,		// 복사될 비트맵의 시작 위치 x
-			0,			// 복사될 비트맵의 시작 위치 y
-			imageInfo->width,	// 원본 복사할 가로 크기
-			imageInfo->height,	// 원본 복사할 세로 크기
-			imageInfo->hMemDc,	// 원본 DC
-			0,					// 원본 비트맵 복사 시작 위치 x
-			0,					// 원본 비트맵 복사 시작 위치 y
-			SRCCOPY);			// 복사 옵션
-	}
-}
+//void Image::selectCharRender(HDC hdc, int destX, int destY,int charX , int charY)
+//{
+//	if (isTransparent)
+//	{
+//		GdiTransparentBlt(
+//			hdc,
+//			destX - (imageInfo->width / 2),
+//			destY - (imageInfo->height / 2),
+//			149,
+//			172,
+//			imageInfo->hMemDc,
+//			149* (charX-1),
+//			172* (charY-1),
+//			149,
+//			172,
+//			transColor
+//		);
+//	}
+//	else
+//	{
+//		BitBlt(hdc,				// 복사 목적지 DC
+//			0,		// 복사될 비트맵의 시작 위치 x
+//			0,			// 복사될 비트맵의 시작 위치 y
+//			imageInfo->width,	// 원본 복사할 가로 크기
+//			imageInfo->height,	// 원본 복사할 세로 크기
+//			imageInfo->hMemDc,	// 원본 DC
+//			0,					// 원본 비트맵 복사 시작 위치 x
+//			0,					// 원본 비트맵 복사 시작 위치 y
+//			SRCCOPY);			// 복사 옵션
+//	}
+//}
 
 
 

@@ -28,6 +28,9 @@
     <Filter Include="2D Framework\UI">
       <UniqueIdentifier>{88cbbfdc-fcab-489f-a950-848fa1214080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\SelectCharater">
+      <UniqueIdentifier>{a2c646f5-b597-4991-9993-b2c204b24470}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,7 +76,10 @@
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
     <ClCompile Include="SelectCharater.cpp">
-      <Filter>MainGame</Filter>
+      <Filter>2D Framework\SelectCharater</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectIcon.cpp">
+      <Filter>2D Framework\SelectCharater</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="MainGame.h">
-      <Filter>MainGame</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>2D Framework</Filter>
@@ -125,8 +128,14 @@
     <ClInclude Include="Ammo.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
-    <ClInclude Include="SelectCharater.h">
+    <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectCharater.h">
+      <Filter>2D Framework\SelectCharater</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectIcon.h">
+      <Filter>2D Framework\SelectCharater</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
