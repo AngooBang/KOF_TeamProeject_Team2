@@ -44,6 +44,8 @@ void MainGame::Init()
 		break;
 	}
 	startScene->Init();
+	selectScene->Init();
+	fightScene->Init();
 
 	isSecTimer = false;
 }
@@ -59,6 +61,7 @@ void MainGame::Update()
 
 	if (playScene != SceneManager::GetSingleton()->sceneState)
 	{
+		playScene = SceneManager::GetSingleton()->sceneState;
 		switch (SceneManager::GetSingleton()->sceneState)
 		{
 		case E_SCENE_START:
@@ -71,7 +74,6 @@ void MainGame::Update()
 			fightScene->Init();
 			break;
 		}
-		playScene = SceneManager::GetSingleton()->sceneState;
 	}
 
 	switch (SceneManager::GetSingleton()->sceneState)

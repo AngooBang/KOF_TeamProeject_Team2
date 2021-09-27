@@ -23,10 +23,7 @@ void FightScene::Init()
 
 	// 배경 이미지
 	backGround = new Image;
-	if (!SUCCEEDED(backGround->Init("Image/mapImage.bmp", 1400, 933)))
-	{
-		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
-	}
+	backGround->Init("Image/mapImage.bmp", 1400, 933); 
 
 
 	// 맵

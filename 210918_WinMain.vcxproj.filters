@@ -25,14 +25,14 @@
     <Filter Include="MainGame\KOF_Player">
       <UniqueIdentifier>{9ea1f47f-e504-4b99-8834-b06b5a8d15fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\UI">
-      <UniqueIdentifier>{88cbbfdc-fcab-489f-a950-848fa1214080}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\Scene">
       <UniqueIdentifier>{387fda03-35e0-47f8-ae6b-359cf840c2dc}</UniqueIdentifier>
     </Filter>
     <Filter Include="MainGame\Map">
       <UniqueIdentifier>{27fff133-8a03-48cf-8768-e6b1c3095c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI">
+      <UniqueIdentifier>{88cbbfdc-fcab-489f-a950-848fa1214080}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,13 +58,13 @@
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
-      <Filter>2D Framework\UI</Filter>
+      <Filter>MainGame\UI</Filter>
     </ClCompile>
     <ClCompile Include="HPBar.cpp">
-      <Filter>2D Framework\UI</Filter>
+      <Filter>MainGame\UI</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>2D Framework\UI</Filter>
+      <Filter>MainGame\UI</Filter>
     </ClCompile>
     <ClCompile Include="HitBox.cpp">
       <Filter>MainGame\KOF_Player</Filter>
@@ -81,11 +81,11 @@
     <ClCompile Include="Map.cpp">
       <Filter>MainGame\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Intro.cpp">
-      <Filter>2D Framework\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectIcon.cpp">
+      <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,13 +117,13 @@
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
-      <Filter>2D Framework\UI</Filter>
+      <Filter>MainGame\UI</Filter>
     </ClInclude>
     <ClInclude Include="HPBar.h">
-      <Filter>2D Framework\UI</Filter>
+      <Filter>MainGame\UI</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>2D Framework\UI</Filter>
+      <Filter>MainGame\UI</Filter>
     </ClInclude>
     <ClInclude Include="HitBox.h">
       <Filter>MainGame\KOF_Player</Filter>
@@ -140,14 +140,14 @@
     <ClInclude Include="Map.h">
       <Filter>MainGame\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Intro.h">
-      <Filter>2D Framework\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="HitMotionFrame.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectIcon.h">
+      <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

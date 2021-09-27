@@ -146,12 +146,12 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="Image.cpp" />
-    <ClCompile Include="Intro.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SelectIcon.cpp" />
     <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -168,11 +168,11 @@
     <ClInclude Include="HitMotionFrame.h" />
     <ClInclude Include="HPBar.h" />
     <ClInclude Include="Image.h" />
-    <ClInclude Include="Intro.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SelectIcon.h" />
     <ClInclude Include="SelectScene.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StartScene.h" />
