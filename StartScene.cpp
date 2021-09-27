@@ -1,5 +1,6 @@
 #include "StartScene.h"
 #include "Image.h"
+#include "SceneManager.h"
 #include "KeyManager.h"
 
 void StartScene::Init()
@@ -202,6 +203,9 @@ void StartScene::Update()
 	if (elapsedCount2 > 230)showIntro = false;
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_TAB)) showIntro = false;
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_F5)) gameStart = true;
+
+	if (gameStart)
+		SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
 
 }
 

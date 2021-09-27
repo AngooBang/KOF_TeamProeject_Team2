@@ -8,11 +8,10 @@
 #include "UI.h"
 #include "Map.h"
 #include "Character.h"
+#include "HitBox.h"
 
 void FightScene::Init()
 {
-
-	//hSecTimer = (HANDLE)SetTimer(g_hWnd, 1, 1000, NULL);
 
 	// HP
 	HP = new UI;
@@ -24,16 +23,32 @@ void FightScene::Init()
 
 	// 배경 이미지
 	backGround = new Image;
+	if (!SUCCEEDED(backGround->Init("Image/mapImage.bmp", 1400, 933)))
+	{
+		cout << "Image/bin.bmp 파일 로드에 실패했다." << endl;
+	}
+
 
 	// 맵
 	map = new Map();
 	map->Init();
 
 	// 플레이어
+	player1 = new Character();
+	player2 = new Character();
+
+	player1->SetPlayerNum(1);
+	player2->SetPlayerNum(2);
+	player1->SetCharacterType(CharacterType::Terry);
+	player2->SetCharacterType(CharacterType::Mary);
 	player1->Init();
 	player2->Init();
 
+	player2->hitBox->SetTarget(player1);
+	player1->hitBox->SetTarget(player2);
 
+
+	isSecTimer = false;
 
 }
 

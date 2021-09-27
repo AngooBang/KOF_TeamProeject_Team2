@@ -20,7 +20,7 @@ void MainGame::Init()
 	fightScene = new FightScene;
 
 	//¾À ¼¼ÆÃ
-	SceneManager::GetSingleton()->ChangeScene(E_SCENE_FIGHT);
+	SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
 	playScene = SceneManager::GetSingleton()->sceneState;
 
 
@@ -50,7 +50,10 @@ void MainGame::Init()
 void MainGame::Update()
 {
 	if (isSecTimer)
+	{
 		fightScene->SetIsSecTimer(true);
+		isSecTimer = false;
+	}
 
 	startScene->Update();
 
@@ -83,6 +86,7 @@ void MainGame::Update()
 		fightScene->Update();
 		break;
 	}
+
 	InvalidateRect(g_hWnd, NULL, false);
 }
 void MainGame::Render(HDC hdc)
