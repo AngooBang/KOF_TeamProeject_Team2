@@ -81,11 +81,11 @@
     <ClCompile Include="Map.cpp">
       <Filter>MainGame\Map</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>2D Framework\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="SelectIcon.cpp">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,11 +143,11 @@
     <ClInclude Include="HitMotionFrame.h">
       <Filter>MainGame\KOF_Player</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>2D Framework\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="SelectIcon.h">
       <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>2D Framework\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

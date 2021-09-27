@@ -19,9 +19,12 @@ void MainGame::Init()
 	selectScene = new SelectScene;
 	fightScene = new FightScene;
 
+	startScene->Init();
+	selectScene->Init();
+	fightScene->Init();
+
 	//¾À ¼¼ÆÃ
 	SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
-	playScene = SceneManager::GetSingleton()->sceneState;
 
 
 
@@ -31,21 +34,18 @@ void MainGame::Init()
 
 
 
-	switch (SceneManager::GetSingleton()->sceneState)
-	{
-	case E_SCENE_START:
-		startScene->Init();
-		break;
-	case E_SCENE_SELECT:
-		selectScene->Init();
-			break;
-	case E_SCENE_FIGHT:
-		fightScene->Init();
-		break;
-	}
-	startScene->Init();
-	selectScene->Init();
-	fightScene->Init();
+	//switch (SceneManager::GetSingleton()->sceneState)
+	//{
+	//case E_SCENE_START:
+	//	startScene->Init();
+	//	break;
+	//case E_SCENE_SELECT:
+	//	selectScene->Init();
+	//		break;
+	//case E_SCENE_FIGHT:
+	//	fightScene->Init();
+	//	break;
+	//}
 
 	isSecTimer = false;
 }
@@ -57,24 +57,23 @@ void MainGame::Update()
 		isSecTimer = false;
 	}
 
-	startScene->Update();
 
-	if (playScene != SceneManager::GetSingleton()->sceneState)
-	{
-		playScene = SceneManager::GetSingleton()->sceneState;
-		switch (SceneManager::GetSingleton()->sceneState)
-		{
-		case E_SCENE_START:
-			startScene->Init();
-			break;
-		case E_SCENE_SELECT:
-			selectScene->Init();
-			break;
-		case E_SCENE_FIGHT:
-			fightScene->Init();
-			break;
-		}
-	}
+	//if (playScene != SceneManager::GetSingleton()->sceneState)
+	//{
+	//	playScene = SceneManager::GetSingleton()->sceneState;
+	//	switch (SceneManager::GetSingleton()->sceneState)
+	//	{
+	//	case E_SCENE_START:
+	//		startScene->Init();
+	//		break;
+	//	case E_SCENE_SELECT:
+	//		selectScene->Init();
+	//		break;
+	//	case E_SCENE_FIGHT:
+	//		fightScene->Init();
+	//		break;
+	//	}
+	//}
 
 	switch (SceneManager::GetSingleton()->sceneState)
 	{
