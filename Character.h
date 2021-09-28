@@ -19,10 +19,10 @@ protected:
 	int* actionFrameX[Action::ActEnd];
 	int maxFrame[Action::ActEnd];
 	int hp;
-	bool isStatus,  isHit, isMove;
+	bool isStatus,  isHit, isMove, commandAction, isDead;
 
 	Action action;
-	/*Action commandAction;*/
+	//Action commandAction;
 	HitMotion hitMotion;
 
 

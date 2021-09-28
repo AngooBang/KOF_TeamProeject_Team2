@@ -36,6 +36,7 @@ public:
 	inline void SetMaxFrame(int maxFrame) { this->maxFrame = maxFrame; }
 	inline void SetTarget(Character* target) { this->target = target; }
 	inline void SetIsAlive(bool alive) { this->isAlive = alive; }
+	inline void SetIsFire(bool isFire) { this->isFire = isFire; }
 	//inline Action GetAction() { return this->action; }
 
 	inline void SetHitMotion(HitMotion hitMotion) { this->hitMotion = hitMotion; }
