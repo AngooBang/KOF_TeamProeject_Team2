@@ -13,6 +13,9 @@ void HPBar::Init()
 	portraitBackImg = new Image;
 	portraitBackImg->Init("Image/UI/player_portrait.bmp", 594, 146, 2, 1, true, RGB(255, 0, 255));
 
+	portraitImg = new Image;
+	portraitImg->Init("Image/UI/portrait_mary_terry.bmp", 280, 130, 2, 1, true, RGB(89, 177, 77));
+
 	koImg = new Image;
 	koImg->Init("Image/UI/K.O..bmp", 450, 150, true, RGB(255, 0, 255));
 
@@ -22,32 +25,28 @@ void HPBar::Init()
 	portraitBackImgX1 = 0;
 	portraitBackImgX2 = WIN_SIZE_X;
 
+	portraitImgX1 = -70;
+	portraitImgX2 = WIN_SIZE_X + 70;
+
 	playerNum = 0;
+	characterNum = 0;
 
 	lostHp = 0;
+	lostHpMotion = 0;
 	getDamage = 0;
+
+	elapsecount = 0;
 
 	isAlive = true;
 }
 
 void HPBar::Update()
 {
-	switch (playerNum)
+	if (lostHp < lostHpMotion)
 	{
-	case 1:
-		if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))//hitP1
-		{
-			lostHp += getDamage;
-		}
-		break;
-	case 2:
-		if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))//hitP2
-		{
-			lostHp += getDamage;
-		}
-		break;
+		lostHp += 10;
 	}
-
+	
 	if (lostHp >= 400)
 	{
 		isAlive = false;
@@ -61,6 +60,15 @@ void HPBar::Update()
 	{
 		portraitBackImgX2 -= 25;
 	}
+	if (portraitImgX1 < 80)
+	{
+		portraitImgX1 += 20;
+	}
+	if (portraitImgX2 > WIN_SIZE_X - 80)
+	{
+		portraitImgX2 -= 20;
+	}
+
 }
 
 void HPBar::Render(HDC hdc)
@@ -69,11 +77,13 @@ void HPBar::Render(HDC hdc)
 	{
 	case 1:
 		portraitBackImg->Render(hdc, portraitBackImgX1, pos.y, 0, 0);
+		portraitImg->Render(hdc, portraitImgX1, pos.y - 2, characterNum - 1, 0);
 		hpBarFrameImg->Render(hdc, pos.x, pos.y);
 		hpBarImg->Render1pHP(hdc, pos.x, pos.y, lostHp);
 		break;
 	case 2:
 		portraitBackImg->Render(hdc, portraitBackImgX2, pos.y, 1, 0);
+		portraitImg->Render(hdc, portraitImgX2, pos.y - 2, characterNum - 1, 0);
 		hpBarFrameImg->Render(hdc, pos.x, pos.y);
 		hpBarImg->Render2pHP(hdc, pos.x, pos.y, lostHp);
 		break;
