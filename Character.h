@@ -14,12 +14,13 @@ protected:
 	int playerNum;
 	CharacterType characterType;
 
+	int elapsedCount;
 
 	int frameX, frameY;
 	int* actionFrameX[Action::ActEnd];
 	int maxFrame[Action::ActEnd];
 	int hp;
-	bool isStatus,  isHit, isMove, commandAction, isDead;
+	bool isStatus,  isHit, isMove, commandAction, isDead, isWin;
 
 	Action action;
 	//Action commandAction;
@@ -52,6 +53,10 @@ public:
 
 	inline bool GetIsHit() { return this->isHit; }
 	inline int GetPlayerNum() { return this->playerNum; }
+
+	inline bool GetIsDead() { return this->isDead; }
+	inline bool setisWin(bool isWin) { return this->isWin = isWin; }
+
 	inline Action GetAction() { return this->action; }
 
 	inline void SetHitMotion(HitMotion hitMotion) { this->hitMotion = hitMotion; }

@@ -72,6 +72,9 @@ void FightScene::Update()
 		case HitMotion::Big:
 			p2Hp->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
+		case HitMotion::CommandAttackHit:
+			p2Hp->DamageToHp(400);
+			break;
 		}
 	}
 
@@ -86,9 +89,20 @@ void FightScene::Update()
 		case HitMotion::Big:
 			p1Hp->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
+		case HitMotion::CommandAttackHit:
+			p1Hp->DamageToHp(400);
+			break;
 		}
 	}
 	
+	if (player1->GetIsDead())
+	{
+		player2->setisWin(true);
+	}
+	else if (player2->GetIsDead())
+	{
+		player1->setisWin(true);
+	}
 	map->Update();
 
 	p1Hp->Update();

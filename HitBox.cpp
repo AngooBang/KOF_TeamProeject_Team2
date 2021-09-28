@@ -29,14 +29,17 @@ void HitBox::Init()
 	HitImg[HitMotion::Small].Init("Image/sHit.bmp", 504, 86, 8, 1, true, RGB(240, 0, 240));
 	HitImg[HitMotion::Big].Init("Image/bHit.bmp", 487, 88, 8, 1, true, RGB(240, 0, 240));
 	HitImg[HitMotion::HitGuard].Init("Image/Guard.bmp", 217, 76, 7, 1, true, RGB(240, 0, 240));
+	HitImg[HitMotion::CommandAttackHit].Init("Image/Guard.bmp", 217, 76, 7, 1, true, RGB(240, 0, 240));
 
 	maxFrameX[HitMotion::Small] = 8;
 	maxFrameX[HitMotion::Big] = 8;
 	maxFrameX[HitMotion::HitGuard] = 7;
+	maxFrameX[HitMotion::CommandAttackHit] = 8;
 
 	actionFrameX[HitMotion::Small] = HitSmall;
 	actionFrameX[HitMotion::Big] = Hitbig;
 	actionFrameX[HitMotion::HitGuard] = GuardHit;
+	actionFrameX[HitMotion::CommandAttackHit] = GuardHit;
 
 	hitMotion = HitMotion::Small;
 
@@ -111,7 +114,7 @@ void HitBox::CheckCollision()
 		&& shape.right > targetPos.x - (target->GetBodySizeX() / 2) && shape.bottom > targetPos.y - (target->GetBodySizeY() / 2))	// 충돌 조건
 	{
 		isAlive = false;
-
+		
 		if (target->GetAction() == Action::bMove)
 		{
 			isHit = true;
