@@ -10,6 +10,9 @@ void HPBar::Init()
 	hpBarImg = new Image;
 	hpBarImg->Init("Image/UI/health_point.bmp", 400, 50, false, RGB(255, 0, 255));
 
+	hpBarEffect = new Image;
+	hpBarEffect->Init("Image/UI/health_point2.bmp", 400, 50, false, RGB(255, 0, 255));
+
 	koImg = new Image;
 	koImg->Init("Image/UI/K.O..bmp", 450, 150, true, RGB(255, 0, 255));
 
@@ -60,12 +63,12 @@ void HPBar::Update()
 {
 	if (isAlive)
 	{
-		if (lostHp < lostHpMotion)
+		if (lostHpMotion < lostHp)
 			{
-				lostHp += 10;
+			lostHpMotion += 10;
 			}
 			
-			if (lostHp >= 400)
+			if (lostHpMotion >= 400)
 			{
 				isAlive = false;
 			}
@@ -105,12 +108,14 @@ void HPBar::Render(HDC hdc)
 			portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
 			portraitImg->Render(hdc, portraitImgFrameX - 70, pos.y);
 			hpBarFrameImg->Render(hdc, pos.x, pos.y);
+			hpBarEffect->Render1pHP(hdc, pos.x, pos.y, lostHpMotion);
 			hpBarImg->Render1pHP(hdc, pos.x, pos.y, lostHp);
 			break;
 		case 2:
 			portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
 			portraitImg->Render(hdc, portraitImgFrameX + 70, pos.y);
 			hpBarFrameImg->Render(hdc, pos.x, pos.y);
+			hpBarEffect->Render2pHP(hdc, pos.x, pos.y, lostHpMotion);
 			hpBarImg->Render2pHP(hdc, pos.x, pos.y, lostHp);
 			break;
 	}
@@ -129,5 +134,7 @@ void HPBar::Release()
 	SAFE_RELEASE(hpBarImg);
 	SAFE_RELEASE(portraitBackImg);
 	SAFE_RELEASE(koImg);
+	SAFE_RELEASE(koImgEffect);
+	SAFE_RELEASE(hpBarEffect);
 }
 

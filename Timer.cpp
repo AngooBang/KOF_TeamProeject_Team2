@@ -84,4 +84,5 @@ void Timer::Release()
 {
 	SAFE_RELEASE(timerNumImg);
 	SAFE_RELEASE(timeOverImg);
+	SAFE_RELEASE(timeOverImgEffect);
 }

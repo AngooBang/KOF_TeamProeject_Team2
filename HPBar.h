@@ -7,6 +7,7 @@ class HPBar : public GameObject
 private:
 	Image* hpBarFrameImg;
 	Image* hpBarImg;
+	Image* hpBarEffect;
 	Image* portraitBackImg;
 	Image* koImg;
 	Image* koImgEffect;
@@ -30,7 +31,7 @@ public:
 	void Render(HDC hdc);
 	void Release();
 
-	inline void DamageToHp(int getDamage) { this->lostHpMotion += getDamage; }
+	inline void DamageToHp(int getDamage) { this->lostHp += getDamage; }
 
 	inline void SetCharacterType(CharacterType type) { this->characterType = type; }
 
