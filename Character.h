@@ -22,6 +22,7 @@ protected:
 	bool isStatus,  isHit, isMove;
 
 	Action action;
+	/*Action commandAction;*/
 	HitMotion hitMotion;
 
 

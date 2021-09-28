@@ -10,9 +10,10 @@ void HitBox::Init()
 	isAlive = false;
 	pos.x = pos.y = 0;
 
-	HitImg[HitMotion::Small].Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
+	/*HitImg[HitMotion::Small].Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
 	HitImg[HitMotion::Big].Init("Image/hit.bmp", 327, 102, 5, 1, true, RGB(7, 79, 151));
 	HitImg[HitMotion::HitGuard].Init("Image/Terry_guard.bmp", 342, 76, 6, 1, true, RGB(143, 123, 165));
+
 
 	
 
@@ -20,6 +21,18 @@ void HitBox::Init()
 	maxFrameX[HitMotion::Big] = 5;
 	maxFrameX[HitMotion::HitGuard] = 6;
 
+
+	actionFrameX[HitMotion::Small] = HitSmall;
+	actionFrameX[HitMotion::Big] = Hitbig;
+	actionFrameX[HitMotion::HitGuard] = GuardHit;*/
+
+	HitImg[HitMotion::Small].Init("Image/sHit.bmp", 504, 86, 8, 1, true, RGB(240, 0, 240));
+	HitImg[HitMotion::Big].Init("Image/bHit.bmp", 487, 88, 8, 1, true, RGB(240, 0, 240));
+	HitImg[HitMotion::HitGuard].Init("Image/Guard.bmp", 217, 76, 7, 1, true, RGB(240, 0, 240));
+
+	maxFrameX[HitMotion::Small] = 8;
+	maxFrameX[HitMotion::Big] = 8;
+	maxFrameX[HitMotion::HitGuard] = 7;
 
 	actionFrameX[HitMotion::Small] = HitSmall;
 	actionFrameX[HitMotion::Big] = Hitbig;
