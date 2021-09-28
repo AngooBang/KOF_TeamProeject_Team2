@@ -5,7 +5,7 @@
 #include "Image.h"
 #include "HPBar.h"
 #include "Timer.h"
-#include "UI.h"
+#include "HPBar.h"
 #include "Map.h"
 #include "Character.h"
 #include "HitBox.h"
@@ -14,8 +14,16 @@ void FightScene::Init()
 {
 
 	// HP
-	HP = new UI;
-	HP->Init();
+	p1Hp = new HPBar;
+	p1Hp->SetPlayerNum(1);
+	p1Hp->SetCharacterType(p1CharacterType);
+	p1Hp->Init();
+
+	p2Hp = new HPBar;
+	p2Hp->SetPlayerNum(2);
+	p2Hp->SetCharacterType(p2CharacterType);
+	p2Hp->Init();
+
 
 	//게임 타이머
 	roundTimer = new Timer;
@@ -59,10 +67,10 @@ void FightScene::Update()
 		switch (player2->GetHitMotion())
 		{
 		case HitMotion::Small:
-			HP->p2Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
+			p2Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
 			break;
 		case HitMotion::Big:
-			HP->p2Hp->DamageToHp(BIG_ATTACK_DAMAGE);
+			p2Hp->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
 		}
 	}
@@ -73,24 +81,26 @@ void FightScene::Update()
 		switch (player1->GetHitMotion())
 		{
 		case HitMotion::Small:
-			HP->p1Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
+			p1Hp->DamageToHp(SMALL_ATTACK_DAMAGE);
 			break;
 		case HitMotion::Big:
-			HP->p1Hp->DamageToHp(BIG_ATTACK_DAMAGE);
+			p1Hp->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
 		}
 	}
-	HP->Update();
+	
 	map->Update();
 
-	if (isSecTimer)
+	
+	if (p1Hp->GetIsAlive() && p2Hp->GetIsAlive())
 	{
-
-		if (HP->GetIsAlive() == true)
+		p1Hp->Update();
+		p2Hp->Update();
+		if (isSecTimer)
 		{
 			roundTimer->Update();
+			isSecTimer = false;
 		}
-		isSecTimer = false;
 	}
 
 	//InvalidateRect(g_hWnd, NULL, false);
@@ -104,25 +114,22 @@ void FightScene::Render(HDC hdc)
 	player1->Render(hdc);	
 	player2->Render(hdc);
 
+	p1Hp->Render(hdc);
+	p2Hp->Render(hdc);
 	player1->hitBox->Render(hdc);
 	player2->hitBox->Render(hdc);
 
-	HP->Render(hdc);
 	roundTimer->Render(hdc);
 }
 
 void FightScene::Release()
 {
 
-
+	SAFE_RELEASE(p1Hp);
+	SAFE_RELEASE(p2Hp);
 	SAFE_RELEASE(backGround);
-
 	SAFE_RELEASE(map);
-
-	SAFE_RELEASE(HP);
-
 	SAFE_RELEASE(roundTimer);
-
 	SAFE_RELEASE(player1);
 	SAFE_RELEASE(player2);
 

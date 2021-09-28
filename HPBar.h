@@ -1,7 +1,8 @@
 #pragma once
-#include "UI.h"
+#include "GameObject.h"
 
-class HPBar : public UI
+class Image;
+class HPBar : public GameObject
 {
 private:
 	Image* hpBarFrameImg;
@@ -9,10 +10,16 @@ private:
 	Image* portraitBackImg;
 	Image* koImg;
 
+	Image* portraitImg;
+
+	CharacterType characterType;
+
 	int lostHp;
+	int lostHpMotion;
 	int getDamage;
-	int portraitBackImgX1, portraitBackImgX2;
+	int portraitImgFrameX;
 	int playerNum;
+	int elapsecount;
 
 public:
 	void Init();
@@ -20,9 +27,12 @@ public:
 	void Render(HDC hdc);
 	void Release();
 
+	inline void DamageToHp(int getDamage) { this->lostHpMotion += getDamage; }
+
+	inline void SetCharacterType(CharacterType type) { this->characterType = type; }
+
+
 	inline void SetPlayerNum(int playerNum) { this->playerNum = playerNum; }
-	inline void DamageToHp(int getDamage) { this->lostHp += getDamage; }
 
 	inline bool GetIsAlive() { return this->isAlive; }
 };
-

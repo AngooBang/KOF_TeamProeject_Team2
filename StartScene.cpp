@@ -54,41 +54,49 @@ void StartScene::Init()
 
 	//게임 시작 대기 화면
 	introImage[14] = new Image;
-	introImage[14]->Init("Image/intro/game_logo.bmp", WIN_SIZE_X - 200, WIN_SIZE_Y / 3, true, RGB(32, 80, 48));
+	introImage[14]->Init("Image/intro/game_stand_by.bmp", WIN_SIZE_X, 660, true, RGB(32, 80, 48));
 
 	introImage[15] = new Image;
-	introImage[15]->Init("Image/intro/2000_SNK.bmp", WIN_SIZE_X - 300, WIN_SIZE_Y / 5, true, RGB(0, 0, 0));
+	introImage[15]->Init("Image/intro/press_any_key.bmp", WIN_SIZE_X / 2, 50, true, RGB(255, 0, 255));
 
 	introBackground2PosX = WIN_SIZE_X / 2;
 	introBackground2PosY = WIN_SIZE_Y - 75;
+
 	intro1WalkingMotionFrameX = 0;
 	intro1WalkingMotionPosX = WIN_SIZE_X - 200;
-	intro1TiltleWordFrameX, intro1TiltleWordFrameY = 0;
+	intro1TiltleWordFrameX = 0;
+	intro1TiltleWordFrameY = 0;
 	intro1TiltleWordPosX = 300;
 	intro1WallPosX = -(WIN_SIZE_X * 5) / 2 + 1200;
+
 	intro2HorizontalImgPosY = WIN_SIZE_Y + (WIN_SIZE_Y / 2);
 	intro2VerticalImgPosY = WIN_SIZE_Y / 4;
-	Intro2Img2FmX, Intro2Img2FmY = 0;
+
 	intro3EpisodeWordFrmX = 0;
-	intro3EpisodeImgFrmX, intro3EpisodeImgFrmY = 0;
+	intro3EpisodeImgFrmX = 0;
+	intro3EpisodeImgFrmY = 0;
+
 	intro4StepImgFrmX = 0;
-	intro4BackgroundFrmX, intro4BackgroundFrmY = 0;
+	intro4BackgroundFrmX = 0;
+	intro4BackgroundFrmY = 0;
 	intro4KickReadyMotionFrmX = 0;
-	intro4KickMotionFrmX, intro4KickMotionFrmY = 0;
+	intro4KickMotionFrmX = 0;
+	intro4KickMotionFrmY = 0;
 
 	elapsedCount1 = 0;
 	elapsedCount2 = 0;
 	elapsedCount3 = 0;
 	elapsedCount4 = 0;
+	elapsedCount5 = 0;
 
 	showIntro = true;
 	gameStart = false;
+	pressAnyImg = true;
 }
 
 void StartScene::Update()
 {
 	elapsedCount1++;
-
 	if (elapsedCount1 == 2)
 	{
 		intro1WalkingMotionFrameX++;
@@ -133,7 +141,6 @@ void StartScene::Update()
 		elapsedCount1 = 0;
 	}
 
-
 	elapsedCount2++;
 	if (elapsedCount2 <= 50)intro1WallPosX += 100;
 	if (elapsedCount2 > 50)intro1WallPosX += 200;
@@ -143,7 +150,6 @@ void StartScene::Update()
 		if (introBackground2PosY < WIN_SIZE_Y + 75) introBackground2PosY += 30;
 		if (intro1WalkingMotionPosX > 300) intro1WalkingMotionPosX -= 150;
 	}
-
 	if (elapsedCount2 == 18)
 	{
 		intro1TiltleWordFrameX = 3;
@@ -151,7 +157,11 @@ void StartScene::Update()
 	}
 	if (elapsedCount2 > 20)
 	{
-		intro1TiltleWordFrameX += 100;
+		intro1TiltleWordPosX += 100;
+	}
+	if (elapsedCount2 > 55)
+	{
+		intro1TiltleWordPosX += 100;
 	}
 	if (elapsedCount2 > 55)
 	{
@@ -201,8 +211,29 @@ void StartScene::Update()
 		}
 	}
 	if (elapsedCount2 > 230)showIntro = false;
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_TAB)) showIntro = false;
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_F5)) gameStart = true;
+	
+	elapsedCount5++;
+	if (elapsedCount5 == 4)
+	{
+		if(pressAnyImg)pressAnyImg = false;
+		else if(!pressAnyImg)pressAnyImg = true;
+		elapsedCount5 = 0;
+	}
+	if (showIntro)
+	{
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
+			showIntro = false;
+	}
+	
+	if (!gameStart && !showIntro)
+	{
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
+			gameStart = true;
+
+	}
+
+
+
 
 	if (gameStart)
 	{
@@ -244,21 +275,22 @@ void StartScene::Render(HDC hdc)
 		if (elapsedCount2 > 195) introImage[12]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, intro4KickReadyMotionFrmX, 0);
 		if (elapsedCount2 > 207) introImage[13]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2, intro4KickMotionFrmX, intro4KickMotionFrmY);
 	}
-	if (showIntro == false && gameStart == false)
+	if (!showIntro && !gameStart)
 	{
-		introImage[0]->Render(hdc);
 		introImage[14]->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
-		introImage[15]->Render(hdc, WIN_SIZE_X / 2 - 100, WIN_SIZE_Y - 100);
+		if (pressAnyImg)introImage[15]->Render(hdc, WIN_SIZE_X / 2, 600);
 	}
+
 }
+
 
 void StartScene::Release()
 {
 	SAFE_RELEASE(introImage[0]);
 	SAFE_RELEASE(introImage[1]);
-	SAFE_RELEASE(introImage[4]);
-	SAFE_RELEASE(introImage[3]);
 	SAFE_RELEASE(introImage[2]);
+	SAFE_RELEASE(introImage[3]);
+	SAFE_RELEASE(introImage[4]);
 	SAFE_RELEASE(introImage[5]);
 	SAFE_RELEASE(introImage[6]);
 	SAFE_RELEASE(introImage[7]);

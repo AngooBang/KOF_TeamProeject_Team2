@@ -3,7 +3,6 @@
 
 class Image;
 class HPBar;
-class UI;
 class Timer;
 class Map;
 class Character;
@@ -18,7 +17,9 @@ private:
 	Map* map;
 
 	// UI
-	UI* HP;
+	HPBar* p1Hp;
+	HPBar* p2Hp;
+
 	Timer* roundTimer;
 
 	// Ä³¸¯ÅÍ

@@ -57,9 +57,6 @@
     <ClCompile Include="Character.cpp">
       <Filter>MainGame\KOF_Player</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>MainGame\UI</Filter>
-    </ClCompile>
     <ClCompile Include="HPBar.cpp">
       <Filter>MainGame\UI</Filter>
     </ClCompile>
@@ -115,9 +112,6 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>MainGame\KOF_Player</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>MainGame\UI</Filter>
     </ClInclude>
     <ClInclude Include="HPBar.h">
       <Filter>MainGame\UI</Filter>
