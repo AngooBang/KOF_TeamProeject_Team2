@@ -13,7 +13,6 @@ private:
 	HANDLE hSecTimer;
 
 	bool isSecTimer;
-
 	// 배경 이미지
 	Image* backGround;
 	Map* map;
@@ -26,6 +25,10 @@ private:
 	Character* player1;
 	Character* player2;
 
+	CharacterType p1CharacterType;
+	CharacterType p2CharacterType;
+	
+
 public:
 
 	void Init();
@@ -33,7 +36,9 @@ public:
 	void Render(HDC hdc);
 	void Release();
 
-	void SetIsSecTimer(bool isSecTimer) { this->isSecTimer = isSecTimer; }
+	void SetCharType(CharacterType type, int playerNum);
+
+	inline void SetIsSecTimer(bool isSecTimer) { this->isSecTimer = isSecTimer; }
 
 	inline bool GetIsSecTimer() { return this->isSecTimer; }
 };

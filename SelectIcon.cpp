@@ -13,6 +13,7 @@ void SelectIcon::Init()
 	frameXDataInput[3] = 120 * 5;
 	frameXDataInput[4] = 159 * 5;
 
+	characterType = CharacterType::CharEnd;
 
 	switch (playerNum)
 	{
@@ -40,6 +41,7 @@ void SelectIcon::Update()
 {
 	if (isSelect) return;
 
+
 	elapsedCount++;
 	if (elapsedCount == 5)
 	{
@@ -62,11 +64,15 @@ void SelectIcon::Update()
 	case 1:
 		if (KeyManager().GetSingleton()->IsOnceKeyDown(VK_LEFT))
 		{
-			pos.x -= 160;
+			InputLeft();
+			if (characterType == target->GetCharacterType())
+				InputLeft();
 		}
 		if (KeyManager().GetSingleton()->IsOnceKeyDown(VK_RIGHT))
 		{
-			pos.x += 160;
+			InputRight();
+			if (characterType == target->GetCharacterType())
+				InputRight();
 		}
 		if (KeyManager().GetSingleton()->IsOnceKeyDown('A'))
 		{
@@ -77,11 +83,15 @@ void SelectIcon::Update()
 	case 2:
 		if (KeyManager().GetSingleton()->IsOnceKeyDown('J'))
 		{
-			pos.x -= 160;
+			InputLeft();
+			if (characterType == target->GetCharacterType())
+				InputLeft();
 		}
 		if (KeyManager().GetSingleton()->IsOnceKeyDown('L'))
 		{
-			pos.x += 160;
+			InputRight();
+			if (characterType == target->GetCharacterType())
+				InputRight();
 		}
 		if (KeyManager().GetSingleton()->IsOnceKeyDown('D'))
 		{
@@ -91,6 +101,8 @@ void SelectIcon::Update()
 		break;
 	}
 
+
+	SetPosFromCharType();
 }
 
 void SelectIcon::Render(HDC hdc)
@@ -101,4 +113,61 @@ void SelectIcon::Render(HDC hdc)
 void SelectIcon::Release()
 {
 	SAFE_RELEASE(icon);
+}
+
+void SelectIcon::SetPosFromCharType()
+{
+	switch (characterType)
+	{
+	case CharacterType::Terry:
+		pos.x = 365;
+		break;
+	case CharacterType::Mary:
+		pos.x = 365 + 160;
+		break;
+	case CharacterType::Kyo:
+		pos.x = 365 + (160 * 2);
+		break;
+	case CharacterType::Iori:
+		pos.x = 365 + (160 * 3);
+		break;
+	}
+}
+
+void SelectIcon::InputLeft()
+{
+	switch (characterType)
+	{
+	case CharacterType::Terry:
+		characterType = CharacterType::Iori;
+		break;
+	case CharacterType::Mary:
+		characterType = CharacterType::Terry;
+		break;
+	case CharacterType::Kyo:
+		characterType = CharacterType::Mary;
+		break;
+	case CharacterType::Iori:
+		characterType = CharacterType::Kyo;
+		break;
+	}
+}
+
+void SelectIcon::InputRight()
+{
+	switch (characterType)
+	{
+	case CharacterType::Terry:
+		characterType = CharacterType::Mary;
+		break;
+	case CharacterType::Mary:
+		characterType = CharacterType::Kyo;
+		break;
+	case CharacterType::Kyo:
+		characterType = CharacterType::Iori;
+		break;
+	case CharacterType::Iori:
+		characterType = CharacterType::Terry;
+		break;
+	}
 }

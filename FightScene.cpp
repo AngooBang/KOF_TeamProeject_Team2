@@ -36,21 +36,23 @@ void FightScene::Init()
 
 	player1->SetPlayerNum(1);
 	player2->SetPlayerNum(2);
-	player1->SetCharacterType(CharacterType::Terry);
-	player2->SetCharacterType(CharacterType::Mary);
+	player1->SetCharacterType(p1CharacterType);
+	player2->SetCharacterType(p2CharacterType);
 	player1->Init();
 	player2->Init();
 
 	player2->hitBox->SetTarget(player1);
 	player1->hitBox->SetTarget(player2);
 
-
 	isSecTimer = false;
+	
 
 }
 
 void FightScene::Update()
 {
+
+
 	player1->Update();
 	if (player2->GetIsHit())
 	{
@@ -122,4 +124,17 @@ void FightScene::Release()
 	SAFE_RELEASE(player2);
 
 	KillTimer(g_hWnd, 1);
+}
+
+void FightScene::SetCharType(CharacterType type, int playerNum)
+{
+	switch (playerNum)
+	{
+	case 1:
+		p1CharacterType = type;
+		break;
+	case 2:
+		p2CharacterType = type;
+		break;
+	}
 }

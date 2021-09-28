@@ -34,7 +34,7 @@ enum HitMotion { Small, Big, HitGuard, HitEnd };
 //enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
 enum E_SCENE
 {
-	E_SCENE_NONE = 0,
+	E_SCENE_NONE,
 	E_SCENE_START,
 	E_SCENE_SELECT,
 	E_SCENE_FIGHT

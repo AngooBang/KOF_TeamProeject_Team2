@@ -19,12 +19,29 @@ void MainGame::Init()
 	selectScene = new SelectScene;
 	fightScene = new FightScene;
 
-	startScene->Init();
-	selectScene->Init();
-	fightScene->Init();
-
 	//¾À ¼¼ÆÃ
-	SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
+	//SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
+	//SceneManager::GetSingleton()->isChangeScene = false;
+	switch (SceneManager::GetSingleton()->sceneState)
+	{
+	case E_SCENE_START:
+		startScene->Init();
+		break;
+	case E_SCENE_SELECT:
+		selectScene->Init();
+		break;
+	case E_SCENE_FIGHT:
+		fightScene->Init();
+		break;
+	}
+
+	//startScene->Init();
+	//selectScene->Init();
+	//fightScene->Init();
+
+
+	selectScene->SetFightScene(fightScene);
+
 
 
 
@@ -34,60 +51,51 @@ void MainGame::Init()
 
 
 
-	//switch (SceneManager::GetSingleton()->sceneState)
-	//{
-	//case E_SCENE_START:
-	//	startScene->Init();
-	//	break;
-	//case E_SCENE_SELECT:
-	//	selectScene->Init();
-	//		break;
-	//case E_SCENE_FIGHT:
-	//	fightScene->Init();
-	//	break;
-	//}
 
 	isSecTimer = false;
 }
 void MainGame::Update()
 {
+
+
+	if (SceneManager::GetSingleton()->isChangeScene)
+	{
+		switch (SceneManager::GetSingleton()->sceneState)
+		{
+		case E_SCENE::E_SCENE_START:
+			startScene->Init();
+			break;
+		case E_SCENE::E_SCENE_SELECT:
+			selectScene->Init();
+			break;
+		case E_SCENE::E_SCENE_FIGHT:
+			fightScene->Init();
+			break;
+		}
+		SceneManager::GetSingleton()->isChangeScene = false;
+	}
+
 	if (isSecTimer)
 	{
 		fightScene->SetIsSecTimer(true);
 		isSecTimer = false;
 	}
 
-
-	//if (playScene != SceneManager::GetSingleton()->sceneState)
-	//{
-	//	playScene = SceneManager::GetSingleton()->sceneState;
-	//	switch (SceneManager::GetSingleton()->sceneState)
-	//	{
-	//	case E_SCENE_START:
-	//		startScene->Init();
-	//		break;
-	//	case E_SCENE_SELECT:
-	//		selectScene->Init();
-	//		break;
-	//	case E_SCENE_FIGHT:
-	//		fightScene->Init();
-	//		break;
-	//	}
-	//}
-
-	switch (SceneManager::GetSingleton()->sceneState)
+	if (!SceneManager::GetSingleton()->isChangeScene)
 	{
-	case E_SCENE_START:
-		startScene->Update();
-		break;
-	case E_SCENE_SELECT:
-		selectScene->Update();
-		break;
-	case E_SCENE_FIGHT:
-		fightScene->Update();
-		break;
+		switch (SceneManager::GetSingleton()->sceneState)
+		{
+		case E_SCENE_START:
+			startScene->Update();
+			break;
+		case E_SCENE_SELECT:
+			selectScene->Update();
+			break;
+		case E_SCENE_FIGHT:
+			fightScene->Update();
+			break;
+		}
 	}
-
 	InvalidateRect(g_hWnd, NULL, false);
 }
 void MainGame::Render(HDC hdc)
@@ -95,17 +103,20 @@ void MainGame::Render(HDC hdc)
 
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
-	switch (SceneManager::GetSingleton()->sceneState)
+	if (!SceneManager::GetSingleton()->isChangeScene)
 	{
-	case E_SCENE_START:
-		startScene->Render(hBackBufferDC);
-		break;
-	case E_SCENE_SELECT:
-		selectScene->Render(hBackBufferDC);
-		break;
-	case E_SCENE_FIGHT:
-		fightScene->Render(hBackBufferDC);
-		break;
+		switch (SceneManager::GetSingleton()->sceneState)
+		{
+		case E_SCENE_START:
+			startScene->Render(hBackBufferDC);
+			break;
+		case E_SCENE_SELECT:
+			selectScene->Render(hBackBufferDC);
+			break;
+		case E_SCENE_FIGHT:
+			fightScene->Render(hBackBufferDC);
+			break;
+		}
 	}
 	backBuffer->Render(hdc);
 

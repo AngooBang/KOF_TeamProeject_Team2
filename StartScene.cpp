@@ -205,7 +205,9 @@ void StartScene::Update()
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_F5)) gameStart = true;
 
 	if (gameStart)
+	{
 		SceneManager::GetSingleton()->ChangeScene(E_SCENE_SELECT);
+	}
 
 }
 
