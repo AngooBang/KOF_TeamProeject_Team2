@@ -232,9 +232,6 @@ void StartScene::Update()
 
 	}
 
-
-
-
 	if (gameStart)
 	{
 		SceneManager::GetSingleton()->ChangeScene(E_SCENE_SELECT);

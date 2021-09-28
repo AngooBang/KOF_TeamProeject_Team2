@@ -91,11 +91,11 @@ void FightScene::Update()
 	
 	map->Update();
 
-	
+	p1Hp->Update();
+	p2Hp->Update();
+
 	if (p1Hp->GetIsAlive() && p2Hp->GetIsAlive())
 	{
-		p1Hp->Update();
-		p2Hp->Update();
 		if (isSecTimer)
 		{
 			roundTimer->Update();

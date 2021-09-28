@@ -13,6 +13,9 @@ void HPBar::Init()
 	koImg = new Image;
 	koImg->Init("Image/UI/K.O..bmp", 450, 150, true, RGB(255, 0, 255));
 
+	koImgEffect = new Image;
+	koImgEffect->Init("Image/UI/K.O.2.bmp", 450, 150, true, RGB(255, 0, 255));
+
 
 	portraitImg = new Image;
 	switch (characterType)
@@ -47,22 +50,27 @@ void HPBar::Init()
 	lostHpMotion = 0;
 	getDamage = 0;
 
-	elapsecount = 0;
+	elapsedcount = 0;
 
+	wordEffect = true;
 	isAlive = true;
 }
 
 void HPBar::Update()
 {
-	if (lostHp < lostHpMotion)
+	if (isAlive)
 	{
-		lostHp += 10;
+		if (lostHp < lostHpMotion)
+			{
+				lostHp += 10;
+			}
+			
+			if (lostHp >= 400)
+			{
+				isAlive = false;
+			}
 	}
 	
-	if (lostHp >= 400)
-	{
-		isAlive = false;
-	}
 	//초상화 프레임 시작시 움직임 효과
 	switch (playerNum)
 	{
@@ -75,6 +83,17 @@ void HPBar::Update()
 			portraitImgFrameX -= 25;
 		break;
 	}
+	
+	if (!isAlive)
+	{
+		elapsedcount++;
+		if(elapsedcount < 10)
+		{
+			if (wordEffect) wordEffect = false;
+			else if (!wordEffect) wordEffect = true;
+		}
+	}
+		
 
 }
 
@@ -82,23 +101,25 @@ void HPBar::Render(HDC hdc)
 {
 	switch (playerNum)
 	{
-	case 1:
-		portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
-		portraitImg->Render(hdc, portraitImgFrameX - 70, pos.y);
-		hpBarFrameImg->Render(hdc, pos.x, pos.y);
-		hpBarImg->Render1pHP(hdc, pos.x, pos.y, lostHp);
-		break;
-	case 2:
-		portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
-		portraitImg->Render(hdc, portraitImgFrameX + 70, pos.y);
-		hpBarFrameImg->Render(hdc, pos.x, pos.y);
-		hpBarImg->Render2pHP(hdc, pos.x, pos.y, lostHp);
-		break;
+		case 1:
+			portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
+			portraitImg->Render(hdc, portraitImgFrameX - 70, pos.y);
+			hpBarFrameImg->Render(hdc, pos.x, pos.y);
+			hpBarImg->Render1pHP(hdc, pos.x, pos.y, lostHp);
+			break;
+		case 2:
+			portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
+			portraitImg->Render(hdc, portraitImgFrameX + 70, pos.y);
+			hpBarFrameImg->Render(hdc, pos.x, pos.y);
+			hpBarImg->Render2pHP(hdc, pos.x, pos.y, lostHp);
+			break;
 	}
-
+	
 	if (!isAlive)
 	{
 		koImg->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		if(wordEffect)
+		koImgEffect->Render(hdc, WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
 	}
 }
 
