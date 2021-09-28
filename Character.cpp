@@ -4,6 +4,7 @@
 #include "HitBox.h"
 #include "TerryFrame.h"
 #include "MaryFrame.h"
+#include "SceneManager.h"
 
 void Character::Init()
 {
@@ -27,11 +28,12 @@ void Character::Init()
 
 	pos.y = WIN_SIZE_Y / 2 + 140;
 
-	hp = 400;
+	hp = 100;
 	isAlive = true;
 	commandAction = isStatus = isHit = isMove = false;
 
 	moveSpeed = 20;
+	elapsedCount = 0;
 
 	action = Action::Basic;
 
@@ -48,6 +50,12 @@ void Character::Init()
 }
 void Character::Update()
 {
+	if (isWin && action == Action::Basic)
+	{
+		isStatus = true;
+		action = Action::Win;
+	}
+
 	if (hp <= 0)
 	{
 		isDead = true;
@@ -59,7 +67,7 @@ void Character::Update()
 		case bHit:
 			action = bDown;		
 			break;
-		}
+		}	
 	}
 	if (isHit)
 	{
@@ -77,6 +85,12 @@ void Character::Update()
 	SetBodySize();
 
 	hitBox->Update();
+
+	if (elapsedCount > 50)
+	{
+		SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
+	}
+
 }
 
 void Character::Render(HDC hdc)
@@ -131,7 +145,7 @@ void Character::SetCharacterData(CharacterType type)
 		charImg[Action::sHit].Init("Image/Terry/Terry_Hit.bmp", 1030, 255, 5, 1, true, RGB(143, 123, 165));
 		charImg[Action::bHit].Init("Image/Terry/Terry_bHit.bmp", 970, 255, 5, 1, true, RGB(143, 123, 165));
 		charImg[Action::Guard].Init("Image/Terry/Terry_Guard.bmp", 600, 250, 3, 1, true, RGB(143, 123, 165));
-		charImg[Action::bDown].Init("Image/Terry/Terry_down.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
+		
 		
 
 
@@ -167,6 +181,7 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::bHit] = terrybHit;
 			actionFrameX[Action::Guard] = terryGuard;
 			actionFrameX[Action::sDown] = terryDown;
+			charImg[Action::bDown].Init("Image/Terry/Terry_down.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
 			actionFrameX[Action::bDown] = terryDown;
 			charImg[Action::sDown].Init("Image/Terry/Terry_down.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
 			actionFrameX[Action::Win] = terryWin;
@@ -187,8 +202,9 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::bHit] = terrybHit_R;
 			actionFrameX[Action::Guard] = terryGuard_R;
 			actionFrameX[Action::sDown] = terryDown_R;
-			actionFrameX[Action::bDown] = terryDown_R;
 			charImg[Action::sDown].Init("Image/Terry/Terry_down_R.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
+			actionFrameX[Action::bDown] = terryDown_R;
+			charImg[Action::bDown].Init("Image/Terry/Terry_down_R.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
 			actionFrameX[Action::Win] = terryWin_R;
 			charImg[Action::Win].Init("Image/Terry/Terry_Win_R.bmp", 1140, 300, 6, 1, true, RGB(143, 123, 165));
 			actionFrameX[Action::CommandAttack] = terryCommandAttack_R;
@@ -338,11 +354,13 @@ void Character::KeyEvent(char inputKey)
 		if (commandAction && action == Action::fMove)
 		{
 			action = Action::CommandAttack;
+			hitMotion = HitMotion::CommandAttackHit;
 		}
-		else 
+		else
+		{
 			action = Action::sKick;
-
-		hitMotion = HitMotion::Small;
+			hitMotion = HitMotion::Small;
+		}
 		frameX = 0;
 		isMove = false;
 		isStatus = true;
@@ -633,17 +651,17 @@ void Character::NextFrame()
 {
 	frameX++;
 	if (frameX >= maxFrame[action])
-	{		
-		if (isDead)
+	{
+		if (action == Action::Win || isDead)
 		{
 			frameX--;
-				
-		}	
+			elapsedCount++;
+		}
 		else
 		{
-			frameX = 0;
-			isStatus = false;
-			isHit = false;
+		frameX = 0;
+		isStatus = false;
+		isHit = false;
 			if (!isMove)
 			{
 				KeyEvent(0);
@@ -719,6 +737,12 @@ void Character::isFire()
 			hitBox->SetMoveSpeed(50);
 			hitBox->SetHitMotion(hitMotion);
 			break;
+		case Action::CommandAttack:
+			hitBox->SetMaxFrame(1);
+			hitBox->SetMoveSpeed(100);
+			hitBox->SetPos({ hitBox->GetPos().x, hitBox->GetPos().y - 50 });
+			hitBox->SetHitMotion(hitMotion);
+			break;
 		}
 		break;
 	}
@@ -749,6 +773,10 @@ void Character::IsHit()
 
 	case HitMotion::HitGuard:
 		action = Action::Guard;
+		break;
+	case HitMotion::CommandAttackHit:
+		action = Action::bHit;
+		hp -= 400;
 		break;
 	}
 }

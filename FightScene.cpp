@@ -89,6 +89,14 @@ void FightScene::Update()
 		}
 	}
 	
+	if (player1->GetIsDead())
+	{
+		player2->setisWin(true);
+	}
+	else if (player2->GetIsDead())
+	{
+		player1->setisWin(true);
+	}
 	map->Update();
 
 	

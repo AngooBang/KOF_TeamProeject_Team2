@@ -26,6 +26,8 @@ private:
 	Character* player1;
 	Character* player2;
 
+	Action action;
+
 	CharacterType p1CharacterType;
 	CharacterType p2CharacterType;
 	
@@ -38,6 +40,7 @@ public:
 	void Release();
 
 	void SetCharType(CharacterType type, int playerNum);
+
 
 	inline void SetIsSecTimer(bool isSecTimer) { this->isSecTimer = isSecTimer; }
 

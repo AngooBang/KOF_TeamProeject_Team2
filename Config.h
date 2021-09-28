@@ -30,7 +30,7 @@ enum CharacterType { Terry, Mary, Iori, Kyo, CharEnd };
 
 enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, Guard, sDown, bDown, Win, CommandAttack, ActEnd };
 
-enum HitMotion { Small, Big, HitGuard, energyWave, HitEnd };
+enum HitMotion { Small, Big, HitGuard, CommandAttackHit, HitEnd };
 //enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
 enum E_SCENE
 {
