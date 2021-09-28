@@ -76,8 +76,15 @@ void SelectIcon::Update()
 		}
 		if (KeyManager().GetSingleton()->IsOnceKeyDown('A'))
 		{
-			frameX = 1;
-			isSelect = true;
+			if (characterType == CharacterType::Kyo || characterType == CharacterType::Iori)
+			{
+
+			}
+			else
+			{
+				frameX = 1;
+				isSelect = true;
+			}
 		}
 		break;
 	case 2:
@@ -95,8 +102,15 @@ void SelectIcon::Update()
 		}
 		if (KeyManager().GetSingleton()->IsOnceKeyDown('D'))
 		{
-			frameX = 3;
-			isSelect = true;
+			if (characterType == CharacterType::Kyo || characterType == CharacterType::Iori)
+			{
+
+			}
+			else
+			{
+				frameX = 3;
+				isSelect = true;
+			}
 		}
 		break;
 	}

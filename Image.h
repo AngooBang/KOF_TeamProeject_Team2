@@ -103,7 +103,6 @@ public:
 	void Render2pHP(HDC hdc, int destX, int destY, int lostHp);
 
 	void ReverseImg();
-
 	HDC GetMemDC() { if (imageInfo) return imageInfo->hMemDc; return NULL; }
 };
 

@@ -9,13 +9,18 @@ void SelectScene::Init()
 {
 
 	selectBackground = new Image;
-	selectChar1 = new Image;
-	selectChar2 = new Image;
+
 	selectCharframe = new Image;
+
+	charProfile = new Image[4];
+
+	charProfile[0].Init("Image/SelectCharacterImage/TerryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
+	charProfile[1].Init("Image/SelectCharacterImage/MarryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
+	charProfile[2].Init("Image/SelectCharacterImage/KyoProfile.bmp", 150, 171, true, RGB(89, 177, 77));
+	charProfile[3].Init("Image/SelectCharacterImage/IoriProfile.bmp", 150, 171, true, RGB(89, 177, 77));
+
 	
 	selectBackground->Init("Image/SelectCharacterImage/SelectCharBackground.bmp", 1200, 800, true, RGB(89, 177, 77));
-	selectChar1->Init("Image/SelectCharacterImage/TerryProfile.bmp", 158, 171, true, RGB(89, 177, 77));
-	selectChar2->Init("Image/SelectCharacterImage/MarryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
 	selectCharframe->Init("Image/SelectCharacterImage/SelectCharFrame.bmp", 149, 172);
 
 	iconP1 = new SelectIcon();
@@ -54,11 +59,9 @@ void SelectScene::Render(HDC hdc)
 	selectBackground->Render(hdc);
 	for (int i = 0; i < 4; i++)
 	{
-		selectCharframe->Render(hdc, 360 + (i * 160), 600);
+		selectCharframe->Render(hdc, 360 + (160 * i), 600);
+		charProfile[i].Render(hdc, 365 + (160 * i), 600);
 	}
-
-	selectChar1->Render(hdc, 365, 600);
-	selectChar2->Render(hdc, 365 + 160, 600);
 
 	iconP1->Render(hdc);
 	iconP2->Render(hdc);
@@ -66,10 +69,10 @@ void SelectScene::Render(HDC hdc)
 
 void SelectScene::Release()
 {
+	SAFE_RELEASE(charProfile);
+
 	SAFE_RELEASE(iconP1);
 	SAFE_RELEASE(iconP2);
-	SAFE_RELEASE(selectChar1);
-	SAFE_RELEASE(selectChar2);
 	SAFE_RELEASE(selectCharframe);
 	SAFE_RELEASE(selectBackground);
 }

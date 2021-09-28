@@ -9,9 +9,7 @@ class SelectScene : public GameEntity
 private:
 	Image* selectBackground;
 
-	Image* selectChar1;
-	Image* selectChar2;
-
+	Image* charProfile;
 
 	Image* selectCharframe;
 
