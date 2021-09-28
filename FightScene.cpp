@@ -72,6 +72,9 @@ void FightScene::Update()
 		case HitMotion::Big:
 			p2Hp->DamageToHp(BIG_ATTACK_DAMAGE);
 			break;
+		case HitMotion::CommandAttackHit:
+			p2Hp->DamageToHp(400);
+			break;
 		}
 	}
 
@@ -85,6 +88,9 @@ void FightScene::Update()
 			break;
 		case HitMotion::Big:
 			p1Hp->DamageToHp(BIG_ATTACK_DAMAGE);
+			break;
+		case HitMotion::CommandAttackHit:
+			p1Hp->DamageToHp(400);
 			break;
 		}
 	}
