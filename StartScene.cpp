@@ -219,8 +219,21 @@ void StartScene::Update()
 		else if(!pressAnyImg)pressAnyImg = true;
 		elapsedCount5 = 0;
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_TAB)) showIntro = false;
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_F5)) gameStart = true;
+	if (showIntro)
+	{
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
+			showIntro = false;
+	}
+	
+	if (!gameStart && !showIntro)
+	{
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
+			gameStart = true;
+
+	}
+
+
+
 
 	if (gameStart)
 	{
