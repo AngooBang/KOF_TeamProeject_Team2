@@ -28,7 +28,7 @@ void Character::Init()
 
 	pos.y = WIN_SIZE_Y / 2 + 140;
 
-	hp = 100;
+	hp = 400;
 	isAlive = true;
 	commandAction = isStatus = isHit = isMove = false;
 
