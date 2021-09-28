@@ -27,7 +27,7 @@ void HPBar::Init()
 		portraitImg->Init("Image/SelectCharacterImage/TerryProfile.bmp", 140, 130, true, RGB(89, 177, 77));
 		break;
 	case CharacterType::Mary:
-		portraitImg->Init("Image/SelectCharacterImage/MarryProfile.bmp", 140, 130, true, RGB(89, 177, 77));
+		portraitImg->Init("Image/SelectCharacterImage/MaryProfile.bmp", 140, 130, true, RGB(89, 177, 77));
 		break;
 	}
 

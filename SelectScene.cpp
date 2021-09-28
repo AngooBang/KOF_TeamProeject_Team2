@@ -15,7 +15,7 @@ void SelectScene::Init()
 	charProfile = new Image[4];
 
 	charProfile[0].Init("Image/SelectCharacterImage/TerryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
-	charProfile[1].Init("Image/SelectCharacterImage/MarryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
+	charProfile[1].Init("Image/SelectCharacterImage/MaryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
 	charProfile[2].Init("Image/SelectCharacterImage/KyoProfileBlack.bmp", 150, 171, true, RGB(89, 177, 77));
 	charProfile[3].Init("Image/SelectCharacterImage/IoriProfileBlack.bmp", 150, 171, true, RGB(89, 177, 77));
 

@@ -9,19 +9,17 @@
 
 void MainGame::Init()
 {
-	//KeyManager keyMgr;
 	KeyManager::GetSingleton()->Init();
 	// 타이머 셋팅
 	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 100, NULL);
+	// 초 단위 타이머
 	hSecTimer = (HANDLE)SetTimer(g_hWnd, 1, 500, NULL);
 
+	//씬 세팅
 	startScene = new StartScene;
 	selectScene = new SelectScene;
 	fightScene = new FightScene;
 
-	//씬 세팅
-	//SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
-	//SceneManager::GetSingleton()->isChangeScene = false;
 	switch (SceneManager::GetSingleton()->sceneState)
 	{
 	case E_SCENE_START:

@@ -14,7 +14,6 @@ protected:
 	int playerNum;
 	CharacterType characterType;
 
-	int elapsedCount;
 
 	int frameX, frameY;
 	int* actionFrameX[Action::ActEnd];

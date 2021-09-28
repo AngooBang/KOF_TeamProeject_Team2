@@ -53,9 +53,9 @@ void FightScene::Init()
 	player1->hitBox->SetTarget(player2);
 
 	isSecTimer = false;
-
-	isSwap = false;
 	
+	isSwap = false;
+	elapsedCount = 0;
 
 }
 
@@ -114,10 +114,16 @@ void FightScene::Update()
 	if (player1->GetIsDead())
 	{
 		player2->setisWin(true);
+		elapsedCount++;
+		if (elapsedCount > 50)
+		SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
 	}
 	else if (player2->GetIsDead())
 	{
 		player1->setisWin(true);
+		elapsedCount++;
+		if(elapsedCount > 50)
+		SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
 	}
 	map->Update();
 

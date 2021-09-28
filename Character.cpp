@@ -33,8 +33,6 @@ void Character::Init()
 	commandAction = isStatus = isHit = isMove = isSwap = false;
 
 	moveSpeed = 20;
-	elapsedCount = 0;
-
 	action = Action::Basic;
 
 	bodySizeX = 175;
@@ -94,10 +92,6 @@ void Character::Update()
 
 	hitBox->Update();
 
-	if (elapsedCount > 50)
-	{
-		SceneManager::GetSingleton()->ChangeScene(E_SCENE_START);
-	}
 
 }
 
@@ -732,7 +726,6 @@ void Character::NextFrame()
 		if (action == Action::Win || isDead)
 		{
 			frameX--;
-			elapsedCount++;
 		}
 		else
 		{

@@ -27,6 +27,9 @@ private:
 	int intro4KickReadyMotionFrmX;
 	int intro4KickMotionFrmX, intro4KickMotionFrmY;
 
+	// elapsedCount2를 통해서 전체적인 이미지의 출력순서를 프레임에 맞춰 결정해주고
+	// 나머지 카운트들은 출력속도를 조절하기위함이다.
+
 	int elapsedCount1, elapsedCount2, elapsedCount3, elapsedCount4, elapsedCount5;
 
 	bool showIntro, gameStart, pressAnyImg;

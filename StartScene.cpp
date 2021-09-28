@@ -219,12 +219,15 @@ void StartScene::Update()
 		else if(!pressAnyImg)pressAnyImg = true;
 		elapsedCount5 = 0;
 	}
+
+	// 인트로 스킵
 	if (showIntro)
 	{
 		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
 			showIntro = false;
 	}
 	
+	// 시작화면 스킵
 	if (!gameStart && !showIntro)
 	{
 		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
@@ -232,6 +235,7 @@ void StartScene::Update()
 
 	}
 
+	// 화면 전환
 	if (gameStart)
 	{
 		SceneManager::GetSingleton()->ChangeScene(E_SCENE_SELECT);

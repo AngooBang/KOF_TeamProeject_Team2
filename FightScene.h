@@ -27,7 +27,8 @@ private:
 	Character* player1;
 	Character* player2;
 
-	Action action;
+
+	int elapsedCount;
 
 	CharacterType p1CharacterType;
 	CharacterType p2CharacterType;
