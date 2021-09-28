@@ -13,6 +13,7 @@ private:
 
 	bool isSecTimer;
 	bool isSwap;
+
 	// 배경 이미지
 	Image* backGround;
 	Map* map;

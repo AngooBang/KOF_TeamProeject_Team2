@@ -30,12 +30,12 @@ void Character::Init()
 
 	hp = 400;
 	isAlive = true;
+
 	commandAction = isStatus = isHit = isMove = isSwap = false;
 
 	moveSpeed = 20;
 	action = Action::Basic;
 
-	bodySizeX = 175;
 	bodySizeY = 260;
 	for (int i = 0; i < maxFrame[action]; i++)
 	{
@@ -84,7 +84,6 @@ void Character::Update()
 		ProcessInputKey();
 	if (isMove)
 		MoveToFrame();
-
 		
 	NextFrame();
 
@@ -97,8 +96,6 @@ void Character::Update()
 
 void Character::Render(HDC hdc)
 {
-
-	//Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	if (charImg)
 	{
 		switch (playerNum)
@@ -117,25 +114,17 @@ void Character::Render(HDC hdc)
 				charImg[action].Render(hdc, pos.x, pos.y, frameX, frameY, actionFrameX[action]);
 			break;
 		}
-
 	}
-	//hitBox->Render(hdc);
 }
 
 void Character::Release()
 {
-	//for (int i = 0; i < Action::END; i++)
-	//{
-	//	delete[] actionFrameX[i];
-	//}
-	//delete[] actionFrameX;
 	if (charImg)
 	{
 		delete[] charImg;
 		charImg = nullptr;
 	}
 	hitBox->Release();
-
 }
 
 void Character::SetCharacterData(CharacterType type)
@@ -155,7 +144,6 @@ void Character::SetCharacterData(CharacterType type)
 		charImg[Action::bHit].Init("Image/Terry/Terry_bHit.bmp", 970, 255, 5, 1, true, RGB(143, 123, 165));
 		charImg[Action::Guard].Init("Image/Terry/Terry_Guard.bmp", 600, 250, 3, 1, true, RGB(143, 123, 165));
 		
-
 		maxFrame[Action::Basic] = 7;
 		maxFrame[Action::fMove] = 6;
 		maxFrame[Action::bMove] = 6;
@@ -348,7 +336,6 @@ void Character::KeyEvent(char inputKey)
 		break;
 	case 'A':		//강발
 		action = Action::bKick;
-		/*commandAction = action;*/
 		hitMotion = HitMotion::Big;
 		frameX = 0;
 		isMove = false;
@@ -356,15 +343,6 @@ void Character::KeyEvent(char inputKey)
 		isFire();
 		break;
 	case 'S':		//약발
-		/*if (commandAction == Action::bKick)
-		{
-			commandAction = Action::Basic;
-			action = Action::CommandAttack;
-		}
-		else
-		{
-			action = Action::sKick;
-		}*/
 		if (commandAction && action == Action::fMove)
 		{
 			action = Action::CommandAttack;
