@@ -52,12 +52,17 @@ void HitBox::Update()
 	{
 		NextFrame();
 	}
-
+	if (isFire)
+	{
+		isAlive = true;
+		frameX = 0;
+		isHit = false;
+		isFire = false;
+	}
 	if (isAlive)
 	{
 		SetBodySize();
 		CheckCollision();
-		maxFrame;
 		/*targetPos = target->GetPos();
 
 		if (frameX <= maxFrame)
@@ -77,24 +82,17 @@ void HitBox::Update()
 	 
 void HitBox::Render(HDC hdc)
 {	
-	//if (!isAlive) return;
+	if (!isAlive && !isHit) return;
 	
-	if (isAlive)
+	/*if (isAlive)
 	{
 		Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
-	}
+	}*/
 	if (isHit)
 	{
-		/*if (target.GetAction() == Action::bMove)
-		{
-			asdfasdfasdf
-		}*/
-		HitImg[hitMotion].Render(hdc, pos.x-20, pos.y, frameX, frameY, actionFrameX[hitMotion]);
+		HitImg[hitMotion].Render(hdc, pos.x, pos.y, frameX, frameY, actionFrameX[hitMotion]);
 	}
-	/*if (guard)
-	{
-		guardImg(renadfmakflsf; lasadk;lsakfdlka)
-	}*/
+
 }	 
 	 
 void HitBox::Release()
@@ -107,12 +105,8 @@ void HitBox::CheckCollision()
 {
 	if (!target) return;
 
-	//if (object1.left < object2.right &&
-	//	object1.top < object2.bottom &&
-	//	object1.right > object2.left &&
-	//	object1.bottom > object2.top)
 	targetPos = target->GetPos();
-	hitMotion;
+
 	if (shape.left < targetPos.x + (target->GetBodySizeX() / 2) && shape.top < targetPos.y + (target->GetBodySizeY() / 2)
 		&& shape.right > targetPos.x - (target->GetBodySizeX() / 2) && shape.bottom > targetPos.y - (target->GetBodySizeY() / 2))	// 충돌 조건
 	{

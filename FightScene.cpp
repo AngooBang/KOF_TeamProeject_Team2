@@ -104,6 +104,9 @@ void FightScene::Render(HDC hdc)
 	player1->Render(hdc);	
 	player2->Render(hdc);
 
+	player1->hitBox->Render(hdc);
+	player2->hitBox->Render(hdc);
+
 	HP->Render(hdc);
 	roundTimer->Render(hdc);
 }
