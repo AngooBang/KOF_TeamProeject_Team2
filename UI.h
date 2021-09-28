@@ -23,5 +23,3 @@ public:
 
 	inline bool GetIsAlive() { return this->isAlive; }
 };
-
-
