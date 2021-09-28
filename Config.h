@@ -28,7 +28,7 @@ enum MoveDir { Left, Right, Up, Down };
 
 enum CharacterType { Terry, Mary, Iori, Kyo, CharEnd };
 
-enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, Guard, sDown, bDown, CommandAttack, ActEnd };
+enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, Guard, sDown, bDown, Win, CommandAttack, ActEnd };
 
 enum HitMotion { Small, Big, HitGuard, energyWave, HitEnd };
 //enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
