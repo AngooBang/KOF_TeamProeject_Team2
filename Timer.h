@@ -8,10 +8,15 @@ class Timer : public GameObject
 private:
 	Image* timerNumImg;
 	Image* timeOverImg;
+	Image* timeOverImgEffect;
 
 	int tenSecNumImg;
 	int oneSecNumImg;
 	int chgNumColor;
+
+	int elapsedcount1, elapsedcount2;
+
+	bool wordEffect;
 
 public:
 	void Init();

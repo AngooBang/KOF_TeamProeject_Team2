@@ -9,6 +9,7 @@ private:
 	Image* hpBarImg;
 	Image* portraitBackImg;
 	Image* koImg;
+	Image* koImgEffect;
 
 	Image* portraitImg;
 
@@ -19,7 +20,9 @@ private:
 	int getDamage;
 	int portraitImgFrameX;
 	int playerNum;
-	int elapsecount;
+	int elapsedcount;
+
+	bool wordEffect;
 
 public:
 	void Init();
