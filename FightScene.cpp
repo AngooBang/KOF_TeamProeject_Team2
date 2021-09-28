@@ -53,13 +53,29 @@ void FightScene::Init()
 	player1->hitBox->SetTarget(player2);
 
 	isSecTimer = false;
+
+	isSwap = false;
 	
 
 }
 
 void FightScene::Update()
 {
-
+	if (!isSwap && player1->GetPos().x >= player2->GetPos().x)
+	{
+		//player1->SetPos({ player1->GetPos().x + 5, player1->GetPos().y });
+		player1->SetswapPosition(true);
+		player2->SetswapPosition(true);
+		isSwap = true;
+	}
+	if (isSwap && player1->GetPos().x < player2->GetPos().x)
+	{
+		//player1->SetPos({ player1->GetPos().x - 5, player1->GetPos().y });
+		player1->SetswapPosition(true);
+		player2->SetswapPosition(true);
+		isSwap = false;
+	}
+	
 
 	player1->Update();
 	if (player2->GetIsHit())

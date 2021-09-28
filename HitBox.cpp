@@ -131,13 +131,21 @@ void HitBox::CheckCollision()
 		frameX = 0;
 		return ;
 	}
+
 	switch (target->GetPlayerNum())
 	{
 	case 1:
 		if (frameX < maxFrame)
 		{
 			frameX++;
-			pos.x -= moveSpeed;
+			if (target->GetIsSwap())
+			{
+				pos.x += moveSpeed;
+			}
+			else 
+			{
+				pos.x -= moveSpeed;
+			}
 		}
 		else
 		{
@@ -149,7 +157,14 @@ void HitBox::CheckCollision()
 		if (frameX < maxFrame)
 		{
 			frameX++;
-			pos.x += moveSpeed;
+			if (target->GetIsSwap())
+			{
+				pos.x -= moveSpeed;
+			}
+			else
+			{
+				pos.x += moveSpeed;
+			}
 		}
 		else
 		{
