@@ -1,8 +1,9 @@
 #pragma once
-#include "UI.h"
+#include "GameObject.h"
 
 class HPBar;
-class Timer : public UI
+class Image;
+class Timer : public GameObject
 {
 private:
 	Image* timerNumImg;

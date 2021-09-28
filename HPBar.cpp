@@ -10,26 +10,38 @@ void HPBar::Init()
 	hpBarImg = new Image;
 	hpBarImg->Init("Image/UI/health_point.bmp", 400, 50, false, RGB(255, 0, 255));
 
-	portraitBackImg = new Image;
-	portraitBackImg->Init("Image/UI/player_portrait.bmp", 594, 146, 2, 1, true, RGB(255, 0, 255));
-
-	portraitImg = new Image;
-	portraitImg->Init("Image/UI/portrait_mary_terry.bmp", 280, 130, 2, 1, true, RGB(89, 177, 77));
-
 	koImg = new Image;
 	koImg->Init("Image/UI/K.O..bmp", 450, 150, true, RGB(255, 0, 255));
 
-	pos.x = 0;
-	pos.y = 0;
 
-	portraitBackImgX1 = 0;
-	portraitBackImgX2 = WIN_SIZE_X;
+	portraitImg = new Image;
+	switch (characterType)
+	{
+	case CharacterType::Terry:
+		portraitImg->Init("Image/SelectCharacterImage/TerryProfile.bmp", 140, 130, true, RGB(89, 177, 77));
+		break;
+	case CharacterType::Mary:
+		portraitImg->Init("Image/SelectCharacterImage/MarryProfile.bmp", 140, 130, true, RGB(89, 177, 77));
+		break;
+	}
 
-	portraitImgX1 = -70;
-	portraitImgX2 = WIN_SIZE_X + 70;
 
-	playerNum = 0;
-	characterNum = 0;
+	portraitBackImg = new Image;
+	switch (playerNum)
+	{
+	case 1:
+		portraitBackImg->Init("Image/UI/player_portrait1.bmp", 297, 146, true, RGB(255, 0, 255));
+		portraitImgFrameX = 0;
+		pos.x = HP_BAR_SET_X;
+		break;
+	case 2:
+		portraitBackImg->Init("Image/UI/player_portrait2.bmp", 297, 146, true, RGB(255, 0, 255));
+		portraitImgFrameX = WIN_SIZE_X;
+		pos.x = WIN_SIZE_X - HP_BAR_SET_X;
+		break;
+	}
+
+	pos.y = HP_BAR_SET_Y;
 
 	lostHp = 0;
 	lostHpMotion = 0;
@@ -52,21 +64,16 @@ void HPBar::Update()
 		isAlive = false;
 	}
 	//초상화 프레임 시작시 움직임 효과
-	if (portraitBackImgX1 < 297 / 2)
+	switch (playerNum)
 	{
-		portraitBackImgX1 += 25;
-	}
-	if (portraitBackImgX2 > WIN_SIZE_X - 297 / 2)
-	{
-		portraitBackImgX2 -= 25;
-	}
-	if (portraitImgX1 < 80)
-	{
-		portraitImgX1 += 20;
-	}
-	if (portraitImgX2 > WIN_SIZE_X - 80)
-	{
-		portraitImgX2 -= 20;
+	case 1:
+		if (portraitImgFrameX < 149)
+			portraitImgFrameX += 25;
+		break;
+	case 2:
+		if (portraitImgFrameX > WIN_SIZE_X - 149)
+			portraitImgFrameX -= 25;
+		break;
 	}
 
 }
@@ -76,14 +83,14 @@ void HPBar::Render(HDC hdc)
 	switch (playerNum)
 	{
 	case 1:
-		portraitBackImg->Render(hdc, portraitBackImgX1, pos.y, 0, 0);
-		portraitImg->Render(hdc, portraitImgX1, pos.y - 2, characterNum - 1, 0);
+		portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
+		portraitImg->Render(hdc, portraitImgFrameX - 70, pos.y);
 		hpBarFrameImg->Render(hdc, pos.x, pos.y);
 		hpBarImg->Render1pHP(hdc, pos.x, pos.y, lostHp);
 		break;
 	case 2:
-		portraitBackImg->Render(hdc, portraitBackImgX2, pos.y, 1, 0);
-		portraitImg->Render(hdc, portraitImgX2, pos.y - 2, characterNum - 1, 0);
+		portraitBackImg->Render(hdc, portraitImgFrameX, pos.y);
+		portraitImg->Render(hdc, portraitImgFrameX + 70, pos.y);
 		hpBarFrameImg->Render(hdc, pos.x, pos.y);
 		hpBarImg->Render2pHP(hdc, pos.x, pos.y, lostHp);
 		break;
@@ -102,3 +109,4 @@ void HPBar::Release()
 	SAFE_RELEASE(portraitBackImg);
 	SAFE_RELEASE(koImg);
 }
+
