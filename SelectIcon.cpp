@@ -7,11 +7,15 @@ void SelectIcon::Init()
 	icon = new Image();
 
 	icon->Init("Image/SelectCharacterImage/Icon.bmp", 159 * 5, 49 * 5, 4, 1, true, RGB(240, 0, 240));
+
+	// 이미지 x좌표값 구분
 	frameXDataInput[0] = 0;
 	frameXDataInput[1] = 40 * 5;
 	frameXDataInput[2] = 80 * 5;
 	frameXDataInput[3] = 120 * 5;
 	frameXDataInput[4] = 159 * 5;
+
+	frameXData = frameXDataInput;
 
 	characterType = CharacterType::CharEnd;
 
@@ -31,7 +35,6 @@ void SelectIcon::Init()
 	isSelect = false;
 
 	elapsedCount = 0;
-	frameXData = frameXDataInput;
 
 
 
@@ -58,7 +61,7 @@ void SelectIcon::Update()
 		elapsedCount = 0;
 	}
 
-
+	// 플레이어 아이콘 조작
 	switch (playerNum)
 	{
 	case 1:
@@ -129,6 +132,7 @@ void SelectIcon::Release()
 	SAFE_RELEASE(icon);
 }
 
+// 캐릭터 타입에 따른 x좌표 변경
 void SelectIcon::SetPosFromCharType()
 {
 	switch (characterType)

@@ -17,12 +17,11 @@ void SelectScene::Init()
 	charProfile[0].Init("Image/SelectCharacterImage/TerryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
 	charProfile[1].Init("Image/SelectCharacterImage/MaryProfile.bmp", 150, 171, true, RGB(89, 177, 77));
 	charProfile[2].Init("Image/SelectCharacterImage/KyoProfileBlack.bmp", 150, 171, true, RGB(89, 177, 77));
-	charProfile[3].Init("Image/SelectCharacterImage/IoriProfileBlack.bmp", 150, 171, true, RGB(89, 177, 77));
-
-	
+	charProfile[3].Init("Image/SelectCharacterImage/IoriProfileBlack.bmp", 150, 171, true, RGB(89, 177, 77));	
 	selectBackground->Init("Image/SelectCharacterImage/SelectCharBackground.bmp", 1200, 800, true, RGB(89, 177, 77));
 	selectCharframe->Init("Image/SelectCharacterImage/SelectCharFrame.bmp", 149, 172);
 
+	// 선택 아이콘 초기화
 	iconP1 = new SelectIcon();
 	iconP2 = new SelectIcon();
 
@@ -34,6 +33,8 @@ void SelectScene::Init()
 
 	iconP1->SetCharacterType(CharacterType::Terry);
 	iconP2->SetCharacterType(CharacterType::Mary);
+
+	// 서로를 타겟으로 잡아 겹치지않게끔 설정
 	iconP1->SetTarget(iconP2);
 	iconP2->SetTarget(iconP1);
 
