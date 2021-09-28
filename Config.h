@@ -28,13 +28,13 @@ enum MoveDir { Left, Right, Up, Down };
 
 enum CharacterType { Terry, Mary, Iori, Kyo, CharEnd };
 
-enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, Guard, ActEnd };
+enum Action { Basic, fMove, bMove, sHand, bHand, sKick, bKick, sHit, bHit, Guard, sDown, bDown, Win, CommandAttack, ActEnd };
 
-enum HitMotion { Small, Big, HitGuard, HitEnd };
+enum HitMotion { Small, Big, HitGuard, energyWave, HitEnd };
 //enum hitBox { leftHand, rightHand, leftFoot, rightFoot };
 enum E_SCENE
 {
-	E_SCENE_NONE = 0,
+	E_SCENE_NONE,
 	E_SCENE_START,
 	E_SCENE_SELECT,
 	E_SCENE_FIGHT

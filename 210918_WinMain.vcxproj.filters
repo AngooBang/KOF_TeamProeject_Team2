@@ -149,5 +149,11 @@
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="MaryFrame.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TerryFrame.h">
+      <Filter>MainGame\KOF_Player</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -171,11 +171,13 @@
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MaryFrame.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SelectIcon.h" />
     <ClInclude Include="SelectScene.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StartScene.h" />
+    <ClInclude Include="TerryFrame.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>

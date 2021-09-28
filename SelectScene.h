@@ -3,6 +3,7 @@
 
 class Image;
 class SelectIcon;
+class FightScene;
 class SelectScene : public GameEntity
 {
 private:
@@ -17,6 +18,8 @@ private:
 	SelectIcon* iconP1;
 	SelectIcon* iconP2;
 
+	FightScene* fightScene;
+
 	int elapsedtCount;
 
 
@@ -29,5 +32,7 @@ public:
 	void Update();
 	void Render(HDC hdc);
 	void Release();
+
+	inline void SetFightScene(FightScene* scene) { this->fightScene = scene; }
 };
 

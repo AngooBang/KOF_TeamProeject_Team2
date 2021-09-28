@@ -5,23 +5,20 @@
 
 void SceneManager::ChangeScene(E_SCENE state)
 {
-
 	switch (state)
 	{
 	case E_SCENE_START:
-		sceneState = E_SCENE_START;
-		return;
+		sceneState = state;
+		break;
 
 	case E_SCENE_SELECT:
-		sceneState = E_SCENE_SELECT;
-		return;
+		sceneState = state;
+		break;
 
 	case E_SCENE_FIGHT:
-		sceneState = E_SCENE_FIGHT;
-		return;
-
-	default:
-		return;
+		sceneState = state;
+		break;
 
 	};
+	isChangeScene = true;
 }

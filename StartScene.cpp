@@ -221,7 +221,12 @@ void StartScene::Update()
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_TAB)) showIntro = false;
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_F5)) gameStart = true;
-	if (gameStart)SceneManager::GetSingleton()->ChangeScene(E_SCENE_SELECT);
+
+	if (gameStart)
+	{
+		SceneManager::GetSingleton()->ChangeScene(E_SCENE_SELECT);
+	}
+
 }
 
 void StartScene::Render(HDC hdc)

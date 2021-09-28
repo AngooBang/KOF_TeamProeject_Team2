@@ -17,7 +17,7 @@ void Character::Init()
 	case 2: // player2p
 		SetCharacterData(characterType);
 		ReverseImg();
-		
+
 		pos.x = 400;
 		break;
 	}
@@ -25,9 +25,9 @@ void Character::Init()
 	hitBox = new HitBox();
 	hitBox->Init();
 
-	pos.y = WIN_SIZE_Y / 2+140;
+	pos.y = WIN_SIZE_Y / 2 + 140;
 
-	hp = 100;
+	hp = 200;
 	isAlive = true;
 	isStatus = isHit = isMove = false;
 
@@ -56,34 +56,25 @@ void Character::Init()
 
 void Character::Update()
 {
-	/*if (!isStatus)
-	{
-		ProcessInputKey();
-	}
-	else if (isHit)
-	{
-		ProcessInputKey();
-	}*/
-	hitBox->Update();
+	/*if (isAlive)
+	{*/
+		if (isHit)
+		{
+			IsHit();
+		}
 
-	if (isHit)
-	{
-		IsHit();
-	}
-	if (!isStatus)
-		ProcessInputKey();
-	if (isMove)
-		MoveToFrame();
+		if (!isStatus)
+			ProcessInputKey();
+		if (isMove)
+			MoveToFrame();
 
-	NextFrame();
+		if(isAlive)
+			NextFrame();
 
-	//if (isHit)
-	//{
-	//	NextFrame();
-	//}
+		SetBodySize();
 
-	SetBodySize();
-	
+		hitBox->Update();
+	/*}*/
 }
 
 void Character::Render(HDC hdc)
@@ -101,7 +92,7 @@ void Character::Render(HDC hdc)
 			charImg[action].Render2P(hdc, pos.x, pos.y, frameX, frameY, actionFrameX[action]);
 			break;
 		}
-		
+
 	}
 	hitBox->Render(hdc);
 }
@@ -124,7 +115,7 @@ void Character::Release()
 
 void Character::SetCharacterData(CharacterType type)
 {
-	switch(type)
+	switch (type)
 	{
 	case CharacterType::Terry:
 		charImg = new Image[Action::ActEnd];
@@ -138,8 +129,11 @@ void Character::SetCharacterData(CharacterType type)
 		charImg[Action::sHit].Init("Image/Terry/Terry_Hit.bmp", 1030, 255, 5, 1, true, RGB(143, 123, 165));
 		charImg[Action::bHit].Init("Image/Terry/Terry_bHit.bmp", 970, 255, 5, 1, true, RGB(143, 123, 165));
 		charImg[Action::Guard].Init("Image/Terry/Terry_Guard.bmp", 600, 250, 3, 1, true, RGB(143, 123, 165));
+		charImg[Action::bDown].Init("Image/Terry/Terry_down.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
+		charImg[Action::CommandAttack].Init("Image/Terry/Terry_commandAttack.bmp", 2420, 270, 12, 1, true, RGB(143, 123, 165));
 
-		
+
+
 		maxFrame[Action::Basic] = 7;
 		maxFrame[Action::fMove] = 6;
 		maxFrame[Action::bMove] = 6;
@@ -150,6 +144,10 @@ void Character::SetCharacterData(CharacterType type)
 		maxFrame[Action::sHit] = 5;
 		maxFrame[Action::bHit] = 5;
 		maxFrame[Action::Guard] = 3;
+		maxFrame[Action::sDown] = 8;
+		maxFrame[Action::bDown] = 8;
+		maxFrame[Action::Win] = 6;
+		maxFrame[Action::CommandAttack] = 12;
 
 
 		switch (playerNum)
@@ -166,6 +164,12 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::sHit] = terrysHit;
 			actionFrameX[Action::bHit] = terrybHit;
 			actionFrameX[Action::Guard] = terryGuard;
+			actionFrameX[Action::sDown] = terryDown;
+			actionFrameX[Action::bDown] = terryDown;
+			charImg[Action::sDown].Init("Image/Terry/Terry_down.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
+			actionFrameX[Action::Win] = terryWin;
+			charImg[Action::Win].Init("Image/Terry/Terry_Win.bmp", 1140, 300, 6, 1, true, RGB(143, 123, 165));
+			actionFrameX[Action::CommandAttack] = terryCommandAttack;
 			break;
 		case 2: // player2p
 			actionFrameX[Action::Basic] = terryBasic;
@@ -179,11 +183,16 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::sHit] = terrysHit_R;
 			actionFrameX[Action::bHit] = terrybHit_R;
 			actionFrameX[Action::Guard] = terryGuard_R;
+			actionFrameX[Action::sDown] = terryDown_R;
+			actionFrameX[Action::bDown] = terryDown_R;
+			charImg[Action::sDown].Init("Image/Terry/Terry_down_R.bmp", 2090, 250, 8, 1, true, RGB(143, 123, 165));
+			actionFrameX[Action::Win] = terryWin_R;
+			charImg[Action::Win].Init("Image/Terry/Terry_Win_R.bmp", 1140, 300, 6, 1, true, RGB(143, 123, 165));
 			break;
 		}
 
-			//actionFrameX[0] = 0;	actionFrameX[1] = 87, actionFrameX[2] = 172, actionFrameX[3] = 256,
-			//actionFrameX[4] = 342, actionFrameX[5] = 426, actionFrameX[6] = 511, actionFrameX[maxFrame] = 598;
+		//actionFrameX[0] = 0;	actionFrameX[1] = 87, actionFrameX[2] = 172, actionFrameX[3] = 256,
+		//actionFrameX[4] = 342, actionFrameX[5] = 426, actionFrameX[6] = 511, actionFrameX[maxFrame] = 598;
 		break;
 
 	case CharacterType::Mary:
@@ -192,13 +201,14 @@ void Character::SetCharacterData(CharacterType type)
 		charImg[Action::Basic].Init("Image/Mary/Mary_Basic.bmp", 1700, 260, 12, 1, true, RGB(0, 102, 0));
 		charImg[Action::fMove].Init("Image/Mary/Mary_Forward.bmp", 1100, 340, 8, 1, true, RGB(0, 102, 0));
 		charImg[Action::bMove].Init("Image/Mary/Mary_BackWard.bmp", 950, 270, 7, 1, true, RGB(0, 102, 0));
-		charImg[Action::sHand].Init("Image/Mary/Mary_sAttack.bmp", 500, 270 , 3, 1, true, RGB(0, 102, 0));
+		charImg[Action::sHand].Init("Image/Mary/Mary_sAttack.bmp", 500, 270, 3, 1, true, RGB(0, 102, 0));
 		charImg[Action::bHand].Init("Image/Mary/Mary_bAttack.bmp", 840, 275, 5, 1, true, RGB(0, 102, 0));
 		charImg[Action::sKick].Init("Image/Mary/Mary_sKick.bmp", 970, 280, 6, 1, true, RGB(0, 102, 0));
 		charImg[Action::bKick].Init("Image/Mary/Mary_bKick.bmp", 1740, 260, 10, 1, true, RGB(0, 102, 0));
 		charImg[Action::sHit].Init("Image/Mary/Mary_Hit.bmp", 950, 270, 5, 1, true, RGB(0, 102, 0));
 		charImg[Action::bHit].Init("Image/Mary/Mary_bHit.bmp", 900, 270, 5, 1, true, RGB(0, 102, 0));
 		charImg[Action::Guard].Init("Image/Mary/Mary_Guard.bmp", 540, 260, 3, 1, true, RGB(0, 102, 0));
+		charImg[Action::Win].Init("Image/Mary/Mary_Win.bmp", 770, 260, 3, 1, true, RGB(0, 102, 0));
 
 		maxFrame[Action::Basic] = 12;
 		maxFrame[Action::fMove] = 8;
@@ -210,6 +220,9 @@ void Character::SetCharacterData(CharacterType type)
 		maxFrame[Action::sHit] = 5;
 		maxFrame[Action::bHit] = 5;
 		maxFrame[Action::Guard] = 3;
+		maxFrame[Action::sDown] = 7;
+		maxFrame[Action::bDown] = 8;
+		maxFrame[Action::Win] = 6;
 
 		switch (playerNum)
 		{
@@ -224,6 +237,11 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::sHit] = marysHit;
 			actionFrameX[Action::bHit] = marybHit;
 			actionFrameX[Action::Guard] = maryGuard;
+			actionFrameX[Action::sDown] = marysDown;
+			charImg[Action::sDown].Init("Image/Mary/Mary_sDown_R.bmp", 1580, 270, 7, 1, true, RGB(0, 102, 0));
+			actionFrameX[Action::bDown] = marybDown;
+			charImg[Action::bDown].Init("Image/Mary/Mary_bDown.bmp", 1740, 260, 8, 1, true, RGB(0, 102, 0));
+			actionFrameX[Action::bDown] = maryWin;
 			break;
 		case 2: // player2p
 			actionFrameX[Action::Basic] = maryBasic_R;
@@ -236,6 +254,13 @@ void Character::SetCharacterData(CharacterType type)
 			actionFrameX[Action::sHit] = marysHit_R;
 			actionFrameX[Action::bHit] = marybHit_R;
 			actionFrameX[Action::Guard] = maryGuard_R;
+			//actionFrameX[Action::sDown] = marysDown;
+			//actionFrameX[Action::bDown] = marybDown;
+			actionFrameX[Action::sDown] = marysDown_R;
+			charImg[Action::sDown].Init("Image/Mary/Mary_sDown.bmp", 1580, 270, 7, 1, true, RGB(0, 102, 0));
+			actionFrameX[Action::bDown] = marybDown_R;
+			charImg[Action::bDown].Init("Image/Mary/Mary_bDown_R.bmp", 1740, 260, 8, 1, true, RGB(0, 102, 0));
+			actionFrameX[Action::bDown] = maryWin;
 			break;
 		}
 
@@ -255,6 +280,8 @@ void Character::ReverseImg()
 	charImg[Action::sHit].ReverseImg();
 	charImg[Action::bHit].ReverseImg();
 	charImg[Action::Guard].ReverseImg();
+	charImg[Action::sDown].ReverseImg();
+	charImg[Action::bDown].ReverseImg();
 }
 
 
@@ -262,7 +289,7 @@ void Character::KeyEvent(char inputKey)
 {
 	switch (inputKey)
 	{
-		if (!isMove && !isStatus )
+		if (!isMove && !isStatus)
 		{
 	case VK_RIGHT:		//앞으로
 		action = Action::fMove;
@@ -277,6 +304,7 @@ void Character::KeyEvent(char inputKey)
 		}
 	case 'A':		//강발
 		action = Action::bKick;
+		/*commandAction = action;*/
 		hitMotion = HitMotion::Big;
 		frameX = 0;
 		isMove = false;
@@ -284,6 +312,15 @@ void Character::KeyEvent(char inputKey)
 		isFire();
 		break;
 	case 'S':		//약발
+		/*if (commandAction == Action::bKick)
+		{
+			commandAction = Action::Basic;
+			action = Action::CommandAttack;
+		}
+		else
+		{
+			action = Action::sKick;
+		}*/
 		action = Action::sKick;
 		hitMotion = HitMotion::Small;
 		frameX = 0;
@@ -308,14 +345,14 @@ void Character::KeyEvent(char inputKey)
 		isFire();
 		break;
 	case 'Z':		//1피격
-		action = Action::sHit;
+		action = Action::sDown;
 		frameX = 0;
 		isMove = false;
 		isStatus = true;
 		isHit = false;
 		break;
 	case 'X':		//2피격
-		action = Action::bHit;
+		action = Action::Win;
 		frameX = 0;
 		isMove = false;
 		isStatus = true;
@@ -366,14 +403,14 @@ void Character::KeyEvent(char inputKey)
 		isFire();
 		break;
 	case 'C':		//1피격
-		action = Action::sHit;
+		action = Action::sDown;
 		frameX = 0;
 		isMove = false;
 		isStatus = true;
 		isHit = false;
 		break;
 	case 'V':		//2피격
-		action = Action::bHit;
+		action = Action::Win;
 		frameX = 0;
 		isMove = false;
 		isStatus = true;
@@ -454,7 +491,7 @@ void Character::MoveToFrame()
 
 
 
-	
+
 }
 
 void Character::ProcessInputKey()
@@ -492,14 +529,14 @@ void Character::ProcessInputKey()
 				KeyEvent('W');
 			}
 		}
-		//if (isHit || KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
-		//{
-		//	KeyEvent('Z');
-		//}
-		//if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
-		//{
-		//	KeyEvent('X');
-		//}
+		if (KeyManager::GetSingleton()->IsOnceKeyDown('Z'))	//1피격
+		{
+			KeyEvent('Z');
+		}
+		if (KeyManager::GetSingleton()->IsOnceKeyDown('X'))	//2피격
+		{
+			KeyEvent('X');
+		}
 
 		break;
 	case 2:
@@ -533,14 +570,14 @@ void Character::ProcessInputKey()
 				KeyEvent('R');
 			}
 		}
-		//if (isHit || KeyManager::GetSingleton()->IsOnceKeyDown('C'))	//1피격
-		//{
-		//	KeyEvent('C');
-		//}
-		//if (KeyManager::GetSingleton()->IsOnceKeyDown('V'))	//2피격
-		//{
-		//	KeyEvent('V');
-		//}
+		if (KeyManager::GetSingleton()->IsOnceKeyDown('C'))	//1피격
+		{
+			KeyEvent('C');
+		}
+		if (KeyManager::GetSingleton()->IsOnceKeyDown('V'))	//2피격
+		{
+			KeyEvent('V');
+		}
 
 		break;
 
@@ -552,14 +589,46 @@ void Character::NextFrame()
 	frameX++;
 	if (frameX >= maxFrame[action])
 	{
-		frameX = 0;
-		isStatus = false;
-		isHit = false;
-		if (!isMove)
+		if (hp <= 0)
 		{
-			KeyEvent(0);
+			switch (action)
+			{
+			case Action::sHit:
+				action = Action::sDown;
+				frameX = 0;
+				break;
+			case Action::bHit:
+				action = Action::bDown;
+				frameX = 0;
+				break;
+			case Action::sDown:
+				isAlive = false;
+				frameX --;
+				break;
+			case  Action::bDown:
+				isAlive = false;
+				frameX --;
+				break;
+			}	
+		}
+		/*else if (action == Action::sDown || action == Action::bDown)
+		{
+			isAlive = false;
+			frameX=maxFrame[action]-1;
+		}*/
+		else
+		{
+			frameX = 0;
+			isStatus = false;
+			isHit = false;
+			if (!isMove)
+			{
+				KeyEvent(0);
+			}
 		}
 	}
+
+
 	/*frameX--;
 	if (frameX <= 0)
 	{
@@ -653,9 +722,11 @@ void Character::IsHit()
 	{
 	case HitMotion::Small:
 		action = Action::sHit;
+		hp -= SMALL_ATTACK_DAMAGE;
 		break;
 	case HitMotion::Big:
 		action = Action::bHit;
+		hp -= BIG_ATTACK_DAMAGE;
 		break;
 
 	case HitMotion::HitGuard:
