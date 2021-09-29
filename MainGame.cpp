@@ -11,7 +11,7 @@ void MainGame::Init()
 {
 	KeyManager::GetSingleton()->Init();
 	// 타이머 셋팅
-	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 100, NULL);
+	hTimer = (HANDLE)SetTimer(g_hWnd, 0, 90, NULL);
 	// 초 단위 타이머
 	hSecTimer = (HANDLE)SetTimer(g_hWnd, 1, 500, NULL);
 
